@@ -4,6 +4,6 @@ const productList = require('./utils/productList')
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
-router.get('/productList', productList.productList);
+router.get('/product-list', productList.productList);
 
 module.exports = router;
