@@ -3,7 +3,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-class Home extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div style={{height: "93vh"}}>
@@ -14,4 +14,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Dashboard;
