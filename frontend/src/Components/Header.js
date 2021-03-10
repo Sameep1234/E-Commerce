@@ -28,26 +28,9 @@ class Header extends Component {
     
     render() {
         return (
-            <Navbar className="color-nav" dark expand="md">
-                <div className="container">
-                    <NavbarBrand href="/">WMS</NavbarBrand>
-                    <NavbarToggler onClick={this.toggleNav} />
-                    <Collapse isOpen={this.state.isNavOpen} navbar>
-                        <Nav navbar className="ml-auto">
-                            <NavItem className="mt-1">
-                                <NavLink className="nav-link" to='/login'>
-                                    <span className="fa fa-sign-in fa-lg mr-2"></span>Login
-                                </NavLink>
-                            </NavItem>
-                            <NavItem className="mt-1">
-                                <NavLink className="nav-link" to='/register'>
-                                    <span className="fa fa-user-plus fa-lg mr-2 mt-1"></span>Register
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </div>
-            </Navbar>
+            <div className="color-nav">
+                <h1 className="d-flex justify-content-center text-light">Warehouse Management System</h1>
+            </div>
         );
     }
 }
