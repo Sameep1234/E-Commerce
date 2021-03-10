@@ -1,0 +1,32 @@
+const pool = require("../pool");
+
+exports.employeeList = (req,res) => {
+    pool.getConnection((err) => {
+        if(err){
+            res.send({
+                data: null,
+                msg: err.message,
+                status: 0
+            })
+        }
+        else{
+            let fetch = 'SELECT employeeId, employeeType, firstName, middleName, lastName  FROM employee GROUP BY(employee.category)';
+            pool.query(fetch, (err,result) => {
+                if(err){
+                    res.send({
+                        data: null,
+                        msg: err.message,
+                        status: 0
+                    })
+                }
+                else{
+                    res.send({
+                        status: 1,
+                        msg: 'Employee List',
+                        data: result,
+                    });
+                }
+            })
+        }
+    })
+}
