@@ -44,7 +44,7 @@ class Sidebar extends Component {
                             <MenuItem>Buyers<Link to="/buyers-list" /></MenuItem>
                             <MenuItem>Sellers<Link to="/sellers-list" /></MenuItem>
                         </SubMenu>
-                        <MenuItem icon={<i class="fa fa-shopping-cart" aria-hidden="true"></i>}>Cart</MenuItem>
+                        <MenuItem icon={<i class="fa fa-shopping-cart" aria-hidden="true"></i>}><Link to="/cart" />Cart</MenuItem>
                     </Menu>
                 </SidebarContent>
                 <div></div>

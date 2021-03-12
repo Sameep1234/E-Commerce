@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
-class Shipping extends Component {
+class EditProduct extends Component {
     render() {
         return (
             <div>
@@ -18,4 +18,4 @@ class Shipping extends Component {
     }
 }
 
-export default Shipping;
+export default EditProduct;
