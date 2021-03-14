@@ -8,7 +8,7 @@ class EditStaff extends Component {
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ height: "93vh" }}>
+                    <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
                     <p>INSIDE</p>

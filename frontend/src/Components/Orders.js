@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import { Card, CardHeader, CardFooter, CardBody } from 'reactstrap';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 
 class Orders extends Component {
     constructor(props) {
@@ -54,7 +54,7 @@ class Orders extends Component {
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ height: "93vh" }}>
+                    <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
                     <div style={{ minWidth: '75%' }}>
@@ -90,6 +90,91 @@ class Orders extends Component {
                             </CardBody>
                             </Card>
                         </div>
+                        <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+                            <Card className="col-md-8">
+                                <CardHeader className="row">
+                                    <div className="col">
+                                        <p className="row">ORDER PLACED</p>
+                                        <p className="row"> 18 October 2019</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">TOTAL</p>
+                                        <p className="row"> Rs 1,199.00</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">SHIP TO</p>
+                                        <p className="row">Sameep Vani</p>
+                                    </div>
+                                </CardHeader>
+                                <CardBody>
+                                    SOME DESCRIPTION
+                            </CardBody>
+                            </Card>
+                        </div>
+                        <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+                            <Card className="col-md-8">
+                                <CardHeader className="row">
+                                    <div className="col">
+                                        <p className="row">ORDER PLACED</p>
+                                        <p className="row"> 18 October 2019</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">TOTAL</p>
+                                        <p className="row"> Rs 1,199.00</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">SHIP TO</p>
+                                        <p className="row">Sameep Vani</p>
+                                    </div>
+                                </CardHeader>
+                                <CardBody>
+                                    SOME DESCRIPTION
+                            </CardBody>
+                            </Card>
+                        </div>
+                        <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+                            <Card className="col-md-8">
+                                <CardHeader className="row">
+                                    <div className="col">
+                                        <p className="row">ORDER PLACED</p>
+                                        <p className="row"> 18 October 2019</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">TOTAL</p>
+                                        <p className="row"> Rs 1,199.00</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">SHIP TO</p>
+                                        <p className="row">Sameep Vani</p>
+                                    </div>
+                                </CardHeader>
+                                <CardBody>
+                                    SOME DESCRIPTION
+                            </CardBody>
+                            </Card>
+                        </div>
+                        <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+                            <Card className="col-md-8">
+                                <CardHeader className="row">
+                                    <div className="col">
+                                        <p className="row">ORDER PLACED</p>
+                                        <p className="row"> 18 October 2019</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">TOTAL</p>
+                                        <p className="row"> Rs 1,199.00</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="row">SHIP TO</p>
+                                        <p className="row">Sameep Vani</p>
+                                    </div>
+                                </CardHeader>
+                                <CardBody>
+                                    SOME DESCRIPTION
+                            </CardBody>
+                            </Card>
+                        </div>
+
                     </div>
                 </div>
             </div>
