@@ -27,7 +27,7 @@ class Main extends Component {
                     <Route path='/edit-product' component={EditProduct} />
                     <Route path='/add-staff' component={AddStaff} />
                     <Route path='/edit-staff' component={EditStaff} />
-                    <Route path='/product' component={Product} />
+                    <Route path='/product-list' component={Product} />
                     <Redirect to='/dashboard' />
                 </Switch>
                 

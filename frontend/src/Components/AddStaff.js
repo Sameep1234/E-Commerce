@@ -14,7 +14,7 @@ class AddStaff extends Component {
                     </div>
                     <div className="col d-flex justify-content-center">
                         <Card className='mt-2' style={{ minWidth: '50%', minHeight: "25vh" }}>
-                            <CardHeader style={{color: 'white', backgroundColor: 'black'}} className="d-flex justify-content-center">Staff Information</CardHeader>
+                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Staff Information</CardHeader>
                             <CardBody>
                                 <FormGroup>
                                     <Label>Staff ID</Label>
@@ -47,7 +47,7 @@ class AddStaff extends Component {
                             </CardBody>
                             <CardFooter>
                                 <div className="d-flex justify-content-center">
-                                <Button color="primary">Add Staff</Button>
+                                    <Button color="primary">Add Staff</Button>
                                 </div>
                             </CardFooter>
                         </Card>
