@@ -60,19 +60,19 @@ class Dashboard extends Component {
                                     <td><div className="d-flex justify-content-center">O101</div></td>
                                     <td><div className="d-flex justify-content-center">MX100</div></td>
                                     <td><div className="d-flex justify-content-center">B102</div></td>
-                                    <td><div className="d-flex justify-content-center">1000</div></td>
+                                    <td><div className="d-flex justify-content-center">	&#x20B9; 1000</div></td>
                                 </tr>
                                 <tr>
                                     <td><div className="d-flex justify-content-center">O101</div></td>
                                     <td><div className="d-flex justify-content-center">MX100</div></td>
                                     <td><div className="d-flex justify-content-center">B102</div></td>
-                                    <td><div className="d-flex justify-content-center">10000</div></td>
+                                    <td><div className="d-flex justify-content-center">	&#x20B9; 10000</div></td>
                                 </tr>
                                 <tr>
                                     <td><div className="d-flex justify-content-center">O101</div></td>
                                     <td><div className="d-flex justify-content-center">MX100</div></td>
                                     <td><div className="d-flex justify-content-center">B102</div></td>
-                                    <td><div className="d-flex justify-content-center">100000</div></td>
+                                    <td><div className="d-flex justify-content-center">	&#x20B9; 100000</div></td>
                                 </tr>
                             </table>
                         </div>

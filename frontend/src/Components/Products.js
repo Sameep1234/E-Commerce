@@ -8,10 +8,83 @@ class Products extends Component {
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ minHeight: "93vh" }}>
+                    <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    <p>INSIDE</p>
+                    <div className="col d-flex justify-content-center align-items-center">
+                        <table style={{ width: '100%' }}>
+                            <tr>
+                                <th><div className="d-flex justify-content-center">Product Name</div></th>
+                                <th><div className="d-flex justify-content-center">Brand Name</div></th>
+                                <th><div className="d-flex justify-content-center">Color</div></th>
+                                <th><div className="d-flex justify-content-center">Price</div></th>
+                                <th><div className="d-flex justify-content-center">Stock</div></th>
+                                <th><div className="d-flex justify-content-center">Edit</div></th>
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         );
