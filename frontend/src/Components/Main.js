@@ -11,6 +11,8 @@ import AddStaff from './AddStaff';
 import EditProduct from './EditProduct';
 import EditStaff from './EditStaff';
 import Product from './Products';
+import Buyer from './Buyers';
+import Seller from './Seller'
 
 class Main extends Component {
     render() {
@@ -28,6 +30,8 @@ class Main extends Component {
                     <Route path='/add-staff' component={AddStaff} />
                     <Route path='/edit-staff' component={EditStaff} />
                     <Route path='/product-list' component={Product} />
+                    <Route path='/buyers-list' component={Buyer} />
+                    <Route path='/sellers-list' component={Seller} />
                     <Redirect to='/dashboard' />
                 </Switch>
                 

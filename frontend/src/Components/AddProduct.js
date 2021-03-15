@@ -18,27 +18,27 @@ class AddProduct extends Component {
                             <CardBody>
                                 <FormGroup>
                                     <Label>Product ID</Label>
-                                    <Input placeholder="Ex. SE101" type="text" />
+                                    <Input placeholder="Ex. PD101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Product Name</Label>
-                                    <Input placeholder="Ex. Software Engineer" type="text" />
+                                    <Input placeholder="Ex. OnePlus 8" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Category ID</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Input placeholder="Ex. Electronics" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Sub_Category ID</Label>
-                                    <Input placeholder="Ex. Mulien" type="text" />
+                                    <Input placeholder="Ex. Mobile" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Brand ID</Label>
-                                    <Input placeholder="Ex. Smith" type="text" />
+                                    <Input placeholder="Ex. OnePlus" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Specification ID</Label>
-                                    <Input placeholder="Ex. 1500000" type="number" />
+                                    <Input placeholder="Ex. SPEC102" type="number" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Color</Label>
@@ -46,7 +46,7 @@ class AddProduct extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Price (per stock)</Label>
-                                    <Input type="number" placeholder="Ex. 150.64" />
+                                    <Input type="number" placeholder="Ex. 32999" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Stock</Label>

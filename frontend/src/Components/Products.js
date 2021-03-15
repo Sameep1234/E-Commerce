@@ -14,6 +14,7 @@ class Products extends Component {
                     <div className="col d-flex justify-content-center align-items-center">
                         <table style={{ width: '100%' }}>
                             <tr>
+                                <th><div className="d-flex justify-content-center">Delete</div></th>
                                 <th><div className="d-flex justify-content-center">Product Name</div></th>
                                 <th><div className="d-flex justify-content-center">Brand Name</div></th>
                                 <th><div className="d-flex justify-content-center">Color</div></th>
@@ -22,6 +23,7 @@ class Products extends Component {
                                 <th><div className="d-flex justify-content-center">Edit</div></th>
                             </tr>
                             <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
@@ -30,15 +32,7 @@ class Products extends Component {
                                 <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
                             </tr>
                             <tr>
-                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
-                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
-                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
-                                <td><div className="d-flex justify-content-center">100</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-
-                            </tr>
-                            <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
@@ -48,6 +42,7 @@ class Products extends Component {
 
                             </tr>
                             <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
@@ -57,6 +52,7 @@ class Products extends Component {
 
                             </tr>
                             <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
@@ -66,6 +62,7 @@ class Products extends Component {
 
                             </tr>
                             <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
@@ -75,6 +72,17 @@ class Products extends Component {
 
                             </tr>
                             <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
+                                <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
+                                <td><div className="d-flex justify-content-center">OnePlus</div></td>
+                                <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
+                                <td><div className="d-flex justify-content-center">&#x20B9; 32999</div></td>
+                                <td><div className="d-flex justify-content-center">100</div></td>
+                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+
+                            </tr>
+                            <tr>
+                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
                                 <td><div className="d-flex justify-content-center">OnePlus 8</div></td>
                                 <td><div className="d-flex justify-content-center">OnePlus</div></td>
                                 <td><div className="d-flex justify-content-center">Mirror Gray</div></td>
