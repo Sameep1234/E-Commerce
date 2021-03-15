@@ -48,6 +48,7 @@ class Dashboard extends Component {
                         <div className="row mt-5 d-flex justify-content-center">
                             {/* <h1 className="d-flex justify-content-center">Space for pie chart</h1> */}
                             <h1 className="text-info">Pending Transaction</h1>
+                            <a href="/demo.xls" download><span className="fa fa-download" /></a>
                             <table style={{ width: "100%" }}>
 
                                 <tr>
