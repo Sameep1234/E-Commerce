@@ -1,17 +1,19 @@
-const pool = require("../pool");
+const pool = require('../pool')
 
-exports.employeeList = (req,res) => {
+exports.getBuyer = ((req,res) => {
+    let buyerId = req.headers.buyerId;
+
     pool.getConnection((err) => {
         if(err){
             res.send({
-                data: null,
+                status: 0,
                 msg: err.message,
-                status: 0
-            })
+                data: null,
+            });
         }
         else{
-            let fetch = 'SELECT employeeId, employeeType, firstName, middleName, lastName  FROM employee GROUP BY(employeeType)';
-            pool.query(fetch, (err,result) => {
+            let fetch = "SELECT * FROM buyer WHERE buyerId = '" + buyerId + "';";
+            pool.query(fetch, (err, result) => {
                 if(err){
                     res.send({
                         data: null,
@@ -22,11 +24,11 @@ exports.employeeList = (req,res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Employee List',
+                        msg: 'Buyer Details',
                         data: result,
                     });
                 }
             })
         }
     })
-}
+})

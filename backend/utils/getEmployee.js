@@ -15,7 +15,7 @@ exports.getEmployee = (req,res) =>{
             let fetch = "SELECT *  FROM employee WHERE employeeId = '" + {empId} +"';";
             pool.query(fetch, (err,result) => {
                 if(err){
-                    res.send({
+                   res.send({
                         data: null,
                         msg: err.message,
                         status: 0
