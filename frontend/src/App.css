@@ -1,7 +1,24 @@
 body {
-  overflow-y: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  
 }
 
 .color-nav {
   background-color: black;
+  height: 50px;
 }
+
+.red {
+  background-color: rgb(250, 64, 89);
+}
+
+.blue {
+  background-color: rgb(109, 209, 235);
+}
+
+.green {
+  background-color: rgb(31, 245, 156);
+}
+
+tr:nth-child(odd) {background-color: #f2f2f2;}

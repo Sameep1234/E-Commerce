@@ -25,25 +25,22 @@ class Sidebar extends Component {
                 <SidebarHeader><div style={{ paddingTop: "18px", paddingBlock: '18px', paddingLeft: '28px' }}><span className="fa fa-bars fa-lg" role="button" onClick={this.toggleSidebar} /></div></SidebarHeader>
                 <SidebarContent>
                     <Menu iconShape="circle">
-                        <MenuItem icon={<span className="fa fa-tachometer fa-lg" />}>Dashboard</MenuItem>
+                        <MenuItem icon={<span className="fa fa-tachometer fa-lg" />}><Link to="/dashboard" />Dashboard</MenuItem>
                         <SubMenu title="Products" icon={<span className="fa fa-product-hunt fa-lg" />}>
                             <MenuItem>Product List<Link to="/product-list" /></MenuItem>
                             <MenuItem>Add Product<Link to="/add-product" /></MenuItem>
-                            <MenuItem>Edit Product<Link to="/edit-product" /></MenuItem>
-                            <MenuItem>Delete<Link to="/delete-product" /></MenuItem>
                         </SubMenu>
                         <SubMenu title="Staff" icon={<span className="fa fa-users fa-lg" />}>
                             <MenuItem>Staff List<Link to="/staff-list" /></MenuItem>
                             <MenuItem>Add Staff<Link to="/add-staff" /></MenuItem>
-                            <MenuItem>Edit Staff<Link to="/edit-staff" /></MenuItem>
-                            <MenuItem>Delete<Link to="/delete-staff" /></MenuItem>
                         </SubMenu>
-                        <MenuItem icon={<span className="fa fa-money fa-lg" />}>Orders<Link to="/add-product" /></MenuItem>
-                        <MenuItem icon={<span className="fa fa-ship fa-lg" />}>Shipping<Link to="/add-product" /></MenuItem>
+                        <MenuItem icon={<span className="fa fa-money fa-lg" />}>Orders<Link to="/orders" /></MenuItem>
+                        <MenuItem icon={<span className="fa fa-ship fa-lg" />}>Shipping<Link to="/shipping" /></MenuItem>
                         <SubMenu title="Registed User" icon={<span className="fa fa-registered fa-lg" />}>
                             <MenuItem>Buyers<Link to="/buyers-list" /></MenuItem>
                             <MenuItem>Sellers<Link to="/sellers-list" /></MenuItem>
                         </SubMenu>
+                        <MenuItem icon={<i class="fa fa-shopping-cart" aria-hidden="true"></i>}><Link to="/cart" />Cart</MenuItem>
                     </Menu>
                 </SidebarContent>
                 <div></div>
