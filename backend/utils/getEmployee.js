@@ -1,7 +1,7 @@
 const pool = require('../pool');
 
 exports.getEmployee = (req,res) =>{
-    let empId = req.body.empId;
+    let empId = req.header.empId;
 
     pool.getConnection((err => {
         if(err){
