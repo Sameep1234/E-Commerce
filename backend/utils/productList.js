@@ -11,7 +11,7 @@ exports.productList = (req, res) => {
         } else {
             let fetch = 'select p.productName, p.categoryID, p.subCategoryID, p.brandID, p.price from product p';
             pool.query(fetch, (err, result) => {
-                if (err) {
+                if (err) {  
                     res.send({
                         status: 0,
                         msg: err.message,
