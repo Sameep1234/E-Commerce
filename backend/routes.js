@@ -10,6 +10,10 @@ const addBuyer = require('./utils/addBuyer');
 const getProductCategory = require('./utils/getProdCategory');
 const getProductSubCategory = require('./utils/getProdSubCategory');
 const getProductBrand = require('./utils/getProdBrand');
+const shippingList = require('./utils/shippingList')
+const getShippingDetail = require('./utils/getShippingDetail');
+const pendingShipping = require('./utils/pendingShipping');
+const successfulShipping = require('./utils/successfulShipping');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -30,5 +34,11 @@ router.post('/addBuyer', addBuyer.addBuyer);
 
 //SELLER API's
 router.get('/sellerList', sellerList.sellerList);
+
+//SHIPPING API'S
+router.get('/shippingList', shippingList.shippingList);
+router.get('/getShippingDetail', getShippingDetail.getShippingDetail);
+router.get('/successfulShipping', successfulShipping.successfulShipping);
+router.get('/pendingShipping', pendingShipping.pendingShipping);
 
 module.exports = router;
