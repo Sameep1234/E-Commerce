@@ -14,6 +14,11 @@ const shippingList = require('./utils/shippingList')
 const getShippingDetail = require('./utils/getShippingDetail');
 const pendingShipping = require('./utils/pendingShipping');
 const successfulShipping = require('./utils/successfulShipping');
+const transactionList = require('./utils/transactionList')
+const getTransaction = require('./utils/getTransaction');
+const pendingTransaction = require('./utils/pendingTransaction');
+const successfulTransaction = require('./utils/successfulTransaction');
+
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -40,5 +45,12 @@ router.get('/shippingList', shippingList.shippingList);
 router.get('/getShippingDetail', getShippingDetail.getShippingDetail);
 router.get('/successfulShipping', successfulShipping.successfulShipping);
 router.get('/pendingShipping', pendingShipping.pendingShipping);
+
+//TRANSACTION API'S
+router.get('/transactionList', transactionList.transactionList);
+router.get('/getTransaction', getTransaction.getTransaction);
+router.get('/successfulTransaction', successfulTransaction.successfulTransaction);
+router.get('/pendingTransaction', pendingTransaction.pendingTransaction);
+
 
 module.exports = router;
