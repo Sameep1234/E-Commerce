@@ -1,17 +1,19 @@
-const pool = require("../pool");
+const pool = require('../pool')
 
-exports.sellerList = (req,res) => {
+exports.getSeller = ((req,res) => {
+    let sellerId = req.headers.sellerId;
+
     pool.getConnection((err) => {
         if(err){
             res.send({
-                data: null,
+                status: 0,
                 msg: err.message,
-                status: 0
-            })
+                data: null,
+            });
         }
         else{
-            let fetch = 'SELECT sellerId, firstName, middleName, lastName, email FROM seller';
-            pool.query(fetch, (err,result) => {
+            let fetch = "SELECT * FROM seller WHERE sellerId = '" + sellerId + "';";
+            pool.query(fetch, (err, result) => {
                 if(err){
                     res.send({
                         data: null,
@@ -22,11 +24,11 @@ exports.sellerList = (req,res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Seller List',
+                        msg: 'Seller Detail',
                         data: result,
                     });
                 }
             })
         }
     })
-}
+})
