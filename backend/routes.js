@@ -34,6 +34,10 @@ const updateEmployee = require('./utils/updateEmployee');
 const deleteEmployee = require('./utils/deleteEmployee');
 const updateBuyer = require('./utils/updateBuyer');
 const deleteBuyer = require('./utils/deleteBuyer');
+const stockList = require('./utils/stockList');
+const updateStock = require('./utils/updateStock');
+const orderList = require('./utils/orderList');
+const getOrder = require('./utils/getOrder');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -82,6 +86,14 @@ router.get('/sellerList', sellerList.sellerList);
 router.get('/getSeller', getSeller.getSeller);
 router.post('/addSeller', addSeller.addSeller);
 router.get('/deleteSeller', deleteSeller.deleteSeller);
-router.post('/updateSeller', updateSeller.updateSeller)
+router.post('/updateSeller', updateSeller.updateSeller);
+
+//STOCK APIs
+router.get('/stockLList', stockList.stockList);
+router.post('/updateStock', updateStock.updateStock);
+
+//ORDER APIs
+router.get('/orderList', orderList.orderList);
+router.get('/getOrder', getOrder.getOrder);
 
 module.exports = router;
