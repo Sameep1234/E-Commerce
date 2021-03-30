@@ -29,12 +29,18 @@ const updateProduct = require('./utils/updateProduct');
 const deleteProduct = require('./utils/deleteProduct');
 const addProduct = require('./utils/addProduct');
 const getProduct = require('./utils/getProduct');
+const addEmployee = reqire('./utils/addEmployee');
+const updateEmployee = require('./utils/updateEmployee');
+const deleteEmployee = require('./utils/deleteEmployee');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
 //EMPLOYEE APIs
 router.get('/employeeList', employeeList.employeeList);
 router.get('/getEmployee', getEmployee.getEmployee);
+router.post('/addEmployee', addEmployee.addEmployee);
+router.post('/updateEmployee', updateEmployee.updateEmployee);
+router.post('/deleteEmployee', deleteEmployee.deleteEmployee);
 
 //PRODUCT APIs
 router.get('/productList', productList.productList);

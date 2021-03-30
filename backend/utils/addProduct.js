@@ -1,7 +1,7 @@
 const pool = require('../pool');
 
 exports.addSeller = (req,res) =>{
-    let productId = req.body.productd;
+    let productId = req.body.productId;
     let productName = req.body.productName;
     let categoryId = req.body.categoryId;
     let subCategoryId = req.body.subCategoryId;
@@ -21,7 +21,7 @@ exports.addSeller = (req,res) =>{
             });
         }
         else{
-            let fetch = "INSERT INTO seller VAUES('" + productName + "','" + categoryId + "','" + subCategoryId + "', " + brandId + "','" + specificationId + "','" + color + "','" + price+ + "','" + quantity + "','" + size +"');";
+            let fetch = "INSERT INTO seller VAUES('" + productId + "','" + productName + "','" + categoryId + "','" + subCategoryId + "', " + brandId + "','" + specificationId + "','" + color + "','" + price+ + "','" + quantity + "','" + size +"');";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
