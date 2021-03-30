@@ -30,6 +30,10 @@ class Sidebar extends Component {
                             <MenuItem>Product List<Link to="/product-list" /></MenuItem>
                             <MenuItem>Add Product<Link to="/add-product" /></MenuItem>
                         </SubMenu>
+                        <SubMenu title="Brands" icon={<span className="fa fa-users fa-lg" />}>
+                            <MenuItem>Brand List<Link to="/brand-list" /></MenuItem>
+                            <MenuItem>Add Brand<Link to="/add-brand" /></MenuItem>
+                        </SubMenu>
                         <SubMenu title="Staff" icon={<span className="fa fa-users fa-lg" />}>
                             <MenuItem>Staff List<Link to="/staff-list" /></MenuItem>
                             <MenuItem>Add Staff<Link to="/add-staff" /></MenuItem>
@@ -39,6 +43,7 @@ class Sidebar extends Component {
                         <SubMenu title="Registed User" icon={<span className="fa fa-registered fa-lg" />}>
                             <MenuItem>Buyers<Link to="/buyers-list" /></MenuItem>
                             <MenuItem>Sellers<Link to="/sellers-list" /></MenuItem>
+                            <MenuItem>Add Seller<Link to="/add-seller" /></MenuItem>
                         </SubMenu>
                         <MenuItem icon={<i class="fa fa-shopping-cart" aria-hidden="true"></i>}><Link to="/cart" />Cart</MenuItem>
                     </Menu>
