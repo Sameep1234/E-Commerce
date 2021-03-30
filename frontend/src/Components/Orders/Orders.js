@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import Header from '../Common/Header';
+import Sidebar from '../Common/Sidebar';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 
 class Orders extends Component {

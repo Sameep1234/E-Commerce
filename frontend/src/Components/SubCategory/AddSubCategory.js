@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from '../Common/Sidebar';
+import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
 
-class AddBrands extends Component {
+class AddSubCategory extends Component {
     render() {
         return (
             <div>
@@ -13,21 +13,25 @@ class AddBrands extends Component {
                         <Sidebar />
                     </div>
                     <div className="col d-flex justify-content-center">
-                        <Card className='mt-2' style={{ minWidth: '50%', maxHeight: "50vh" }}>
-                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Brand Information</CardHeader>
+                        <Card className='mt-2' style={{ minWidth: '50%', maxHeight: "60vh" }}>
+                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Sub-Category Information</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Label>Brand ID</Label>
-                                    <Input placeholder="Ex. S101" type="text" />
+                                    <Label>Sub-Category ID</Label>
+                                    <Input placeholder="Ex. L101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Brand Name</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Label>Sub-Category Name</Label>
+                                    <Input placeholder="Ex. Laptop" type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Category ID</Label>
+                                    <Input placeholder="Ex. E101" type="text" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
                                 <div className="d-flex justify-content-center">
-                                    <Button color="primary">Add Brand</Button>
+                                    <Button color="primary">Add Category</Button>
                                 </div>
                             </CardFooter>
                         </Card>
@@ -38,4 +42,4 @@ class AddBrands extends Component {
     }
 }
 
-export default AddBrands;
+export default AddSubCategory;

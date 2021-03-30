@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from '../Common/Sidebar';
+import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
 
-class AddBrands extends Component {
+class AddCategory extends Component {
     render() {
         return (
             <div>
@@ -18,11 +18,11 @@ class AddBrands extends Component {
                             <CardBody>
                                 <FormGroup>
                                     <Label>Category ID</Label>
-                                    <Input placeholder="Ex. S101" type="text" />
+                                    <Input placeholder="Ex. E101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Category Name</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Input placeholder="Ex. Electronics" type="text" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
@@ -38,4 +38,4 @@ class AddBrands extends Component {
     }
 }
 
-export default AddBrands;
+export default AddCategory;

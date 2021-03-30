@@ -34,9 +34,21 @@ class Sidebar extends Component {
                             <MenuItem>Brand List<Link to="/brand-list" /></MenuItem>
                             <MenuItem>Add Brand<Link to="/add-brand" /></MenuItem>
                         </SubMenu>
+                        <SubMenu title="Category" icon={<span className="fa fa-users fa-lg" />}>
+                            <MenuItem>Category List<Link to="/category-list" /></MenuItem>
+                            <MenuItem>Add Category<Link to="/add-category" /></MenuItem>
+                        </SubMenu>
                         <SubMenu title="Staff" icon={<span className="fa fa-users fa-lg" />}>
                             <MenuItem>Staff List<Link to="/staff-list" /></MenuItem>
                             <MenuItem>Add Staff<Link to="/add-staff" /></MenuItem>
+                        </SubMenu>
+                        <SubMenu title="Sub-Categories" icon={<span className="fa fa-users fa-lg" />}>
+                            <MenuItem>Sub-Category List<Link to="/sub-category-list" /></MenuItem>
+                            <MenuItem>Add Sub-Category<Link to="/add-sub-category" /></MenuItem>
+                        </SubMenu>
+                        <SubMenu title="Specification" icon={<span className="fa fa-users fa-lg" />}>
+                            <MenuItem>Specification List<Link to="/specification-list" /></MenuItem>
+                            <MenuItem>Add Specification<Link to="/add-specification" /></MenuItem>
                         </SubMenu>
                         <MenuItem icon={<span className="fa fa-money fa-lg" />}>Orders<Link to="/orders" /></MenuItem>
                         <MenuItem icon={<span className="fa fa-ship fa-lg" />}>Shipping<Link to="/shipping" /></MenuItem>

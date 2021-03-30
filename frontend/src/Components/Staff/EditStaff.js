@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Sidebar from '../Common/Sidebar';
+import Header from '../Common/Header';
 
 class EditStaff extends Component {
     render() {

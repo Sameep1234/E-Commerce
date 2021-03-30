@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import Staff from './Staff';
-import Users from './User';
-import Cart from './Cart';
-import Orders from './Orders';
-import Shipping from './Shipping';
-import AddProduct from './AddProduct';
-import AddStaff from './AddStaff';
-import EditProduct from './EditProduct';
-import EditStaff from './EditStaff';
-import Product from './Products';
-import Buyer from './Buyers';
-import Seller from './Seller';
-import AddSeller from './AddSeller';
-import AddBrands from './AddBrands';
+import Staff from './Staff/Staff';
+import Cart from './Cart/Cart';
+import Orders from './Orders/Orders';
+import Shipping from './Shipping/Shipping';
+import AddProduct from './Product/AddProduct';
+import AddStaff from './Staff/AddStaff';
+import EditProduct from './Product/EditProduct';
+import EditStaff from './Staff/EditStaff';
+import Product from './Product/Products';
+import Buyer from './Buyers/Buyers';
+import Seller from './Seller/Seller';
+import AddSeller from './Seller/AddSeller';
+import AddBrands from './Brands/AddBrands';
+import AddCategory from './Category/AddCategory';
+import AddSubCategory from './SubCategory/AddSubCategory';
+import AddSpecification from './Specification/AddSpecification';
 
 class Main extends Component {
     render() {
@@ -26,7 +28,6 @@ class Main extends Component {
                     <Route path='/shipping' component={Shipping} />
                     <Route path='/cart' component={Cart} />
                     <Route path='/staff-list' component={Staff} />
-                    <Route path='/authorised-users' component={Users} />
                     <Route path='/add-product' component={AddProduct} />
                     <Route path='/edit-product' component={EditProduct} />
                     <Route path='/add-staff' component={AddStaff} />
@@ -36,6 +37,9 @@ class Main extends Component {
                     <Route path='/sellers-list' component={Seller} />
                     <Route path='/add-seller' component={AddSeller} />
                     <Route path='/add-brand' component={AddBrands} />
+                    <Route path='/add-category' component={AddCategory} />
+                    <Route path='/add-sub-category' component={AddSubCategory} />
+                    <Route path='/add-specification' component={AddSpecification} />
                     <Redirect to='/dashboard' />
                 </Switch>
                 

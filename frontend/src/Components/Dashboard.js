@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'react-pro-sidebar/dist/css/styles.css';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import Header from './Common/Header';
+import Sidebar from './Common/Sidebar';
 
 class Dashboard extends Component {
 
