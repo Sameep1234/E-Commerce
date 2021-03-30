@@ -1,8 +1,8 @@
 const pool = require('../pool');
 
-exports.updateSeller = (req,res) => {
+exports.updateBuyer = (req,res) => {
 
-    let sellerId = req.body.sellerId;
+    let buyerId = req.body.buyerId;
     let firstName = req.body.firstName;
     let middleName = req.body.middleName;
     let lastName = req.body.lastname;
@@ -17,7 +17,6 @@ exports.updateSeller = (req,res) => {
 
     let contactNumber = req.body.contactNumber;
     let email = req.body.email;
-    let GST = req.body.GST; 
 
     pool.getConnection((err => {
         if(err){
@@ -28,7 +27,7 @@ exports.updateSeller = (req,res) => {
             });d
         }
         else{
-            let fetch = "UPDATE seller SET firstName = '"+  firstName + "', middleName = '" + middleName + "',lastName = '" + lastName + "', appartmentNumber='" + appartmentNumber + "',address1='" + address1 + "',landmark='" + landmark + "',area='" + area+ + "',city='" + city + "',state='" + state + "',country='"+ country + "',contactNumber='" + contactNumber + "',email='"+ email+  "',GST='" + GST+" WHERE sellerId = '" + {sellerId} +"';";
+            let fetch = "UPDATE buyer SET firstName = '"+  firstName + "', middleName = '" + middleName + "',lastName = '" + lastName + "', appartmentNumber='" + appartmentNumber + "',address1='" + address1 + "',landmark='" + landmark + "',area='" + area+ + "',city='" + city + "',state='" + state + "',country='"+ country + "',contactNumber='" + contactNumber + "',email='"+ email+  "' WHERE buyerId = '" + {buyerId} +"';";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
@@ -40,7 +39,7 @@ exports.updateSeller = (req,res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Updated seller',
+                        msg: 'Updated buyer',
                         data: result,
                     });
                 }
