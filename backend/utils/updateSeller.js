@@ -28,7 +28,7 @@ exports.updateSeller = (req,res) => {
             });d
         }
         else{
-            let fetch = "UPDATE seller SET firstname = '"+  firstName + "', middleName = '" + middleName + "',lastName = '" + lastName + "', appartmentNumber='" + appartmentNumber + "',address1='" + address1 + "',landmark='" + landmark + "',area='" + area+ + "',city='" + city + "',state='" + state + "',country='"+ country + "',contactNumber='" + contactNumber + "',email='"+ email+  "',GST='" + GST+" WHERE sellerId = '" + {sellerId} +"';";
+            let fetch = "UPDATE seller SET firstName = '"+  firstName + "', middleName = '" + middleName + "',lastName = '" + lastName + "', appartmentNumber='" + appartmentNumber + "',address1='" + address1 + "',landmark='" + landmark + "',area='" + area+ + "',city='" + city + "',state='" + state + "',country='"+ country + "',contactNumber='" + contactNumber + "',email='"+ email+  "',GST='" + GST+" WHERE sellerId = '" + {sellerId} +"';";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

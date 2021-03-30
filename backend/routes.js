@@ -25,6 +25,10 @@ const getSeller = require('./utils/getSeller');
 const addSeller = require('./utils/addSeller');
 const deleteSeller = require('./utils/deleteSeller');
 const updateSeller = require('./utils/updateSeller');
+const updateProduct = require('./utils/updateProduct');
+const deleteProduct = require('./utils/deleteProduct');
+const addProduct = require('./utils/addProduct');
+const getProduct = require('./utils/getProduct');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -33,10 +37,14 @@ router.get('/employeeList', employeeList.employeeList);
 router.get('/getEmployee', getEmployee.getEmployee);
 
 //PRODUCT APIs
-router.get('/productlist', productList.productList);
+router.get('/productList', productList.productList);
 router.get('/getProductCategory', getProductCategory);
 router.get('/getProductSubCategory', getProductSubCategory);
 router.get('/getProductBrand', getProductBrand);
+router.post('/updateProduct', updateProduct.updateProduct);
+router.get('/deleteProduct', deleteProduct.deleteProduct);
+router.post('/addProduct', addProduct.addProduct);
+router.get('/getProduct', getProduct.getProduct);
 
 //BUYER APIs
 router.get('/buyerList', buyerList.buyerList);
