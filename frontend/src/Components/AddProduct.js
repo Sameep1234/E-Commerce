@@ -8,6 +8,7 @@ class AddProduct extends Component {
         return (
             <div>
                 <Header />
+                <p>HIII THIS IS KAVYA</p>
                 <div className="row">
                     <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
