@@ -17,6 +17,10 @@ import AddBrands from './Brands/AddBrands';
 import AddCategory from './Category/AddCategory';
 import AddSubCategory from './SubCategory/AddSubCategory';
 import AddSpecification from './Specification/AddSpecification';
+import SpecificationList from './Specification/SpecificationList';
+import BrandList from './Brands/BrandList';
+import CategoryList from './Category/CategoryList';
+import SubCategoryList from './SubCategory/SubCategoryList';
 
 class Main extends Component {
     render() {
@@ -24,22 +28,41 @@ class Main extends Component {
             <div>
                 <Switch location={window.location} key={window.location.pathname}>
                     <Route exact path='/dashboard' component={Dashboard} />
+                    
                     <Route path='/orders' component={Orders} />
+                    
                     <Route path='/shipping' component={Shipping} />
+
                     <Route path='/cart' component={Cart} />
-                    <Route path='/staff-list' component={Staff} />
+
+                    
+
                     <Route path='/add-product' component={AddProduct} />
                     <Route path='/edit-product' component={EditProduct} />
+                    <Route path='/product-list' component={Product} />
+
+                    <Route path='/staff-list' component={Staff} />
                     <Route path='/add-staff' component={AddStaff} />
                     <Route path='/edit-staff' component={EditStaff} />
-                    <Route path='/product-list' component={Product} />
+
+                    
                     <Route path='/buyers-list' component={Buyer} />
+                    
                     <Route path='/sellers-list' component={Seller} />
                     <Route path='/add-seller' component={AddSeller} />
+
                     <Route path='/add-brand' component={AddBrands} />
+                    <Route path='/brand-list' component={BrandList} />
+
                     <Route path='/add-category' component={AddCategory} />
+                    <Route path='/category-list' component={CategoryList} />
+
                     <Route path='/add-sub-category' component={AddSubCategory} />
+                    <Route path='/sub-category-list' component={SubCategoryList} />
+
                     <Route path='/add-specification' component={AddSpecification} />
+                    <Route path='/specification-list' component={SpecificationList} />
+
                     <Redirect to='/dashboard' />
                 </Switch>
                 
