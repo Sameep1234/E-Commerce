@@ -1,44 +1,64 @@
 const express = require('express');
 const router = express.Router();
-const productList = require('./utils/productList')
-const employeeList = require('./utils/employeeList');
-const buyerList = require('./utils/buyerList');
-const getBuyer = require('./utils/getBuyer');
-const sellerList = require('./utils/sellerList');
-const getEmployee = require('./utils/getEmployee');
-const addBuyer = require('./utils/addBuyer');
-const getProductCategory = require('./utils/getProdCategory');
-const getProductSubCategory = require('./utils/getProdSubCategory');
-const getProductBrand = require('./utils/getProdBrand');
-const shippingList = require('./utils/shippingList')
-const getShippingDetail = require('./utils/getShippingDetail');
-const pendingShipping = require('./utils/pendingShipping');
-const successfulShipping = require('./utils/successfulShipping');
-const transactionList = require('./utils/transactionList')
-const getTransaction = require('./utils/getTransaction');
-const pendingTransaction = require('./utils/pendingTransaction');
-const successfulTransaction = require('./utils/successfulTransaction');
-const cartList = require('./utils/getCartDetail');
-const getCartDetail = require('./utils/getCartDetail');
-const getSeller = require('./utils/getSeller');
-const addSeller = require('./utils/addSeller');
-const deleteSeller = require('./utils/deleteSeller');
-const updateSeller = require('./utils/updateSeller');
-const updateProduct = require('./utils/updateProduct');
-const deleteProduct = require('./utils/deleteProduct');
-const addProduct = require('./utils/addProduct');
-const getProduct = require('./utils/getProduct');
-const addEmployee = reqire('./utils/addEmployee');
-const updateEmployee = require('./utils/updateEmployee');
-const deleteEmployee = require('./utils/deleteEmployee');
-const updateBuyer = require('./utils/updateBuyer');
-const deleteBuyer = require('./utils/deleteBuyer');
-const stockList = require('./utils/stockList');
-const updateStock = require('./utils/updateStock');
-const orderList = require('./utils/orderList');
-const getOrder = require('./utils/getOrder');
+
+//EMPLOYEE ROUTES
+const employeeList = require('./utils/Employee/employeeList');
+const getEmployee = require('./utils/Employee/getEmployee');
+const addEmployee = require('./utils/Employee/addEmployee');
+const updateEmployee = require('./utils/Employee/updateEmployee');
+const deleteEmployee = require('./utils/Employee/deleteEmployee');
+
+//PRODUCT ROUTES
+const productList = require('./utils/Product/productList');
+const getProductCategory = require('./utils/Product/getProdCategory');
+const getProductSubCategory = require('./utils/Product/getProdSubCategory');
+const getProductBrand = require('./utils/Product/getProdBrand');
+const updateProduct = require('./utils/Product/updateProduct');
+const deleteProduct = require('./utils/Product/deleteProduct');
+const addProduct = require('./utils/Product/addProduct');
+const getProduct = require('./utils/Product/getProduct');
+
+//BUYER ROUTES
+const buyerList = require('./utils/Buyer/buyerList');
+const getBuyer = require('./utils/Buyer/getBuyer');
+const addBuyer = require('./utils/Buyer/addBuyer');
+const updateBuyer = require('./utils/Buyer/updateBuyer');
+const deleteBuyer = require('./utils/Buyer/deleteBuyer');
+
+//SHIPPING ROUTES
+const shippingList = require('./utils/Shipping/shippingList');
+const getShippingDetail = require('./utils/Shipping/getShippingDetail');
+const pendingShipping = require('./utils/Shipping/pendingShipping');
+const successfulShipping = require('./utils/Shipping/successfulShipping');
+
+//TRANSACTION ROUTES
+const transactionList = require('./utils/Transaction/transactionList')
+const getTransaction = require('./utils/Transaction/getTransaction');
+const pendingTransaction = require('./utils/Transaction/pendingTransaction');
+const successfulTransaction = require('./utils/Transaction/successfulTransaction');
+
+//CART ROUTES
+const cartList = require('./utils/Cart/cartList');
+// const getCartDetail = require('./utils/getCartDetail');
+
+//SELLER ROUTES
+const sellerList = require('./utils/Seller/sellerList');
+const getSeller = require('./utils/Seller/getSeller');
+const addSeller = require('./utils/Seller/addSeller');
+const deleteSeller = require('./utils/Seller/deleteSeller');
+const updateSeller = require('./utils/Seller/updateSeller');
+
+//STOCK ROUTES
+const stockList = require('./utils/Stock/stockList');
+const updateStock = require('./utils/Stock/updateStock');
+
+//ORDER ROUTES
+const orderList = require('./utils/Order/orderList');
+const getOrder = require('./utils/Order/getOrder');
 
 router.get('/', (req, res) => {res.send('Server Running')});
+
+//__________________________________________________________________________
 
 //EMPLOYEE APIs
 router.get('/employeeList', employeeList.employeeList);
@@ -49,9 +69,9 @@ router.post('/deleteEmployee', deleteEmployee.deleteEmployee);
 
 //PRODUCT APIs
 router.get('/productList', productList.productList);
-router.get('/getProductCategory', getProductCategory);
-router.get('/getProductSubCategory', getProductSubCategory);
-router.get('/getProductBrand', getProductBrand);
+router.get('/getProductCategory', getProductCategory.getProductCategory);
+router.get('/getProductSubCategory', getProductSubCategory.getProductSubCategory);
+router.get('/getProductBrand', getProductBrand.getProductBrand);
 router.post('/updateProduct', updateProduct.updateProduct);
 router.get('/deleteProduct', deleteProduct.deleteProduct);
 router.post('/addProduct', addProduct.addProduct);
@@ -78,7 +98,7 @@ router.get('/pendingTransaction', pendingTransaction.pendingTransaction);
 
 //CART APIs
 router.get('/cartList', cartList.cartList);
-router.get('/getCartDetail', getCartDetail.getCartDetail);
+// router.get('/getCartDetail', getCartDetail.getCartDetail);
 
 //SELLER APIs
 router.get('/sellerList', sellerList.sellerList);
