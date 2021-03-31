@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 //Call the required route from routes.js file.
-app.get('/', routes);
+app.use('/', routes);
 
 //Start the server/listen to the request.
 app.listen(port, () => {console.log('Server running at port ' + port)})

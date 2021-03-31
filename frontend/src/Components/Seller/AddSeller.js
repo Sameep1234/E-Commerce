@@ -1,9 +1,85 @@
 import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
+import axios from 'axios';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
 
 class AddSeller extends Component {
+    constructor(props) {
+        super(props);
+
+        // MAINTAIN STATE
+        this.state = {
+            sellerId: '',
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            shopNumber: '',
+            address1: '',
+            landmark: '',
+            area: '',
+            city: '',
+            state: '',
+            country: '',
+            postalCode: 0,
+            contactNumber: 0,
+            email: '',
+            GST: 0,
+            msg: '',
+        }
+
+        // BIND METHODS SO THAT CONTEXT IS PRESERVED
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
+    }
+
+    // STORE IN STATE IF CHANGED
+    handleInputChange(event) {
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    // SEND REQUEST TO BACKEND
+    handleSubmit() {
+        let data = {
+            sellerId: this.state.sellerId,
+            firstName: this.state.firstName,
+            middleName: this.state.middleName,
+            lastName: this.state.lastName,
+            shopNumber: this.state.shopNumber,
+            address1: this.state.address1,
+            landmark: this.state.landmark,
+            area: this.state.area,
+            city: this.state.city,
+            state: this.state.state,
+            country: this.state.country,
+            postalCode: this.state.postalCode,
+            contactNumber: this.state.contactNumber,
+            email: this.state.email,
+            GST: this.state.GST,
+        }
+
+        console.log(JSON.stringify(data));
+
+        axios.defaults.withCredentials = true;
+        axios.post('http://localhost:5000/addSeller', data)
+            .then((response) => {
+                if(response.data.status === 1) {
+                    this.setState({
+                        msg: 'Succesfully added',
+                    });
+                }
+            })
+            .catch((err) => {
+                alert(err);
+            })
+    }
+
+    // RENDER METHOD
     render() {
         return (
             <div>
@@ -18,68 +94,68 @@ class AddSeller extends Component {
                             <CardBody>
                                 <FormGroup>
                                     <Label>Seller ID</Label>
-                                    <Input placeholder="Ex. S101" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. S101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>First Name</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Josh" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Middle Name</Label>
-                                    <Input placeholder="Ex. Mulien" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Mulien" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Last Name</Label>
-                                    <Input placeholder="Ex. Smith" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Smith" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Shop Number</Label>
-                                    <Input placeholder="Ex. S-26" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. S-26" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Address Line 1</Label>
-                                    <Input placeholder="Ex. Galaxy Tower" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Galaxy Tower" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Landmark</Label>
-                                    <Input placeholder="Ex. Hetarth Party Plot" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Hetarth Party Plot" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Area</Label>
-                                    <Input placeholder="Ex. Science City" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Science City" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>City</Label>
-                                    <Input placeholder="Ex. Ahmedabad" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Ahmedabad" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>State</Label>
-                                    <Input placeholder="Ex. Gujarat" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. Gujarat" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Country</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. India" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Postal Code</Label>
-                                    <Input placeholder="Ex. 380054" type="text" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. 380054" type="number" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Contact Number</Label>
-                                    <Input placeholder="Ex. 9998887776" type="number" />
+                                    <Input onChange={this.handleInputChange} placeholder="Ex. 9998887776" type="number" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Email</Label>
-                                    <Input type="email" placeholder="Ex. abc@gmail.com" />
+                                    <Input onChange={this.handleInputChange} type="email" placeholder="Ex. abc@gmail.com" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>GST Number</Label>
-                                    <Input type="number" placeholder="Ex. 1200003" />
+                                    <Input onChange={this.handleInputChange} type="number" placeholder="Ex. 1200003" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
                                 <div className="d-flex justify-content-center">
-                                    <Button color="primary">Add Seller</Button>
+                                    <Button color="primary" onClick={this.handleSubmit}>Add Seller</Button>
                                 </div>
                             </CardFooter>
                         </Card>
