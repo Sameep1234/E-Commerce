@@ -20,7 +20,6 @@ const pendingTransaction = require('./utils/pendingTransaction');
 const successfulTransaction = require('./utils/successfulTransaction');
 const cartList = require('./utils/getCartDetail');
 const getCartDetail = require('./utils/getCartDetail');
-const sellerList = require('./utils/sellerList');
 const getSeller = require('./utils/getSeller');
 const addSeller = require('./utils/addSeller');
 const deleteSeller = require('./utils/deleteSeller');
