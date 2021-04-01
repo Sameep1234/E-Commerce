@@ -18,6 +18,10 @@ const deleteProduct = require('./utils/Product/deleteProduct');
 const addProduct = require('./utils/Product/addProduct');
 const getProduct = require('./utils/Product/getProduct');
 
+//CATEGORY ROUTES
+const addCategory = require('./utils/Category/addCategory');
+const categoryList = require('./utils/Category/categoryList');
+
 //BUYER ROUTES
 const buyerList = require('./utils/Buyer/buyerList');
 const getBuyer = require('./utils/Buyer/getBuyer');
@@ -55,6 +59,10 @@ const updateStock = require('./utils/Stock/updateStock');
 //ORDER ROUTES
 const orderList = require('./utils/Order/orderList');
 const getOrder = require('./utils/Order/getOrder');
+
+//BRAND ROUTES
+const brandList = require('./utils/Brand/brandList');
+const addBrand = require('./utils/Brand/addBrand');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -114,5 +122,13 @@ router.post('/updateStock', updateStock.updateStock);
 //ORDER APIs
 router.get('/orderList', orderList.orderList);
 router.get('/getOrder', getOrder.getOrder);
+
+//BRAND APIs
+router.get('/brandList', brandList.brandList);
+router.post('/addBrand', addBrand.addBrand);
+
+//CATEGORY APIs
+router.post('/addCategory', addCategory.addCategory);
+router.post('/categoryList', categoryList.categoryList);
 
 module.exports = router;

@@ -24,7 +24,7 @@ exports.addBuyer = (req,res) =>{
             });
         }
         else{
-            let fetch = "INSERT INTO buyer VAUES('"+ buyerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + appartmentNumber + "','" + address1 + "','" + landmark + "','" + area+ + "','" + city + "','" + state + "','"+ country + "','" + contactNumber + "','"+ email+"';";
+            let fetch = "INSERT INTO buyer VALUES('"+ buyerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + appartmentNumber + "','" + address1 + "','" + landmark + "','" + area+ + "','" + city + "','" + state + "','"+ country + "','" + contactNumber + "','"+ email+"');";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
