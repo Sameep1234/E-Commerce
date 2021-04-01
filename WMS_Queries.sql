@@ -49,21 +49,7 @@ create table cart(buyerId varchar(10) not null, foreign key(buyerId) references 
 							dateTime datetime not null,
 							quantity int default 1,
 							totalPrice int,
-							primary key(buyerId, productId, dateTime)); 
-                            
-                            
-INSERT INTO `wms`.`buyer` (`buyerId`, `firstName`, `middleName`, `lastName`, `appartmentNumber`, `address1`, `landmark`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`) VALUES ('B101', 'Sameep', 'Nilesh', 'Vani', 'C-92', 'Galaxy Tower', 'The Grand Bhagwati Hotel', 'Bodakdev', 'Ahmedabad', 'Gujarat', 'India', '380054', '999888777', 'sameep.v@ahduni.edu.in');
-INSERT INTO `wms`.`buyer` (`buyerId`, `firstName`, `middleName`, `lastName`, `appartmentNumber`, `address1`, `landmark`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`) VALUES ('B102', 'Aneri', 'Dipakbhai', 'Dalwadi', '17', 'Kalhaar Exotica', 'Hetarth Party Plot', 'Science City', 'Ahemdabad', 'Gujarat', 'India', '380060', '987654321', 'aneri.d@ahduni.edu.in');
-INSERT INTO `wms`.`buyer` (`buyerId`, `firstName`, `middleName`, `lastName`, `appartmentNumber`, `address1`, `landmark`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`) VALUES ('B103', 'Kavya', 'Rashmi', 'Patel', '2', 'Bunglow', 'Sector 4', 'Gandhinagar', 'Gandhinagar', 'Gujarat', 'India', '350000', '654789321', 'kavya.p2@ahduni.edu.in');
-
-INSERT INTO `wms`.`seller` (`sellerId`, `firstName`, `middleName`, `lastName`, `shopNumber`, `address1`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`, `gstNumber`) VALUES ('S100', 'xyz', 'abc', 'pqr', '1', 'something', 'bodakdev', 'ahmedabad', 'gujarat', 'india', '123456', '123456789', 'xyz.pqr@gmail.com', '10000153');
-INSERT INTO `wms`.`seller` (`sellerId`, `firstName`, `middleName`, `lastName`, `shopNumber`, `address1`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`, `gstNumber`) VALUES ('S101', 'abc', 'str', 'xyz', '2', 'something2', 'science city', 'ahmedabad', 'gujarat', 'india', '987654', '652314789', 'abc@ahduni.edu.in', '10000049');
-INSERT INTO `wms`.`seller` (`sellerId`, `firstName`, `middleName`, `lastName`, `shopNumber`, `address1`, `area`, `city`, `state`, `country`, `postalCode`, `contactNumber`, `email`, `gstNumber`) VALUES ('S102', 'pqr', 's', 'abc', '3', 'somwthing3', 'sector 4', 'gandhinagar', 'gujarat', 'india', '145235', '147852369', 'pqr@gmail.com', '10000144');
-
-
-
-
-
+							primary key(buyerId, productId, dateTime));
 
 
 

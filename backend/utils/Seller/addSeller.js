@@ -1,11 +1,10 @@
 const pool = require('../../pool');
 
 exports.addSeller = (req, res) => {
-    console.log("HEREEE")
     let sellerId = req.body.sellerId;
     let firstName = req.body.firstName;
     let middleName = req.body.middleName;
-    let lastName = req.body.lastname;
+    let lastName = req.body.lastName;
 
     let shopNumber = req.body.shopNumber;
     let address1 = req.body.address1;
@@ -14,11 +13,11 @@ exports.addSeller = (req, res) => {
     let city = req.body.city;
     let state = req.body.state;
     let country = req.body.country;
-    let postalCode = req.body.postalCode;
+    let postalCode = (req.body.postalCode);
 
-    let contactNumber = req.body.contactNumber;
+    let contactNumber = (req.body.contactNumber);
     let email = req.body.email;
-    let GST = req.body.GST;
+    let GST = (req.body.GST);
 
     pool.getConnection((err => {
         if (err) {
@@ -29,7 +28,7 @@ exports.addSeller = (req, res) => {
             });
         }
         else {
-            let fetch = "INSERT INTO seller VAUES('" + sellerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + shopNumber + "','" + address1 + "','" + landmark + "','" + area + + "','" + city + "','" + state + "','" + country + "','" + postalCode + "','" + contactNumber + "','" + email + "','" + GST + "';";
+            let fetch = "INSERT INTO seller VALUES ('" + sellerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + shopNumber + "','" + address1 + "','" + landmark + "','" + area + "','" + city + "','" + state + "','" + country + "','" + postalCode + "','" + contactNumber + "','" + email + "','" + GST + "');";
             pool.query(fetch, (err, result) => {
                 if (err) {
                     res.send({
