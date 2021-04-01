@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.pendingTransaction = () => {
+exports.pendingTransaction = (req, res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
