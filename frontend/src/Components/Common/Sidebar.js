@@ -30,23 +30,23 @@ class Sidebar extends Component {
                             <MenuItem>Product List<Link to="/product-list" /></MenuItem>
                             <MenuItem>Add Product<Link to="/add-product" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Brands" icon={<span className="fa fa-users fa-lg" />}>
+                        <SubMenu title="Brands" icon={<span className="fa fa-bandcamp fa-lg" />}>
                             <MenuItem>Brand List<Link to="/brand-list" /></MenuItem>
                             <MenuItem>Add Brand<Link to="/add-brand" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Category" icon={<span className="fa fa-users fa-lg" />}>
+                        <SubMenu title="Category" icon={<span className="fa fa-copyright fa-lg" />}>
                             <MenuItem>Category List<Link to="/category-list" /></MenuItem>
                             <MenuItem>Add Category<Link to="/add-category" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Employee" icon={<span className="fa fa-user-plus fa-lg" />}>
+                        <SubMenu title="Employee" icon={<span className="fa fa-users fa-lg" />}>
                             <MenuItem>Employee List<Link to="/employee-list" /></MenuItem>
                             <MenuItem>Add Employee<Link to="/add-employee" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Sub-Categories" icon={<span className="fa fa-users fa-lg" />}>
+                        <SubMenu title="Sub-Categories" icon={<span className="fa fa-scribd " />}>
                             <MenuItem>Sub-Category List<Link to="/sub-category-list" /></MenuItem>
                             <MenuItem>Add Sub-Category<Link to="/add-sub-category" /></MenuItem>
                         </SubMenu>
-                            <MenuItem icon={<span className="fa fa-money fa-lg" />}>Specification<Link to="/add-specification" /></MenuItem>
+                            <MenuItem icon={<span className="fa fa-inbox fa-lg" />}>Specification<Link to="/add-specification" /></MenuItem>
                         <MenuItem icon={<span className="fa fa-money fa-lg" />}>Orders<Link to="/orders" /></MenuItem>
                         <MenuItem icon={<span className="fa fa-ship fa-lg" />}>Shipping<Link to="/shipping" /></MenuItem>
                         <SubMenu title="Registed User" icon={<span className="fa fa-registered fa-lg" />}>

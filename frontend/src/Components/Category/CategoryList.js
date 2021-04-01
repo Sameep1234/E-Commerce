@@ -6,19 +6,22 @@ import axios from 'axios';
 // RENDER PRODUCT LIST FUNCTIONAL COMPONENT
 function CategoryDetails({ result }) {
     let renderList = result.map((bd) => {
-        <tr>
-            <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-            <td><div className="d-flex justify-content-center">{bd}</div></td>
-            <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-        </tr>
-    })
-    return (
-        <div className="col d-flex justify-content-center align-items-center">
-            <table style={{ width: '100%' }}>
-                {renderList}
-            </table>
-        </div>
-    );
+        return (
+            <div className="col d-flex justify-content-center align-items-center">
+                <table style={{ width: '100%' }}>
+                    <tr>
+                        <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
+                        <td><div className="d-flex justify-content-center">{bd}</div></td>
+                        <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+                    </tr>
+                </table>
+            </div>
+        );
+
+    });
+
+    return (renderList);
+
 }
 
 class CategoryList extends Component {

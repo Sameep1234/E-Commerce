@@ -6,22 +6,23 @@ import axios from 'axios';
 
 
 // DETAILS FUNCTIONAL COMPONENT
-function Details ({result, color, write}) {
-    
-    let renderList = result.map((rl) => {
-        <tr>
-            <td><div className="d-flex justify-content-center">{rl}</div></td>
-        </tr>
-    })
+function Details({ result, color, write }) {
 
-    return (
-        <div className="row mt-5 d-flex justify-content-center">
-            <h1 className={color}>{write}</h1>
-            <table style={{ width: "100%" }}>
-                {renderList}
-            </table>
-        </div>
-    );
+    let renderList = result.map((rl) => {
+
+        return (
+            <div className="row mt-5 d-flex justify-content-center">
+                <h1 className={color}>{write}</h1>
+                <table style={{ width: "100%" }}>
+                    <tr>
+                        <td><div className="d-flex justify-content-center">{rl}</div></td>
+                    </tr>
+                </table>
+            </div>
+        );
+    });
+
+    return (renderList);
 }
 
 class Dashboard extends Component {
