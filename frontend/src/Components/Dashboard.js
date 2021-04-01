@@ -4,6 +4,26 @@ import Header from './Common/Header';
 import Sidebar from './Common/Sidebar';
 import axios from 'axios';
 
+
+// DETAILS FUNCTIONAL COMPONENT
+function Details ({result, color, write}) {
+    
+    let renderList = result.map((rl) => {
+        <tr>
+            <td><div className="d-flex justify-content-center">{rl}</div></td>
+        </tr>
+    })
+
+    return (
+        <div className="row mt-5 d-flex justify-content-center">
+            <h1 className={color}>{write}</h1>
+            <table style={{ width: "100%" }}>
+                {renderList}
+            </table>
+        </div>
+    );
+}
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +31,7 @@ class Dashboard extends Component {
         this.state = {
             display: '',
             color: '',
-            result: {},
+            result: [],
             msg: '',
         }
 
@@ -105,13 +125,7 @@ class Dashboard extends Component {
 
     // RENDER METHOD
     render() {
-        // let display =
-        //     <div className="row mt-5 d-flex justify-content-center">
-        //         <h1 className={this.state.color}>{this.state.display}</h1>
-        //         <table style={{ width: "100%" }}>
-        //             {/* {this.details()} */}
-        //         </table>
-        //     </div>
+        let display = <Details result={this.state.result} color={this.state.color} write={this.state.display} />
         return (
             <div>
                 <Header />
@@ -142,7 +156,7 @@ class Dashboard extends Component {
                                 </div>
                             </div>
                         </div>
-                        {this.display()}
+                        {display}
                     </div>
                 </div>
             </div>
