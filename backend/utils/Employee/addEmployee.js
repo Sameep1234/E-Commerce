@@ -18,7 +18,7 @@ exports.addEmployee = (req,res) =>{
             });
         }
         else{
-            let fetch = "INSERT INTO employee VAUES('" +employeeId+ "','"+ employeeType+ "','"+firstName+ "','"+ middleName+ "','"+ lastName+ "','"+ salary+ "','"+ hiringDate + "');";
+            let fetch = "INSERT INTO employee VALUES('" +employeeId+ "','"+ employeeType+ "','"+firstName+ "','"+ middleName+ "','"+ lastName+ "','"+ salary+ "','"+ hiringDate + "');";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

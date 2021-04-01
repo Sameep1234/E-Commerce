@@ -2,8 +2,66 @@ import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
+import axios from 'axios';
 
 class AddStaff extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            msg: '',
+            employeeId: '',
+            employeeType: '',
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            salary: '',
+            hiringDate: '',
+        }
+
+        // BIND METHODS SO THAT CONTEXT IS PRESERVED
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    // STORE IN STATE IF CHANGED
+    handleInputChange(event) {
+        this.setState({
+            msg: '',
+        });
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    // STORE IN STATE IF CHANGED
+    handleSubmit() {
+        let data = {
+            employeeId: this.state.employeeId,
+            employeeName: this.state.employeeName,
+            firstName: this.state.firstName,
+            middleName: this.state.middleName,
+            lastName: this.state.lastName,
+            salary: this.state.salary,
+            hiringDate: this.state.hiringDate,
+        }
+
+        axios.post('http://localhost:5000/addEmployee', data)
+            .then((response) => {
+                if(response.data.status === 1) {
+                    this.setState({
+                        msg: 'Successfully added employee',
+                    });
+                }
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    }
+
+    // RENDER METHOD
     render() {
         return (
             <div>
@@ -17,37 +75,38 @@ class AddStaff extends Component {
                             <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Staff Information</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Label>Staff ID</Label>
-                                    <Input placeholder="Ex. SE101" type="text" />
+                                    <Label>Employee ID</Label>
+                                    <Input onChange={this.handleInputChange} name="employeeId" placeholder="Ex. SE101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Employee Type</Label>
-                                    <Input placeholder="Ex. Software Engineer" type="text" />
+                                    <Input onChange={this.handleInputChange} name="employeeType" placeholder="Ex. Software Engineer" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>First Name</Label>
-                                    <Input placeholder="Ex. Josh" type="text" />
+                                    <Input onChange={this.handleInputChange} name="firstName" placeholder="Ex. Josh" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Middle Name</Label>
-                                    <Input placeholder="Ex. Mulien" type="text" />
+                                    <Input onChange={this.handleInputChange} name="middleName" placeholder="Ex. Mulien" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Last Name</Label>
-                                    <Input placeholder="Ex. Smith" type="text" />
+                                    <Input onChange={this.handleInputChange} name="lastName" placeholder="Ex. Smith" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Salary (per annum)</Label>
-                                    <Input placeholder="Ex. 1500000" type="number" />
+                                    <Input onChange={this.handleInputChange} name="salary" placeholder="Ex. 1500000" type="number" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Hiring Date</Label>
-                                    <Input type="date" />
+                                    <Input onChange={this.handleInputChange} name="hiringDate" type="date" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
+                                <p className="d-flex justify-content-center text-success">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
-                                    <Button color="primary">Add Staff</Button>
+                                    <Button onClick={this.handleSubmit} color="primary">Add Employee</Button>
                                 </div>
                             </CardFooter>
                         </Card>

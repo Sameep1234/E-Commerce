@@ -38,9 +38,9 @@ class Sidebar extends Component {
                             <MenuItem>Category List<Link to="/category-list" /></MenuItem>
                             <MenuItem>Add Category<Link to="/add-category" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Staff" icon={<span className="fa fa-users fa-lg" />}>
-                            <MenuItem>Staff List<Link to="/staff-list" /></MenuItem>
-                            <MenuItem>Add Staff<Link to="/add-staff" /></MenuItem>
+                        <SubMenu title="Employee" icon={<span className="fa fa-user-plus fa-lg" />}>
+                            <MenuItem>Employee List<Link to="/employee-list" /></MenuItem>
+                            <MenuItem>Add Employee<Link to="/add-employee" /></MenuItem>
                         </SubMenu>
                         <SubMenu title="Sub-Categories" icon={<span className="fa fa-users fa-lg" />}>
                             <MenuItem>Sub-Category List<Link to="/sub-category-list" /></MenuItem>

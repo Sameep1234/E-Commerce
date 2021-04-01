@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+var router = express.Router();
 
 //EMPLOYEE ROUTES
 const employeeList = require('./utils/Employee/employeeList');
@@ -116,7 +116,7 @@ router.get('/deleteSeller', deleteSeller.deleteSeller);
 router.post('/updateSeller', updateSeller.updateSeller);
 
 //STOCK APIs
-router.get('/stockLList', stockList.stockList);
+router.get('/stockList', stockList.stockList);
 router.post('/updateStock', updateStock.updateStock);
 
 //ORDER APIs

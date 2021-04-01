@@ -21,4 +21,16 @@ body {
   background-color: rgb(31, 245, 156);
 }
 
+.blueText {
+  color: rgb(109, 209, 235);
+}
+
+.redText {
+  color: rgb(250, 64, 89);
+}
+
+.greenText {
+  color: rgb(31, 245, 156);
+}
+
 tr:nth-child(odd) {background-color: #f2f2f2;}

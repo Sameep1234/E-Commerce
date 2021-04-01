@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import Staff from './Staff/Staff';
+import Employee from './Employee/Employee';
 import Cart from './Cart/Cart';
 import Orders from './Orders/Orders';
 import Shipping from './Shipping/Shipping';
 import AddProduct from './Product/AddProduct';
-import AddStaff from './Staff/AddStaff';
+import AddEmployee from './Employee/AddEmployee';
 import EditProduct from './Product/EditProduct';
-import EditStaff from './Staff/EditStaff';
+import EditEmployee from './Employee/EditEmployee';
 import Product from './Product/Products';
 import Buyer from './Buyers/Buyers';
 import Seller from './Seller/Seller';
@@ -41,9 +41,9 @@ class Main extends Component {
                     <Route path='/edit-product' component={EditProduct} />
                     <Route path='/product-list' component={Product} />
 
-                    <Route path='/staff-list' component={Staff} />
-                    <Route path='/add-staff' component={AddStaff} />
-                    <Route path='/edit-staff' component={EditStaff} />
+                    <Route path='/employee-list' component={Employee} />
+                    <Route path='/add-employee' component={AddEmployee} />
+                    <Route path='/edit-employee' component={EditEmployee} />
 
                     
                     <Route path='/buyers-list' component={Buyer} />

@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.pendingTransaction = () => {
+exports.pendingTransaction = (req, res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
@@ -10,7 +10,7 @@ exports.pendingTransaction = () => {
             })
         }
         else{
-            let fetch = 'SELECT * FROM transaction WHERE transactionStatus = "pending";';
+            let fetch = 'SELECT * FROM transaction WHERE paymentStatus = "pending";';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
