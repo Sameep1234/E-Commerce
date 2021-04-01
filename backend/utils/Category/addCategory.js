@@ -1,19 +1,22 @@
 const pool = require('../../pool');
 
-exports.sellerList = (req,res) => {
-    pool.getConnection((err) => {
+exports.addCategory = (req,res) =>{
+    let categoryId = req.body.sellerId;
+    let categoryName = req.body.categoryName;
+
+    pool.getConnection((err => {
         if(err){
             res.send({
-                data: null,
+                status: 0,
                 msg: err.message,
-                status: 0
-            })
+                data: null,
+            });
         }
         else{
-            let fetch = 'SELECT sellerId, firstName, middleName, lastName, email FROM seller;';
+            let fetch = "INSERT INTO category VALUES('"+ categoryId + "','" + categoryName + "');";
             pool.query(fetch, (err,result) => {
                 if(err){
-                    res.send({
+                   res.send({
                         data: null,
                         msg: err.message,
                         status: 0
@@ -22,11 +25,11 @@ exports.sellerList = (req,res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Seller List',
+                        msg: 'Added Category',
                         data: result,
                     });
                 }
             })
         }
-    })
+    }))
 }

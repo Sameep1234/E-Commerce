@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.sellerList = (req,res) => {
+exports.categoryList = (req,res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
@@ -10,7 +10,7 @@ exports.sellerList = (req,res) => {
             })
         }
         else{
-            let fetch = 'SELECT sellerId, firstName, middleName, lastName, email FROM seller;';
+            let fetch = 'SELECT * FROM category;';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
@@ -22,7 +22,7 @@ exports.sellerList = (req,res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Seller List',
+                        msg: 'Category List',
                         data: result,
                     });
                 }
