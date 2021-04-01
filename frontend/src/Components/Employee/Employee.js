@@ -1,104 +1,72 @@
 import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
+import axios from 'axios';
 
-class Staff extends Component {
+
+// RENDER PRODUCT LIST FUNCTIONAL COMPONENT
+function EmployeeList({ result }) {
+    let renderList = result.map((bd) => {
+        <tr>
+            <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
+            <td><div className="d-flex justify-content-center">{bd}</div></td>
+            <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+        </tr>
+    })
+    return (
+        <div className="col d-flex justify-content-center align-items-center">
+            <table style={{ width: '100%' }}>
+                {renderList}
+            </table>
+        </div>
+    );
+}
+
+class Employee extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            result: [],
+            msg: '',
+        }
+    }
+
+    // FETCH RECORD AS SOON AS PAGE LOADS
+    componentDidMount() {
+        axios.get('http://localhost:5000/employeeList')
+            .then((response) => {
+                if (response.data.status === 1) {
+                    this.setState({
+                        result: response.data.data,
+                    });
+                }
+                this.setState({
+                    msg: response.data.msg,
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    msg: err,
+                });
+            });
+    }
+
+    // RENDER METHOD
     render() {
+        let display = <EmployeeList result={this.state.result} />
         return (
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ minHeight: "93vh" }}>
+                    <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    <div className="col d-flex justify-content-center align-items-center">
-                        <table style={{ width: '100%' }}>
-                            <tr>
-                                <th><div className="d-flex justify-content-center">Delete</div></th>
-                                <th><div className="d-flex justify-content-center">Staff ID</div></th>
-                                <th><div className="d-flex justify-content-center">First Name</div></th>
-                                <th><div className="d-flex justify-content-center">Middle Name</div></th>
-                                <th><div className="d-flex justify-content-center">Last Name</div></th>
-                                <th><div className="d-flex justify-content-center">Salary</div></th>
-                                <th><div className="d-flex justify-content-center">Hiring Date</div></th>
-                                <th><div className="d-flex justify-content-center">Edit</div></th>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                            <tr>
-                                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                                <td><div className="d-flex justify-content-center">SE101</div></td>
-                                <td><div className="d-flex justify-content-center">Sameep</div></td>
-                                <td><div className="d-flex justify-content-center">Nilesh</div></td>
-                                <td><div className="d-flex justify-content-center">Vani</div></td>
-                                <td><div className="d-flex justify-content-center">&#x20B9; 15000</div></td>
-                                <td><div className="d-flex justify-content-center">12-03-2021</div></td>
-                                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                            </tr>
-                        </table>
-                    </div>
+                    {display}
                 </div>
-            </div >
+            </div>
         );
     }
 }
 
-export default Staff;
+export default Employee;

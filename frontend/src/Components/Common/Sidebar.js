@@ -46,10 +46,7 @@ class Sidebar extends Component {
                             <MenuItem>Sub-Category List<Link to="/sub-category-list" /></MenuItem>
                             <MenuItem>Add Sub-Category<Link to="/add-sub-category" /></MenuItem>
                         </SubMenu>
-                        <SubMenu title="Specification" icon={<span className="fa fa-users fa-lg" />}>
-                            <MenuItem>Specification List<Link to="/specification-list" /></MenuItem>
-                            <MenuItem>Add Specification<Link to="/add-specification" /></MenuItem>
-                        </SubMenu>
+                            <MenuItem icon={<span className="fa fa-money fa-lg" />}>Specification<Link to="/add-specification" /></MenuItem>
                         <MenuItem icon={<span className="fa fa-money fa-lg" />}>Orders<Link to="/orders" /></MenuItem>
                         <MenuItem icon={<span className="fa fa-ship fa-lg" />}>Shipping<Link to="/shipping" /></MenuItem>
                         <SubMenu title="Registed User" icon={<span className="fa fa-registered fa-lg" />}>
