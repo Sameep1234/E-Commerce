@@ -21,6 +21,7 @@ import SpecificationList from './Specification/SpecificationList';
 import BrandList from './Brands/BrandList';
 import CategoryList from './Category/CategoryList';
 import SubCategoryList from './SubCategory/SubCategoryList';
+import PlaceOrder from './Orders/PlaceOrder';
 
 class Main extends Component {
     render() {
@@ -30,6 +31,7 @@ class Main extends Component {
                     <Route exact path='/dashboard' component={Dashboard} />
                     
                     <Route path='/orders' component={Orders} />
+                    <Route path='/place-order' component={PlaceOrder} />
                     
                     <Route path='/shipping' component={Shipping} />
 

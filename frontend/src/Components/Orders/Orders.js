@@ -4,13 +4,15 @@ import Sidebar from '../Common/Sidebar';
 import { Card, CardHeader, CardBody, Button, CardFooter } from 'reactstrap';
 import axios from 'axios';
 import OrderWithId from './OrderWithId';
+import PlaceOrder from './PlaceOrder';
+import { Redirect } from 'react-router';
 
 // FUNCTIONAL COMPONENT
 function OrderList({ result }) {
     const [redirectVar, changeRedirectVar] = useState(false);
     const [id, saveId] = useState(0);
 
-    function getOrder(id){
+    function getOrder(id) {
         saveId(id);
         changeRedirectVar(true);
     }
@@ -43,9 +45,9 @@ function OrderList({ result }) {
             </div>
         </div>
     });
-    if(redirectVar){
-        return(
-            <OrderWithId orderId={id}/>
+    if (redirectVar) {
+        return (
+            <OrderWithId orderId={id} />
         )
     }
     return (renderOrder);
@@ -59,7 +61,14 @@ class Orders extends Component {
         this.state = {
             msg: '',
             result: [],
+            redirectVar: false,
         }
+        this.newOrder = this.newOrder.bind(this);
+    }
+
+    // NEW ORDER REDIRECT
+    newOrder() {
+        this.setState({redirectVar: true});
     }
 
     // FETCH FROM DB AS PAGE LOADS
@@ -84,6 +93,9 @@ class Orders extends Component {
 
     // RENDER METHOD
     render() {
+        if(this.state.redirectVar) {
+            return(<Redirect to='/place-order' />)
+        }
         return (
             <div>
                 <Header />
@@ -103,6 +115,10 @@ class Orders extends Component {
                                 </select>
                                 <a role="button" className="ml-2 text-decoration-none">Go</a>
                             </div>
+
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <Button color="primary btn-sm mt-4" onClick={this.newOrder}>Place a new Order</Button>
                         </div>
                         <OrderList result={this.state.result} />
                     </div>
