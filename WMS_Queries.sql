@@ -70,8 +70,18 @@ insert into category values ('4', 'Kids');
 insert into category values ('5', 'Food');
 insert into category values ('6', 'Medical');
 
--- 
+-- EMPLOYEE TABLE
+insert into employee values ('SE101', 'Software Enginneer', 'Sameep', 'Nilesh', 'Vani', '1200000', '2015-06-17');
+insert into employee values ('SE102', 'Software Enginneer', 'Aneri', 'Dipakbhai', 'Dalwadi', '1200000', '2021-04-01');
+insert into employee values ('AD101', 'Admin', 'Kavya', 'Rashmi', 'Patel', '1500000', '2020-04-01');
+insert into employee values ('MG101', 'Manager', 'Parth', 'Mitesh', 'Shah', '2000000', '2019-04-01');
+insert into employee values ('AC101', 'Accountant', 'Malav', 'Pragneshbhai', 'Doshi', '110000', '2018-04-01');
 
-
+-- SELLER TABLE
+insert into seller values ('S101', 'Nandik', 'Mohan', 'Parikh', 'S-26', 'Galaxy Tower', 'Hetarth Party Plot', 'Science City', 'Ahmedabad', 'Gujarat', 'India', '380054', '987456319', 'nandik1995@gmail.com', '1200003');
+insert into seller values ('S102', 'Paresh', 'Popatlal', 'Patel', 'P-12', 'Sarjan Tower', 'Hetarth Party Plot', 'Gurukul', 'Ahmedabad', 'Gujarat', 'India', '450358', '987523635', 'paresh.patel@gmail.com', '1200025');
+insert into seller values ('S103', 'Sameep', 'Nilesh', 'Vani', 'S-10', 'Galaxy Tower', 'Samkit Bunglows', 'Bodakdev', 'Ahmedabad', 'Gujarat', 'India', '380054', '986523147', 'sameep.v@ahduni.edu.in', '1');
+insert into seller values ('S110', 'Aneri', 'Dipakbhai', 'Dalwadi', 'S-206', 'Gujaan Tower', 'Grand Bhagwati', 'Mall Road', 'Mumbai', 'Maharashtra', 'India', '658902', '741258963', 'aneri.d@ahduni.edu.in', '256398');
+insert into seller values ('S120', 'Pratik', 'Popatlal', 'Pandya', 'P-121', 'Prev Tower', 'Global Hotel', 'Bandra', 'Mumbai', 'Maharashtra', 'India', '658822', '741289622', 'pratik@gmail.com', '256247');
 
 
