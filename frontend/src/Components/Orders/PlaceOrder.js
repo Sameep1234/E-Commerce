@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
+import axios from 'axios';
 
 class PlaceOrder extends Component {
     constructor(props) {
@@ -9,8 +10,56 @@ class PlaceOrder extends Component {
 
         this.state = {
             msg: '',
+            orderId: '',
+            buyerId: '',
+            productId: '',
+            quantity: '',
+            appartmentName: '',
+            landamrk: '',
+            area: '',
+            city: '',
+            state: '',
+            country: '',
+            sellerId: '',
         }
+
+        // BIND METHODS SO THAT CONTEXT IS PRESERVED
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
+
+    // STORE IN STATE WHEN INPUT CHANGES
+    handleInputChange(event) {
+        this.setState({
+            msg: '',
+        });
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    // HANDLE BUTTON CLICK
+    handleSubmit() {
+        let data = {
+            categoryId: this.state.categoryId,
+            categoryName: this.state.categoryName,
+        }
+        axios.post('http://localhost:5000/addCategory', data)
+            .then((response) => {
+                this.setState({
+                    msg: response.data.msg,
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    msg: err,
+                });
+            });
+    }
+
+    // RENDER METHOD
     render() {
         return (
             <div>
@@ -69,7 +118,7 @@ class PlaceOrder extends Component {
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
-                                <p className="text-success">{this.state.msg}</p>
+                                <p className="text-success d-flex justify-content-center">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
                                     <Button color="primary" onClick={this.handleSubmit}>Place Order</Button>
                                 </div>

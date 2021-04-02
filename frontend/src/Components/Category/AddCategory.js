@@ -14,6 +14,7 @@ class AddCategory extends Component {
             categoryName: '',
         }
 
+        // BIND METHODS SO THAT CONTEXT IS PRESERVED
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -64,7 +65,7 @@ class AddCategory extends Component {
                             <CardBody>
                                 <FormGroup>
                                     <Label>Category ID</Label>
-                                    <Input onChange={this.handleInputChange} name="categoryId" placeholder="Ex. E101" type="text" />
+                                    <Input onChange={this.handleInputChange} name="categoryId" placeholder="Ex. 1" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Category Name</Label>

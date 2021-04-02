@@ -2,8 +2,60 @@ import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
+import axios from 'axios';
 
 class AddSpecification extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            msg: '',
+            specificationId: '',
+            productId: '',
+            subCategoryId: '',
+            brandId: '',
+            model: '',
+            productDescription: '',
+            categoryId: '',
+        }
+
+        // BIND METHODS SO THAT CONTEXT IS PRESERVED
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    // STORE IN STATE WHEN INPUT CHANGES
+    handleInputChange(event) {
+        this.setState({
+            msg: '',
+        });
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    // HANDLE BUTTON CLICK
+    handleSubmit() {
+        let data = {
+            categoryId: this.state.categoryId,
+            categoryName: this.state.categoryName,
+        }
+        axios.post('http://localhost:5000/addCategory', data)
+            .then((response) => {
+                this.setState({
+                    msg: response.data.msg,
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    msg: err,
+                });
+            });
+    }
+
+    // RENDER METHOD
     render() {
         return (
             <div>
@@ -18,36 +70,37 @@ class AddSpecification extends Component {
                             <CardBody>
                                 <FormGroup>
                                     <Label>Specification ID</Label>
-                                    <Input placeholder="Ex. PD101" type="text" />
+                                    <Input onChange={this.handleInputChange} name="specificationId" placeholder="Ex. SPEC101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Product ID</Label>
-                                    <Input placeholder="Ex. OnePlus 8" type="text" />
+                                    <Input onChange={this.handleInputChange} name="productId" placeholder="Ex. PD101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Category ID</Label>
-                                    <Input placeholder="Ex. Electronics" type="text" />
+                                    <Input onChange={this.handleInputChange} name="categoryId" placeholder="Ex. 1" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Sub_Category ID</Label>
-                                    <Input placeholder="Ex. Mobile" type="text" />
+                                    <Input onChange={this.handleInputChange} name="subCategoryId" placeholder="Ex. SC101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Brand ID</Label>
-                                    <Input placeholder="Ex. OnePlus" type="text" />
+                                    <Input onChange={this.handleInputChange} name="brandId" placeholder="Ex. 1" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Model</Label>
-                                    <Input placeholder="Ex. SPEC102" type="number" />
+                                    <Input onChange={this.handleInputChange} name="model" placeholder="Ex. OnePlus 8" type="number" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Product Description</Label>
-                                    <Input type="text" placeholder="Ex. Mirror Gray"/>
+                                    <Input onChange={this.handleInputChange} name="productDescription" type="text" placeholder="Ex. Mirror Gray"/>
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
+                                <p className="text-success d-flex justify-content-center">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
-                                    <Button color="primary">Add Staff</Button>
+                                    <Button onClick={this.handleSubmit} color="primary">Add Specification</Button>
                                 </div>
                             </CardFooter>
                         </Card>
