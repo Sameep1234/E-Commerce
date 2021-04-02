@@ -1,11 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Header from '../Common/Header';
 import Sidebar from '../Common/Sidebar';
 import { Card, CardHeader, CardBody, Button, CardFooter } from 'reactstrap';
 import axios from 'axios';
+import OrderWithId from './OrderWithId';
 
 // FUNCTIONAL COMPONENT
 function OrderList({ result }) {
+    const [redirectVar, changeRedirectVar] = useState(false);
+    const [id, saveId] = useState(0);
+
+    function getOrder(id){
+        saveId(id);
+        changeRedirectVar(true);
+    }
+
     let renderOrder = result.map((ol) => {
         <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
             <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
@@ -28,12 +37,17 @@ function OrderList({ result }) {
                         SOME DESCRIPTION
                 </CardBody>
                     <CardFooter className='row'>
-                        <Button color="primary" className="mx-auto stretched-link">View Details</Button>
+                        <Button color="primary" className="mx-auto stretched-link" onClick={getOrder(3)}>View Details</Button>
                     </CardFooter>
                 </Card>
             </div>
         </div>
     });
+    if(redirectVar){
+        return(
+            <OrderWithId orderId={id}/>
+        )
+    }
     return (renderOrder);
 }
 
@@ -50,7 +64,7 @@ class Orders extends Component {
 
     // FETCH FROM DB AS PAGE LOADS
     componentDidMount() {
-        axios.get('http://localhost:5000/orderList')
+        axios.get('http://localhost:5000/orderList?id')
             .then((response) => {
                 if (response.data.status === 1) {
                     this.setState({
