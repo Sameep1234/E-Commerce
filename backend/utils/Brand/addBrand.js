@@ -1,4 +1,5 @@
 const pool = require('../../pool');
+const fs = require('fs');
 
 exports.addBrand = (req,res) =>{
     let brandId = req.body.brandId;
@@ -14,6 +15,10 @@ exports.addBrand = (req,res) =>{
         }
         else{
             let fetch = "INSERT INTO brand VALUES('"+ brandId + "','" + brandName+"');";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

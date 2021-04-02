@@ -1,7 +1,8 @@
 const pool = require('../../pool');
+const fs = require('fs');
 
 exports.addCategory = (req,res) =>{
-    let categoryId = req.body.sellerId;
+    let categoryId = req.body.categoryId;
     let categoryName = req.body.categoryName;
 
     pool.getConnection((err => {
@@ -14,6 +15,10 @@ exports.addCategory = (req,res) =>{
         }
         else{
             let fetch = "INSERT INTO category VALUES('"+ categoryId + "','" + categoryName + "');";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
