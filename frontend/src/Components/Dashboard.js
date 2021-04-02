@@ -12,7 +12,7 @@ function Details({ result, color, write }) {
 
         return (
             <div className="row mt-5 d-flex justify-content-center">
-                <h1 className={color}>{write}</h1>
+
                 <table style={{ width: "100%" }}>
                     <tr>
                         <td><div className="d-flex justify-content-center">{rl}</div></td>
@@ -77,7 +77,7 @@ class Dashboard extends Component {
             display: 'Successfull Transaction',
             color: 'greenText',
         });
-        axios.get('http://localhost:5000/successfullTransaction')
+        axios.get('http://localhost:5000/successfulTransaction')
             .then((response) => {
                 if (response.data.status === 1) {
                     this.setState({
@@ -156,6 +156,9 @@ class Dashboard extends Component {
                                     <span className="mt-2" style={{ paddingLeft: '30%' }} role="button" onClick={this.handleSuccessfullTransaction}>+</span>
                                 </div>
                             </div>
+                        </div>
+                        <div className="row mt-5 d-flex justify-content-center">
+                            <h1 className={this.state.color}>{this.state.display}</h1>
                         </div>
                         {display}
                     </div>

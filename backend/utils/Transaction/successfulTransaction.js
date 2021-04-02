@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.successfulTransaction = () => {
+exports.successfulTransaction = (req, res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
@@ -10,7 +10,7 @@ exports.successfulTransaction = () => {
             })
         }
         else{
-            let fetch = 'SELECT * FROM transaction WHERE transactionStatus = "successful";';
+            let fetch = 'SELECT * FROM transaction WHERE paymentStatus = "successful";';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
