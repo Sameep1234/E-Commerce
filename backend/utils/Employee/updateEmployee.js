@@ -20,6 +20,10 @@ exports.updateEmployee = (req,res) => {
         }
         else{
             let fetch = "UPDATE employee SET employeeType = '"+ employeeType+ "',firstName='"+firstName+ "',middleName='"+ middleName+ "',lastName='"+ lastName+ "',salary='"+ salary+ "',hiringDate='"+ hiringDate +"';";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

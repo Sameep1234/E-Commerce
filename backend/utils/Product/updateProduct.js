@@ -23,6 +23,10 @@ exports.updateProduct = (req,res) => {
         }
         else{
             let fetch = "UPDATE product SET productName = '"+  productName + "', categoryId = '" + categoryId + "',subCategoryId = '" + subCategoryId + "', brandId='" + brandId + "',specificationId='" + specificationId + "',color='" + color + "',price='" + price+ + "',quantity='" + quantity + "',size='" + size +"' WHERE productId='" + productId + "';";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

@@ -14,6 +14,10 @@ exports.addSubCategory = (req,res) =>{
         }
         else{
             let fetch = "INSERT INTO subCategory VALUES('"+ subCategoryId + "','" + subCategoryName + "');";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

@@ -7,20 +7,22 @@ import axios from 'axios';
 // RENDER PRODUCT LIST FUNCTIONAL COMPONENT
 function BrandDetails({ result }) {
     let renderList = result.map((bd) => {
-
         return (
-            <div className="col d-flex justify-content-center align-items-center">
-                <table style={{ width: '100%' }}>
-                    <tr>
-                        <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                        <td><div className="d-flex justify-content-center">{bd}</div></td>
-                        <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                    </tr>
-                </table>
-            </div>
+            <tr>
+                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
+                <td><div className="d-flex justify-content-center">{bd.brandId}</div></td>
+                <td><div className="d-flex justify-content-center">{bd.brandName}</div></td>
+                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+            </tr>
         );
-    })
-    return (renderList);
+    });
+    return (
+        <div className="d-flex justify-content-center align-items-center">
+            <table style={{ width: '100%' }}>
+                {renderList}
+            </table>
+        </div>
+    );
 }
 
 class BrandList extends Component {
@@ -63,7 +65,9 @@ class BrandList extends Component {
                     <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    {display}
+                    <div className="row">
+                        {display}
+                    </div>
                 </div>
             </div>
         );
