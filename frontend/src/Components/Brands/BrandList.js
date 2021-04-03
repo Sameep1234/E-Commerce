@@ -9,20 +9,15 @@ function BrandDetails({ result }) {
     let renderList = result.map((bd) => {
         return (
             <tr>
-                <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
+                <div className="d-flex justify-content-center"><span className="fa fa-trash" role="button" /></div>
                 <td><div className="d-flex justify-content-center">{bd.brandId}</div></td>
                 <td><div className="d-flex justify-content-center">{bd.brandName}</div></td>
                 <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
             </tr>
         );
     });
-    return (
-        <div className="d-flex justify-content-center align-items-center">
-            <table style={{ width: '100%' }}>
-                {renderList}
-            </table>
-        </div>
-    );
+
+    return (renderList);
 }
 
 class BrandList extends Component {
@@ -57,16 +52,25 @@ class BrandList extends Component {
 
     // RENDER METHOD
     render() {
-        let display = <BrandDetails result={this.state.result} />
         return (
             <div>
                 <Header />
                 <div className="row">
-                    <div className="col-4.5" style={{ minHeight: "93vh" }}>
+                    <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    <div className="row">
-                        {display}
+                    <div style={{width: "82vw"}}>
+                        <div className="m-5">
+                            <table style={{ width: '100%' }}>
+                                <tr>
+                                    <th><div className="d-flex justify-content-center">Delete</div></th>
+                                    <th><div className="d-flex justify-content-center">Brand ID</div></th>
+                                    <th><div className="d-flex justify-content-center">Brand Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Edit</div></th>
+                                </tr>
+                                <BrandDetails result={this.state.result} />
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
