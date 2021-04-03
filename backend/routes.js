@@ -129,6 +129,6 @@ router.post('/addBrand', addBrand.addBrand);
 
 //CATEGORY APIs
 router.post('/addCategory', addCategory.addCategory);
-router.post('/categoryList', categoryList.categoryList);
+router.get('/categoryList', categoryList.categoryList);
 
 module.exports = router;
