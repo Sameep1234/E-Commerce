@@ -20,7 +20,7 @@ exports.productList = (req, res) => {
                 } else {
                     res.send({
                         status: 1,
-                        msg: 'Returned Products',
+                        msg: 'Fetched Products',
                         data: result,
                     });
                 }
