@@ -10,7 +10,7 @@ exports.employeeList = (req,res) => {
             })
         }
         else{
-            let fetch = 'SELECT employeeId, employeeType, firstName, middleName, lastName  FROM employee GROUP BY(employeeType)';
+            let fetch = 'SELECT employeeId, employeeType, firstName, middleName, lastName, salary, DATE_FORMAT(hiringDate, "%d %M %Y") as hiringDate FROM employee GROUP BY(employeeType)';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
