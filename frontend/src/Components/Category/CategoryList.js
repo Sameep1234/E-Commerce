@@ -5,19 +5,15 @@ import axios from 'axios';
 
 // RENDER PRODUCT LIST FUNCTIONAL COMPONENT
 function CategoryDetails({ result }) {
-    let renderList = result.map((bd) => {
+    let renderList = result.map((cl) => {
         return (
-            <div className="col d-flex justify-content-center align-items-center">
-                <table style={{ width: '100%' }}>
-                    <tr>
-                        <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                        <td><div className="d-flex justify-content-center">{bd}</div></td>
-                        <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                    </tr>
-                </table>
-            </div>
+            <tr>
+                <div className="d-flex justify-content-center"><span role="button" className="fa fa-trash" /></div>
+                <td><div className="d-flex justify-content-center">{cl.categoryId}</div></td>
+                <td><div className="d-flex justify-content-center">{cl.categoryName}</div></td>
+                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+            </tr>
         );
-
     });
 
     return (renderList);
@@ -56,7 +52,6 @@ class CategoryList extends Component {
 
     // RENDER METHOD
     render() {
-        let display = <CategoryDetails result={this.state.result} />
         return (
             <div>
                 <Header />
@@ -64,7 +59,19 @@ class CategoryList extends Component {
                     <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    {display}
+                    <div style={{ width: "82vw" }}>
+                        <div className="m-5">
+                            <table style={{ width: '100%' }}>
+                                <tr>
+                                    <th><div className="d-flex justify-content-center">Delete</div></th>
+                                    <th><div className="d-flex justify-content-center">Brand ID</div></th>
+                                    <th><div className="d-flex justify-content-center">Brand Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Edit</div></th>
+                                </tr>
+                                <CategoryDetails result={this.state.result} />
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

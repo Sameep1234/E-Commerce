@@ -9,15 +9,16 @@ function ProductList({ result }) {
     let renderList = result.map((pl) => {
 
         return (
-            <div className="col d-flex justify-content-center align-items-center">
-                <table style={{ width: '100%' }}>
-                    <tr>
-                        <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                        <td><div className="d-flex justify-content-center">{pl}</div></td>
-                        <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                    </tr>
-                </table>
-            </div>
+            <tr>
+                <div className="d-flex justify-content-center"><span className="fa fa-trash" role="button" /></div>
+                <td><div className="d-flex justify-content-center">{pl.productName}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.categoryId}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.subCategoryId}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.brandId}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.price}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.quantity}</div></td>
+                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+            </tr>
         );
     });
 
@@ -65,7 +66,23 @@ class Products extends Component {
                     <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    {display}
+                    <div style={{width: "82vw"}}>
+                        <div className="m-5">
+                            <table style={{ width: '100%' }}>
+                                <tr>
+                                    <th><div className="d-flex justify-content-center">Delete</div></th>
+                                    <th><div className="d-flex justify-content-center">Product Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Category Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Sub-Category Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Brand Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Price</div></th>
+                                    <th><div className="d-flex justify-content-center">Quantity</div></th>
+                                    <th><div className="d-flex justify-content-center">Edit</div></th>
+                                </tr>
+                                <ProductList result={this.state.result} />
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

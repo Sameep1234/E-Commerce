@@ -83,5 +83,3 @@ insert into seller values ('S102', 'Paresh', 'Popatlal', 'Patel', 'P-12', 'Sarja
 insert into seller values ('S103', 'Sameep', 'Nilesh', 'Vani', 'S-10', 'Galaxy Tower', 'Samkit Bunglows', 'Bodakdev', 'Ahmedabad', 'Gujarat', 'India', '380054', '986523147', 'sameep.v@ahduni.edu.in', '1');
 insert into seller values ('S110', 'Aneri', 'Dipakbhai', 'Dalwadi', 'S-206', 'Gujaan Tower', 'Grand Bhagwati', 'Mall Road', 'Mumbai', 'Maharashtra', 'India', '658902', '741258963', 'aneri.d@ahduni.edu.in', '256398');
 insert into seller values ('S120', 'Pratik', 'Popatlal', 'Pandya', 'P-121', 'Prev Tower', 'Global Hotel', 'Bandra', 'Mumbai', 'Maharashtra', 'India', '658822', '741289622', 'pratik@gmail.com', '256247');
-
-

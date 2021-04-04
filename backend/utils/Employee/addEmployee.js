@@ -19,6 +19,10 @@ exports.addEmployee = (req,res) =>{
         }
         else{
             let fetch = "INSERT INTO employee VALUES('" +employeeId+ "','"+ employeeType+ "','"+firstName+ "','"+ middleName+ "','"+ lastName+ "','"+ salary+ "','"+ hiringDate + "');";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

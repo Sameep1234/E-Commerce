@@ -22,6 +22,10 @@ exports.addProduct = (req,res) =>{
         }
         else{
             let fetch = "INSERT INTO seller VAUES('" + productId + "','" + productName + "','" + categoryId + "','" + subCategoryId + "', " + brandId + "','" + specificationId + "','" + color + "','" + price+ + "','" + quantity + "','" + size +"');";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

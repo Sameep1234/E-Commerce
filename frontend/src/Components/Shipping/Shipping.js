@@ -9,7 +9,7 @@ class Shipping extends Component {
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ minHeight: "93vh" }} className="col-2.5">
+                    <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
                     <div className="col row d-flex justify-content-center" style={{maxHeight: '50vh'}}>

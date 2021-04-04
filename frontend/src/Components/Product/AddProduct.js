@@ -42,7 +42,7 @@ class AddProduct extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Color</Label>
-                                    <Input type="text" placeholder="Ex. Mirror Gray"/>
+                                    <Input type="text" placeholder="Ex. Mirror Gray" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Price (per stock)</Label>

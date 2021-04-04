@@ -3,22 +3,16 @@ import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import axios from 'axios';
 
-// AXIOSSSSSSSSSSS URL
-
 // RENDER PRODUCT LIST FUNCTIONAL COMPONENT
 function SubCategoryDetails({ result }) {
-    let renderList = result.map((bd) => {
+    let renderList = result.map((sl) => {
 
         return (
-            <div className="col d-flex justify-content-center align-items-center">
-                <table style={{ width: '100%' }}>
-                    <tr>
-                        <div className="d-flex justify-content-center"><input className="mt-1" type="checkbox" /></div>
-                        <td><div className="d-flex justify-content-center">{bd}</div></td>
-                        <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-                    </tr>
-                </table>
-            </div>
+            <tr>
+                <div className="d-flex justify-content-center"><span className="fa fa-trash" role="button" /></div>
+                <td><div className="d-flex justify-content-center">{sl}</div></td>
+                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+            </tr>
         );
     });
     return (renderList);
@@ -37,7 +31,7 @@ class SubCategoryList extends Component {
 
     // FETCH RECORD AS SOON AS PAGE LOADS
     componentDidMount() {
-        axios.get('http://localhost:5000/brandList')
+        axios.get('http://localhost:5000/subCategoryList')
             .then((response) => {
                 if (response.data.status === 1) {
                     this.setState({
@@ -57,7 +51,6 @@ class SubCategoryList extends Component {
 
     // RENDER METHOD
     render() {
-        let display = <SubCategoryDetails result={this.state.result} />
         return (
             <div>
                 <Header />
@@ -65,7 +58,19 @@ class SubCategoryList extends Component {
                     <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    {display}
+                    <div style={{ width: "82vw" }}>
+                        <div className="m-5">
+                            <table style={{ width: '100%' }}>
+                                <tr>
+                                    <th><div className="d-flex justify-content-center">Delete</div></th>
+                                    <th><div className="d-flex justify-content-center">Sub-Category ID</div></th>
+                                    <th><div className="d-flex justify-content-center">Sub-Category Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Edit</div></th>
+                                </tr>
+                                <SubCategoryDetails result={this.state.result} />
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -4,48 +4,51 @@ import Sidebar from '../Common/Sidebar';
 import { Card, CardHeader, CardBody, Button, CardFooter } from 'reactstrap';
 import axios from 'axios';
 import OrderWithId from './OrderWithId';
+import { Redirect } from 'react-router';
 
 // FUNCTIONAL COMPONENT
 function OrderList({ result }) {
     const [redirectVar, changeRedirectVar] = useState(false);
     const [id, saveId] = useState(0);
 
-    function getOrder(id){
+    function getOrder(id) {
         saveId(id);
         changeRedirectVar(true);
     }
 
     let renderOrder = result.map((ol) => {
-        <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+        return (
             <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
-                <Card className="col-md-8">
-                    <CardHeader className="row">
-                        <div className="col">
-                            <p className="row">ORDER PLACED</p>
-                            <p className="row"> 18 October 2019</p>
-                        </div>
-                        <div className="col">
-                            <p className="row">TOTAL</p>
-                            <p className="row"> Rs 1,199.00</p>
-                        </div>
-                        <div className="col">
-                            <p className="row">SHIP TO</p>
-                            <p className="row">Sameep Vani</p>
-                        </div>
-                    </CardHeader>
-                    <CardBody>
-                        SOME DESCRIPTION
+                <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
+                    <Card className="col-md-8">
+                        <CardHeader className="row">
+                            <div className="col">
+                                <p className="row">ORDER PLACED</p>
+                                <p className="row"> 18 October 2019</p>
+                            </div>
+                            <div className="col">
+                                <p className="row">TOTAL</p>
+                                <p className="row"> Rs 1,199.00</p>
+                            </div>
+                            <div className="col">
+                                <p className="row">SHIP TO</p>
+                                <p className="row">Sameep Vani</p>
+                            </div>
+                        </CardHeader>
+                        <CardBody>
+                            SOME DESCRIPTION
                 </CardBody>
-                    <CardFooter className='row'>
-                        <Button color="primary" className="mx-auto stretched-link" onClick={getOrder(3)}>View Details</Button>
-                    </CardFooter>
-                </Card>
+                        <CardFooter className='row'>
+                            <Button color="primary" className="mx-auto stretched-link" onClick={getOrder(3)}>View Details</Button>
+                        </CardFooter>
+                    </Card>
+                </div>
             </div>
-        </div>
+        );
     });
-    if(redirectVar){
-        return(
-            <OrderWithId orderId={id}/>
+    if (redirectVar) {
+        return (
+            <OrderWithId orderId={id} />
         )
     }
     return (renderOrder);
@@ -59,7 +62,14 @@ class Orders extends Component {
         this.state = {
             msg: '',
             result: [],
+            redirectVar: false,
         }
+        this.newOrder = this.newOrder.bind(this);
+    }
+
+    // NEW ORDER REDIRECT
+    newOrder() {
+        this.setState({ redirectVar: true });
     }
 
     // FETCH FROM DB AS PAGE LOADS
@@ -84,6 +94,9 @@ class Orders extends Component {
 
     // RENDER METHOD
     render() {
+        if (this.state.redirectVar) {
+            return (<Redirect to='/place-order' />)
+        }
         return (
             <div>
                 <Header />
@@ -101,8 +114,12 @@ class Orders extends Component {
                                     <option value="2020">2020</option>
                                     <option value="2019">2019</option>
                                 </select>
-                                <a role="button" className="ml-2 text-decoration-none">Go</a>
+                                <span role="button" className="ml-2 text-decoration-none">Go</span>
                             </div>
+
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <Button color="primary btn-sm mt-4" onClick={this.newOrder}>Place a new Order</Button>
                         </div>
                         <OrderList result={this.state.result} />
                     </div>

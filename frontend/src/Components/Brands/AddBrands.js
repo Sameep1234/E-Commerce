@@ -74,7 +74,7 @@ class AddBrands extends Component {
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
-                                <p className="text-success">{this.state.msg}</p>
+                                <p className="text-success d-flex justify-content-center">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
                                     <Button onClick={this.handleSubmit} color="primary">Add Brand</Button>
                                 </div>

@@ -29,6 +29,10 @@ exports.updateSeller = (req,res) => {
         }
         else{
             let fetch = "UPDATE seller SET firstName = '"+  firstName + "', middleName = '" + middleName + "',lastName = '" + lastName + "', appartmentNumber='" + appartmentNumber + "',address1='" + address1 + "',landmark='" + landmark + "',area='" + area+ + "',city='" + city + "',state='" + state + "',country='"+ country + "',contactNumber='" + contactNumber + "',email='"+ email+  "',GST='" + GST+" WHERE sellerId = '" + {sellerId} +"';";
+            let temp = fetch + '\n';
+            fs.appendFile('Query.txt', temp, err => {
+                if(err) console.log(err);
+            });
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({

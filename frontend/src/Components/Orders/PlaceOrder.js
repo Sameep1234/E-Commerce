@@ -4,19 +4,23 @@ import Header from '../Common/Header';
 import { FormGroup, Label, Input, Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
 import axios from 'axios';
 
-class AddSpecification extends Component {
+class PlaceOrder extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             msg: '',
-            specificationId: '',
+            orderId: '',
+            buyerId: '',
             productId: '',
-            subCategoryId: '',
-            brandId: '',
-            model: '',
-            productDescription: '',
-            categoryId: '',
+            quantity: '',
+            appartmentName: '',
+            landamrk: '',
+            area: '',
+            city: '',
+            state: '',
+            country: '',
+            sellerId: '',
         }
 
         // BIND METHODS SO THAT CONTEXT IS PRESERVED
@@ -61,54 +65,70 @@ class AddSpecification extends Component {
             <div>
                 <Header />
                 <div className="row">
-                    <div style={{ minHeight: "93vh" }}>
+                    <div className="col-4.5" style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
                     <div className="col d-flex justify-content-center">
                         <Card className='mt-2' style={{ minWidth: '50%', minHeight: "25vh" }}>
-                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Specification Information</CardHeader>
+                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Seller Information</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Label>Specification ID</Label>
-                                    <Input onChange={this.handleInputChange} name="specificationId" placeholder="Ex. SPEC101" type="text" />
+                                    <Label>Order ID</Label>
+                                    <Input onChange={this.handleInputChange} name="orderId" placeholder="Ex. O101" type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Buyer ID</Label>
+                                    <Input onChange={this.handleInputChange} name="buyerId" placeholder="Ex. B101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Product ID</Label>
                                     <Input onChange={this.handleInputChange} name="productId" placeholder="Ex. PD101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Category ID</Label>
-                                    <Input onChange={this.handleInputChange} name="categoryId" placeholder="Ex. 1" type="text" />
+                                    <Label>Quantity</Label>
+                                    <Input onChange={this.handleInputChange} name="quantity" placeholder="Ex. 100" type="number" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Sub_Category ID</Label>
-                                    <Input onChange={this.handleInputChange} name="subCategoryId" placeholder="Ex. SC101" type="text" />
+                                    <Label>Appartment Name</Label>
+                                    <Input onChange={this.handleInputChange} name="address1" placeholder="Ex. Galaxy Tower" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Brand ID</Label>
-                                    <Input onChange={this.handleInputChange} name="brandId" placeholder="Ex. 1" type="text" />
+                                    <Label>Landmark</Label>
+                                    <Input onChange={this.handleInputChange} name="landmark" placeholder="Ex. Hetarth Party Plot" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Model</Label>
-                                    <Input onChange={this.handleInputChange} name="model" placeholder="Ex. OnePlus 8" type="number" />
+                                    <Label>Area</Label>
+                                    <Input onChange={this.handleInputChange} name="area" placeholder="Ex. Science City" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Product Description</Label>
-                                    <Input onChange={this.handleInputChange} name="productDescription" type="text" placeholder="Ex. Mirror Gray"/>
+                                    <Label>City</Label>
+                                    <Input onChange={this.handleInputChange} name="city" placeholder="Ex. Ahmedabad" type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>State</Label>
+                                    <Input onChange={this.handleInputChange} name="state" placeholder="Ex. Gujarat" type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Country</Label>
+                                    <Input onChange={this.handleInputChange} name="country" placeholder="Ex. India" type="text" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Seller ID</Label>
+                                    <Input onChange={this.handleInputChange} name="sellerId" placeholder="Ex. S101" type="text" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
                                 <p className="text-success d-flex justify-content-center">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
-                                    <Button onClick={this.handleSubmit} color="primary">Add Specification</Button>
+                                    <Button color="primary" onClick={this.handleSubmit}>Place Order</Button>
                                 </div>
                             </CardFooter>
                         </Card>
                     </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }
 
-export default AddSpecification;
+export default PlaceOrder;
