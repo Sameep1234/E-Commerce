@@ -59,14 +59,21 @@ const updateStock = require('./utils/Stock/updateStock');
 //ORDER ROUTES
 const orderList = require('./utils/Order/orderList');
 const getOrder = require('./utils/Order/getOrder');
+const addOrder = require('./utils/Order/addOrder');
 
 //BRAND ROUTES
 const brandList = require('./utils/Brand/brandList');
 const addBrand = require('./utils/Brand/addBrand');
 
+//SPECIFICATION ROUTES
+const addSpecification = require('./utils/Specification/addSpecification');
+
 router.get('/', (req, res) => {res.send('Server Running')});
 
 //__________________________________________________________________________
+
+//SPECIFICATION APIs
+router.post('/addSpecification', addSpecification.addSpecification);
 
 //EMPLOYEE APIs
 router.get('/employeeList', employeeList.employeeList);
@@ -122,6 +129,7 @@ router.post('/updateStock', updateStock.updateStock);
 //ORDER APIs
 router.get('/orderList', orderList.orderList);
 router.get('/getOrder', getOrder.getOrder);
+router.post('/addOrder', addOrder.addOrder);
 
 //BRAND APIs
 router.get('/brandList', brandList.brandList);

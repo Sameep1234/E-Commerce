@@ -1,19 +1,20 @@
 const pool = require('../../pool');
 
-exports.addBuyer = (req,res) =>{
-    let buyerId = req.body.buyerId;
-    let firstName = req.body.firstName;
-    let middleName = req.body.middleName;
-    let lastName = req.body.lastname;
-    let appartmentNumber = req.body.appartmentNumber;
+exports.addOrder = (req,res) =>{
+
+    let orderId = req.body.orderId;
+    let dateTime =  req.body.dateTime;
+    let buyerId= req.body.buyerId;
+    let productId = req.body.productId;
+    let quantityOrdered = req.body.quantityOrdered;
+    let totalPrice =  req.body.totalPrice;
+    let sellerId = req.body.sellerId;
     let address1 = req.body.address1;
     let landmark = req.body.landmark;
     let area = req.body.area;
     let city = req.body.city;
     let state = req.body.state;
     let country = req.body.country;
-    let contactNumber = req.body.contactNumber;
-    let email = req.body.email; 
 
     pool.getConnection((err => {
         if(err){
@@ -24,7 +25,7 @@ exports.addBuyer = (req,res) =>{
             });
         }
         else{
-            let fetch = "INSERT INTO buyer VALUES('"+ buyerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + appartmentNumber + "','" + address1 + "','" + landmark + "','" + area+ + "','" + city + "','" + state + "','"+ country + "','" + contactNumber + "','"+ email+"');";
+            let fetch = "INSERT INTO orders VALUES('"+ orderId + "','" + dateTime + "','" + buyerId + "','" + productId + "','" + quantityOrdered + "','" + totalPrice + "','" + address1+  "','" + landmark+  "','"+area +  "','"+city+  "','"+ state+  "','"+country  + "','" + sellerId+"');";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
@@ -36,7 +37,7 @@ exports.addBuyer = (req,res) =>{
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Buyer Added',
+                        msg: 'Order added',
                         data: result,
                     });
                 }

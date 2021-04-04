@@ -1,8 +1,13 @@
 const pool = require('../../pool');
 
-exports.addCategory = (req,res) =>{
+exports.addSpecification = (req,res) =>{
+    let specificationId = req.body.specificationId;
+    let productId = req.body.productId;
     let categoryId = req.body.categoryId;
-    let categoryName = req.body.categoryName;
+    let subCategoryId = req.body.subCategoryId;
+    let brandId = req.body.brandId;
+    let model = req.body.model;
+    let description = req.body.description;
 
     pool.getConnection((err => {
         if(err){
@@ -13,7 +18,7 @@ exports.addCategory = (req,res) =>{
             });
         }
         else{
-            let fetch = "INSERT INTO category VALUES('"+ categoryId + "','" + categoryName + "');";
+            let fetch = "INSERT INTO specification VALUES('"+ specificationId + "','" + productId + "','" + catrgoryId+ "','" + subCategoryId+ "','" + brandId+ "','" + model+ "','" + description + "');";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
@@ -25,7 +30,7 @@ exports.addCategory = (req,res) =>{
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Added Category',
+                        msg: 'Added Specification',
                         data: result,
                     });
                 }
