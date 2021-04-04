@@ -15,4 +15,7 @@ INSERT INTO brand VALUES('G101','Sony');
 INSERT INTO brand VALUES('FD101','Aashirvaad');
 INSERT INTO brand VALUES('FD102','Patanjali');
 INSERT INTO brand VALUES('FD103','Dabur');
-INSERT INTO category VALUES('23','cygv');
+INSERT INTO subCategory VALUES('LS101','Laptop','1');
+INSERT INTO subCategory VALUES('MS101','Mobile','1');
+INSERT INTO subCategory VALUES('CKS101','Glasses','3');
+INSERT INTO specification VALUES('SPEC101','1','LS101','L101','Inspiron 5592','16gb Ram 512gb SSD');

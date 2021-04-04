@@ -68,6 +68,10 @@ const addBrand = require('./utils/Brand/addBrand');
 //SPECIFICATION ROUTES
 const addSpecification = require('./utils/Specification/addSpecification');
 
+//SUBCATEGORY ROUTES
+const addSubCategory = require('./utils/SubCategory/addSubCategory');
+const subCategoryList = require('./utils/SubCategory/subCategoryList');
+
 router.get('/', (req, res) => {res.send('Server Running')});
 
 //__________________________________________________________________________
@@ -138,5 +142,9 @@ router.post('/addBrand', addBrand.addBrand);
 //CATEGORY APIs
 router.post('/addCategory', addCategory.addCategory);
 router.get('/categoryList', categoryList.categoryList);
+
+//SUBCATEGORY APIs
+router.post('/addSubCategory', addSubCategory.addSubCategory);
+router.get('/subCategoryList', subCategoryList.subCategoryList);
 
 module.exports = router;

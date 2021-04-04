@@ -50,8 +50,6 @@ create table transaction (transactionId varchar(10) primary key, orderId varchar
 create table shipping(shippingId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId), 
 							dispatchDate date not null, arrivalDate date not null);
                             
-
-
 create table cart(buyerId varchar(10) not null, foreign key(buyerId) references buyer(buyerId),
 							productId varchar(10) not null, foreign key(productId) references product(productId),
 							dateTime datetime not null,

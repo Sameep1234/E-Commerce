@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.addBuyer = (req,res) =>{
+exports.addBuyer = (req, res) => {
     let buyerId = req.body.buyerId;
     let firstName = req.body.firstName;
     let middleName = req.body.middleName;
@@ -13,31 +13,31 @@ exports.addBuyer = (req,res) =>{
     let state = req.body.state;
     let country = req.body.country;
     let contactNumber = req.body.contactNumber;
-    let email = req.body.email; 
+    let email = req.body.email;
 
     pool.getConnection((err => {
-        if(err){
+        if (err) {
             res.send({
                 status: 0,
                 msg: err.message,
                 data: null,
             });
         }
-        else{
-            let fetch = "INSERT INTO buyer VALUES('"+ buyerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + appartmentNumber + "','" + address1 + "','" + landmark + "','" + area+ + "','" + city + "','" + state + "','"+ country + "','" + contactNumber + "','"+ email+"');";
-            let temp = fetch + '\n';
-            fs.appendFile('Query.txt', temp, err => {
-                if(err) console.log(err);
-            });
-            pool.query(fetch, (err,result) => {
-                if(err){
-                   res.send({
+        else {
+            let fetch = "INSERT INTO buyer VALUES('" + buyerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + appartmentNumber + "','" + address1 + "','" + landmark + "','" + area + + "','" + city + "','" + state + "','" + country + "','" + contactNumber + "','" + email + "');";
+            pool.query(fetch, (err, result) => {
+                if (err) {
+                    res.send({
                         data: null,
                         msg: err.message,
                         status: 0
                     })
                 }
-                else{
+                else {
+                    let temp = fetch + '\n';
+                    fs.appendFile('Query.txt', temp, err => {
+                        if (err) console.log(err);
+                    });
                     res.send({
                         status: 1,
                         msg: 'Buyer Added',

@@ -29,10 +29,6 @@ exports.addSeller = (req, res) => {
         }
         else {
             let fetch = "INSERT INTO seller VALUES ('" + sellerId + "','" + firstName + "','" + middleName + "','" + lastName + "','" + shopNumber + "','" + address1 + "','" + landmark + "','" + area + "','" + city + "','" + state + "','" + country + "','" + postalCode + "','" + contactNumber + "','" + email + "','" + GST + "');";
-            let temp = fetch + '\n';
-            fs.appendFile('Query.txt', temp, err => {
-                if(err) console.log(err);
-            });
             pool.query(fetch, (err, result) => {
                 if (err) {
                     res.send({
@@ -42,6 +38,10 @@ exports.addSeller = (req, res) => {
                     })
                 }
                 else {
+                    let temp = fetch + '\n';
+                    fs.appendFile('Query.txt', temp, err => {
+                        if (err) console.log(err);
+                    });
                     res.send({
                         status: 1,
                         msg: 'Added seller',

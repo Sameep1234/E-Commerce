@@ -1,13 +1,13 @@
 const pool = require('../../pool');
 
-exports.addOrder = (req,res) =>{
+exports.addOrder = (req, res) => {
 
     let orderId = req.body.orderId;
-    let dateTime =  req.body.dateTime;
-    let buyerId= req.body.buyerId;
+    let dateTime = req.body.dateTime;
+    let buyerId = req.body.buyerId;
     let productId = req.body.productId;
     let quantityOrdered = req.body.quantityOrdered;
-    let totalPrice =  req.body.totalPrice;
+    let totalPrice = req.body.totalPrice;
     let sellerId = req.body.sellerId;
     let address1 = req.body.address1;
     let landmark = req.body.landmark;
@@ -17,24 +17,28 @@ exports.addOrder = (req,res) =>{
     let country = req.body.country;
 
     pool.getConnection((err => {
-        if(err){
+        if (err) {
             res.send({
                 status: 0,
                 msg: err.message,
                 data: null,
             });
         }
-        else{
-            let fetch = "INSERT INTO orders VALUES('"+ orderId + "','" + dateTime + "','" + buyerId + "','" + productId + "','" + quantityOrdered + "','" + totalPrice + "','" + address1+  "','" + landmark+  "','"+area +  "','"+city+  "','"+ state+  "','"+country  + "','" + sellerId+"');";
-            pool.query(fetch, (err,result) => {
-                if(err){
-                   res.send({
+        else {
+            let fetch = "INSERT INTO orders VALUES('" + orderId + "','" + dateTime + "','" + buyerId + "','" + productId + "','" + quantityOrdered + "','" + totalPrice + "','" + address1 + "','" + landmark + "','" + area + "','" + city + "','" + state + "','" + country + "','" + sellerId + "');";
+            pool.query(fetch, (err, result) => {
+                if (err) {
+                    res.send({
                         data: null,
                         msg: err.message,
                         status: 0
                     })
                 }
-                else{
+                else {
+                    let temp = fetch + '\n';
+                    fs.appendFile('Query.txt', temp, err => {
+                        if (err) console.log(err);
+                    });
                     res.send({
                         status: 1,
                         msg: 'Order added',

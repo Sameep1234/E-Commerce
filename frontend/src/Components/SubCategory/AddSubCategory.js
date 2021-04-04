@@ -36,7 +36,7 @@ class AddSubCategory extends Component {
     handleSubmit() {
         let data = {
             categoryId: this.state.categoryId,
-            subCategoryName: this.state.categoryName,
+            subCategoryName: this.state.subCategoryName,
             subCategoryId: this.state.subCategoryId,
         }
         axios.post('http://localhost:5000/addSubCategory', data)

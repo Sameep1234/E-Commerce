@@ -11,7 +11,6 @@ class AddSpecification extends Component {
         this.state = {
             msg: '',
             specificationId: '',
-            productId: '',
             subCategoryId: '',
             brandId: '',
             model: '',
@@ -39,10 +38,14 @@ class AddSpecification extends Component {
     // HANDLE BUTTON CLICK
     handleSubmit() {
         let data = {
+            specificationId: this.state.specificationId,
             categoryId: this.state.categoryId,
-            categoryName: this.state.categoryName,
+            subCategoryId: this.state.subCategoryId,
+            brandId: this.state.brandId,
+            model: this.state.model,
+            productDescription: this.state.productDescription,
         }
-        axios.post('http://localhost:5000/addCategory', data)
+        axios.post('http://localhost:5000/addSpecification', data)
             .then((response) => {
                 this.setState({
                     msg: response.data.msg,
@@ -73,10 +76,6 @@ class AddSpecification extends Component {
                                     <Input onChange={this.handleInputChange} name="specificationId" placeholder="Ex. SPEC101" type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Product ID</Label>
-                                    <Input onChange={this.handleInputChange} name="productId" placeholder="Ex. PD101" type="text" />
-                                </FormGroup>
-                                <FormGroup>
                                     <Label>Category ID</Label>
                                     <Input onChange={this.handleInputChange} name="categoryId" placeholder="Ex. 1" type="text" />
                                 </FormGroup>
@@ -90,7 +89,7 @@ class AddSpecification extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Model</Label>
-                                    <Input onChange={this.handleInputChange} name="model" placeholder="Ex. OnePlus 8" type="number" />
+                                    <Input onChange={this.handleInputChange} name="model" placeholder="Ex. OnePlus 8" type="text" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Product Description</Label>
