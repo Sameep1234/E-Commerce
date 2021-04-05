@@ -19,3 +19,5 @@ INSERT INTO subCategory VALUES('LS101','Laptop','1');
 INSERT INTO subCategory VALUES('MS101','Mobile','1');
 INSERT INTO subCategory VALUES('CKS101','Glasses','3');
 INSERT INTO specification VALUES('SPEC101','1','LS101','L101','Inspiron 5592','16gb Ram 512gb SSD');
+INSERT INTO specification VALUES('SPEC102','1','MS101','M101','OnePlus 8','8gb ram 128gb storage');
+INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainless Steel 1.5L');

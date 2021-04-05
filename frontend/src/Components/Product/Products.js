@@ -58,7 +58,6 @@ class Products extends Component {
 
     // RENDER METHOD
     render() {
-        let display = <ProductList result={this.state.result} />
         return (
             <div>
                 <Header />
