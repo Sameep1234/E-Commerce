@@ -29,6 +29,7 @@ class AddStaff extends Component {
         this.setState({
             msg: '',
         });
+
         let name = event.target.name;
         let value = event.target.value;
         this.setState({

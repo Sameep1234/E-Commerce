@@ -21,3 +21,6 @@ INSERT INTO subCategory VALUES('CKS101','Glasses','3');
 INSERT INTO specification VALUES('SPEC101','1','LS101','L101','Inspiron 5592','16gb Ram 512gb SSD');
 INSERT INTO specification VALUES('SPEC102','1','MS101','M101','OnePlus 8','8gb ram 128gb storage');
 INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainless Steel 1.5L');
+INSERT INTO product VALUES('PD101','OnePlus 8','1','MS101','M101','SPEC102','Mirror Gray','32999','50','6.5 Inch');
+INSERT INTO product VALUES('PD102','Thermos','3','CKS101','CR101','SPEC103','Steel Gray','1000','100','45cm');
+INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','25','15.6 Inch');
