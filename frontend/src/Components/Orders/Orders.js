@@ -74,11 +74,11 @@ class Orders extends Component {
 
     // FETCH FROM DB AS PAGE LOADS
     componentDidMount() {
-        axios.get('http://localhost:5000/orderList?id')
+        axios.get('http://localhost:5000/orderList')
             .then((response) => {
                 if (response.data.status === 1) {
                     this.setState({
-                        result: this.data.data,
+                        result: response.data.data,
                     });
                 }
                 this.setState({

@@ -12,9 +12,9 @@ function ProductList({ result }) {
             <tr>
                 <div className="d-flex justify-content-center"><span className="fa fa-trash" role="button" /></div>
                 <td><div className="d-flex justify-content-center">{pl.productName}</div></td>
-                <td><div className="d-flex justify-content-center">{pl.categoryId}</div></td>
-                <td><div className="d-flex justify-content-center">{pl.subCategoryId}</div></td>
-                <td><div className="d-flex justify-content-center">{pl.brandId}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.categoryName}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.subCategoryName}</div></td>
+                <td><div className="d-flex justify-content-center">{pl.brandName}</div></td>
                 <td><div className="d-flex justify-content-center">{pl.price}</div></td>
                 <td><div className="d-flex justify-content-center">{pl.quantity}</div></td>
                 <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>

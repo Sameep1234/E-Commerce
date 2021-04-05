@@ -43,10 +43,19 @@ class PlaceOrder extends Component {
     // HANDLE BUTTON CLICK
     handleSubmit() {
         let data = {
-            categoryId: this.state.categoryId,
-            categoryName: this.state.categoryName,
+            orderId: this.state.orderId,
+            buyerId: this.state.buyerId,
+            productId: this.state.productId,
+            quantity: this.state.quantity,
+            appartmentName: this.state.appartmentName,
+            landmark: this.state.landmark,
+            area: this.state.area,
+            city: this.state.city,
+            state: this.state.state,
+            country: this.state.country,
+            sellerId: this.state.sellerId,
         }
-        axios.post('http://localhost:5000/addCategory', data)
+        axios.post('http://localhost:5000/addOrder', data)
             .then((response) => {
                 this.setState({
                     msg: response.data.msg,

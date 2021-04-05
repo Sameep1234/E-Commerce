@@ -24,3 +24,4 @@ INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainl
 INSERT INTO product VALUES('PD101','OnePlus 8','1','MS101','M101','SPEC102','Mirror Gray','32999','50','6.5 Inch');
 INSERT INTO product VALUES('PD102','Thermos','3','CKS101','CR101','SPEC103','Steel Gray','1000','100','45cm');
 INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','25','15.6 Inch');
+INSERT INTO orders VALUES('O101',current_timestamp,'B101','PD101','1','1000','','Hetarth Party Plot','Science City','Ahmedabad','Gujarat','India','S101');

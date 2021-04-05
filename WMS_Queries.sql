@@ -1,7 +1,7 @@
 -- CREATE AND USE DATABASE
 create database if not exists wms;
 use wms;
-
+set FOREIGN_KEY_CHECKS = 0;
 -- CREATE TABLE QUERIES
 create table buyer(buyerId varchar(10) primary key, firstName varchar(20) not null, middleName varchar(20), lastName varchar(20) not null, 
 							appartmentNumber varchar(10), address1 varchar(500), landmark varchar(100), area varchar(20),
@@ -42,7 +42,9 @@ create table product (productId varchar(10) primary key, productName VARCHAR(50)
 
 create table orders (orderId varchar(10) primary key, dateTime datetime, buyerId varchar(10) not null, foreign key(buyerId) references buyer(buyerId), 
 							productId varchar(10) not null, foreign key(productId) references product(productId), quantityOrdered int not null, 
-							totalPrice int not null, deliveryAddress int not null, sellerId varchar(10) not null, foreign key(sellerId) references seller(sellerId));
+							totalPrice int not null, address1 varchar(100) not null, landmark varchar(100), area varchar(20),
+                            city varchar(50), state varchar(50), country varchar(50),
+                            sellerId varchar(10) not null, foreign key(sellerId) references seller(sellerId));
                             
 create table transaction (transactionId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId),
 							modeOfPayment varchar(10) not null, paymentStatus boolean not null);
