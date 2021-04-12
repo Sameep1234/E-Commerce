@@ -89,3 +89,203 @@ insert into seller values ('S102', 'Paresh', 'Popatlal', 'Patel', 'P-12', 'Sarja
 insert into seller values ('S103', 'Sameep', 'Nilesh', 'Vani', 'S-10', 'Galaxy Tower', 'Samkit Bunglows', 'Bodakdev', 'Ahmedabad', 'Gujarat', 'India', '380054', '986523147', 'sameep.v@ahduni.edu.in', '1');
 insert into seller values ('S110', 'Aneri', 'Dipakbhai', 'Dalwadi', 'S-206', 'Gujaan Tower', 'Grand Bhagwati', 'Mall Road', 'Mumbai', 'Maharashtra', 'India', '658902', '741258963', 'aneri.d@ahduni.edu.in', '256398');
 insert into seller values ('S120', 'Pratik', 'Popatlal', 'Pandya', 'P-121', 'Prev Tower', 'Global Hotel', 'Bandra', 'Mumbai', 'Maharashtra', 'India', '658822', '741289622', 'pratik@gmail.com', '256247');
+
+INSERT INTO brand VALUES('L101','Dell');
+INSERT INTO brand VALUES('L102','HP');
+INSERT INTO brand VALUES('M101','Oneplus');
+INSERT INTO brand VALUES('M102','Apple');
+INSERT INTO brand VALUES('M103','Samsung');
+INSERT INTO brand VALUES('F101','Nike');
+INSERT INTO brand VALUES('F102','Adidas');
+INSERT INTO brand VALUES('F103','Puma');
+INSERT INTO brand VALUES('ME101','Apollo');
+INSERT INTO brand VALUES('ME102','Zydus');
+INSERT INTO brand VALUES('CR101','Tupperware');
+INSERT INTO brand VALUES('CR102','Milton');
+INSERT INTO brand VALUES('ST101','Story Book');
+INSERT INTO brand VALUES('G101','Sony');
+INSERT INTO brand VALUES('FD101','Aashirvaad');
+INSERT INTO brand VALUES('FD102','Patanjali');
+INSERT INTO brand VALUES('FD103','Dabur');
+INSERT INTO subCategory VALUES('LS101','Laptop','1');
+INSERT INTO subCategory VALUES('MS101','Mobile','1');
+INSERT INTO subCategory VALUES('CKS101','Glasses','3');
+INSERT INTO specification VALUES('SPEC101','1','LS101','L101','Inspiron 5592','16gb Ram 512gb SSD');
+INSERT INTO specification VALUES('SPEC102','1','MS101','M101','OnePlus 8','8gb ram 128gb storage');
+INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainless Steel 1.5L');
+INSERT INTO product VALUES('PD101','OnePlus 8','1','MS101','M101','SPEC102','Mirror Gray','32999','50','6.5 Inch');
+INSERT INTO product VALUES('PD102','Thermos','3','CKS101','CR101','SPEC103','Steel Gray','1000','100','45cm');
+INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','25','15.6 Inch');
+INSERT INTO orders VALUES('O101',current_timestamp,'B101','PD101','1','1000','','Hetarth Party Plot','Science City','Ahmedabad','Gujarat','India','S101');
+
+-- PROCEDURE
+-- Pending transaction
+-- ******* ADD CONDITIONS FOR END LOOPPP ********
+DROP PROCEDURE IF EXISTS pendingTransaction;
+DELIMITER $$
+	CREATE PROCEDURE pendingTransaction()
+	BEGIN
+		DECLARE c_end INT DEFAULT 0;
+		DECLARE finished INT DEFAULT 0;
+        DECLARE r_transaction VARCHAR(20);
+        DECLARE c_transaction CURSOR FOR 
+			SELECT transactionId FROM transaction  
+            WHERE paymentStatus = false;
+        DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+        
+        OPEN c_transaction;
+			getTransaction: LOOP
+				FETCH c_transaction INTO r_transaction;
+				IF c_end = 1 THEN
+					LEAVE getTransaction;
+				END IF;
+				SELECT r_transaction as "Transaction Id";
+				SELECT o.orderId, b.firstName, b.middleName, b.lastName FROM orders o, buyer b 
+				LEFT JOIN transaction t ON t.orderId = o.orderId AND t.transactionId = r_transaction
+				WHERE b.buyerId = o.buyerId;
+			END LOOP;
+            CLOSE c_transaction;
+    END$$;
+DELIMITER ;
+ 
+ CALL pendingTransaction();
+-- *********************************************************************
+-- REDUCING STOCKS
+ 
+DROP PROCEDURE IF EXISTS reducingStock;
+
+DELIMITER $$
+		CREATE PROCEDURE reducingStock()
+		BEGIN
+			DECLARE r_productId VARCHAR(20);
+            DECLARE r_productName VARCHAR(20);
+            DECLARE r_category VARCHAR(20);
+            DECLARE r_subCategory VARCHAR(20);
+            DECLARE r_brand VARCHAR(20);
+            DECLARE r_specificationId VARCHAR(20);
+            DECLARE r_quantity VARCHAR(20);
+            DECLARE r_price VARCHAR(20);
+            
+            DECLARE c_product CURSOR FOR
+				SELECT 
+					p.productId, p.productName, p.specificationId, p.quantity, p.price,
+					c.categoryName, 
+					sc.subcategoryName, 
+					b.brandName 
+                    FROM product p
+						LEFT JOIN catrgory c ON p.categoryId = c.categoryId
+						LEFT JOIN subCategory sc ON p.subCategoryId = sc.subCategoryId
+						LEFT JOIN brand b ON p.brandId = b.brandId
+					WHERE p.stock <10;
+                
+            DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end= 1;  
+            OPEN c_product;
+				getProduct: LOOP
+					FETCH c_product INTO r_productId, r_productName, r_category, r_subCategory, r_brand, r_specification, r_quantity, r_price;
+                    SELECT r_productId as "Pruduct Id", r_productName as "Name", r_quantity as "Quantity";
+                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "Product Category", 
+						r_specificationId as "Specification Id",
+						r_brand as "Brand",
+						r_price as "Price";
+                END LOOP;
+            CLOSE c_product;
+		END$$;
+DELIMITER ;
+
+
+-- *********************************************************************
+
+-- SUCCESSFUL TRANSACTIONS
+DROP PROCEDURE IF EXISTS successfulTransaction;
+
+DELIMITER $$
+CREATE PROCEDURE successfulTransaction()
+BEGIN
+	DECLARE r_transactionId VARCHAR(20);
+    DECLARE r_orderId VARCHAR(20);
+    DECLARE r_mop VARCHAR(20);
+    DECLARE c_transaction CURSOR FOR
+		SELECT transactionId, orderId, modeOfPayment from transaction;
+	 DECLARE c_end INT DEFAULT 0;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+	OPEN c_transaction;
+		getSuccessfulTransaction: LOOP
+			IF c_end = 1 THEN 
+					LEAVE getCustomer;
+			END IF;
+			FETCH c_transaction INTO r_transactionId, r_orderId, r_mop;
+            SELECT o.orderId, b.buyerId, b.firstName, b.middleName, b.lastName FROM order o
+            LEFT JOIN buyer b ON o.buyerId = b.buyerId
+            WHERE o.orderId = r_orderId;
+        END LOOP;
+    CLOSE c_transaction;
+END$$;
+DELIMITER ;
+
+
+-- *********************************************************************
+
+-- CART 
+-- c1: user name
+-- c2: products in it
+-- Get product name too!
+DROP PROCEDURE IF EXISTS cart;
+
+DELIMITER $$
+	CREATE PROCEDURE cart()
+    BEGIN
+		-- for each customer
+		DECLARE r_buyerId varchar(20);
+        DECLARE r_firstName varchar(20);
+        DECLARE r_middleName varchar(20);
+        DECLARE r_lastName varchar(20);
+        DECLARE r_email varchar(100);
+        DECLARE c1_end INT DEFAULT 0;
+        DECLARE c1_customer CURSOR FOR
+			SELECT buyerId, firstName, middleName, lastName,email FROM buyer;
+        DECLARE CONTINUE HANDLER FOR NOT FOUND SET c1_end = 1;
+        OPEN c1_customer;
+			getCustomer: LOOP
+				IF c1_end = 1 THEN 
+					LEAVE getCustomer;
+				END IF;
+				FETCH c1_customer INTO r_buyerId, r_firstName, r_middleName, r_lastName, r_email;
+                SELECT 
+								r_buyerId as "BuyerId", 
+                                CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
+                                r_email as "Email";
+                BEGIN
+                    DECLARE r_productId varchar(20);
+                    DECLARE r_dateTime varchar(20);
+                    DECLARE r_quantity int;
+                    DECLARE r_totalPrice int;
+					DECLARE c2_end INT DEFAULT 0;
+                    DECLARE c2_cartProducts CURSOR FOR
+						SELECT productId, dateTime, quantity, totalPrice 
+							FROM cart WHERE buyerId = r_buyerId;
+					DECLARE CONTINUE HANDLER FOR NOT FOUND SET c2_end = 1;
+                    OPEN c2_cartProducts;
+						getCartProdcts: LOOP
+							IF c2_end = 1 THEN 
+								LEAVE getCartProdcts;
+							END IF;
+							FETCH c2_cartProducts INTO r_productId, r_dateTime, r_quantity, r_totalPrice;
+                            SELECT 
+								r_buyerId as "BuyerId", 
+                                CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
+                                r_email as "Email",
+								r_productId as "ProductId", 
+								r_dateTime as "DateTime", 
+								r_quantity as "Quantity", 
+								r_totalPrice as "TotalPrice";
+                        END LOOP;
+                    CLOSE c2_cartProducts;
+                END;
+            END LOOP;
+        CLOSE c1_customer;
+        END$$;
+
+DELIMITER ;
+
+CALL cart();
+

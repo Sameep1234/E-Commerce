@@ -44,11 +44,12 @@ class Dashboard extends Component {
 
     // INITIALLY DISPLAY PENDING TRANSACTION
     componentDidMount() {
-        this.handlePendingTransaction();
+        //this.handlePendingTransaction();
     }
 
     // PENDING TRANSACTION
     handlePendingTransaction() {
+        alert("In pt");
         this.setState({
             display: 'Pending Transaction',
             color: 'blueText',

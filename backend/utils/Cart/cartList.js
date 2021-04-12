@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.cartList = () => {
+exports.cartList = (req, res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
@@ -10,7 +10,7 @@ exports.cartList = () => {
             })
         }
         else{
-            let fetch = 'SELECT buyerId, productId, quantity, total price FROM cart;';
+            let fetch = 'CALL cart();';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({ 

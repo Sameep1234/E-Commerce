@@ -10,7 +10,7 @@ exports.pendingTransaction = (req, res) => {
             })
         }
         else{
-            let fetch = 'SELECT * FROM transaction WHERE paymentStatus = "pending";';
+            let fetch = `CALL pendingTransaction()`;
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
@@ -20,6 +20,7 @@ exports.pendingTransaction = (req, res) => {
                     })
                 }
                 else{
+                    console.log("cursor result ",result);
                     res.send({
                         status: 1,
                         msg: 'Pending Transaction List',
