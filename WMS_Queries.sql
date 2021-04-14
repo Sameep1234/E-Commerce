@@ -322,3 +322,249 @@ DELIMITER ;
 
 
 
+
+-- Brand Wise Product
+drop procedure brandWiseProduct;
+
+delimiter $$
+	create procedure brandWiseProduct()
+		begin
+			declare finished int default 0;
+            declare r_brandId varchar(100);
+            declare c_product_details cursor for select brandID from brand;
+            declare continue handler for not found set finished = 1;
+            
+            open c_product_details;
+				c_loop: loop
+					fetch c_product_details into r_brandId;
+                    if finished = 1 then
+						leave c_loop;
+                    end if;
+                    
+                    SELECT p.productName, c.categoryName, s.subCategoryName, b.brandName, p.price, p.quantity FROM product p 
+                    LEFT JOIN category c ON c.categoryID = p.categoryId 
+                    LEFT JOIN brand b ON b.brandID = p.brandId 
+                    LEFT JOIN subCategory s ON s.subCategoryID = p.subCategoryId
+                    WHERE b.brandID = r_brandId;
+                    
+                end loop;
+            close c_product_details;
+		end $$
+delimiter ;
+
+
+
+
+-- CategoryWise
+
+drop procedure if exists categoryWiseProduct;
+
+delimiter $$
+	create procedure categoryWiseProduct()
+		begin
+			declare finished int default 0;
+            declare r_categoryId varchar(100);
+            declare c_product_details cursor for select categoryId from category;
+            declare continue handler for not found set finished = 1;
+            
+            open c_product_details;
+				c_loop: loop
+					fetch c_product_details into r_categoryId;
+                    if finished = 1 then
+						leave c_loop;
+                    end if;
+                    
+                    SELECT p.productName, c.categoryName, s.subCategoryName, b.brandName, p.price, p.quantity FROM product p 
+                    LEFT JOIN category c ON c.categoryID = p.categoryId 
+                    LEFT JOIN brand b ON b.brandID = p.brandId 
+                    LEFT JOIN subCategory s ON s.subCategoryID = p.subCategoryId
+                    WHERE c.categoryId = r_categoryId;
+                    
+                end loop;
+            close c_product_details;
+		end $$
+delimiter ;
+
+
+-- SubCategoryWise
+
+drop procedure if exists subcategoryWiseProduct;
+
+delimiter $$
+	create procedure subcategoryWiseProduct()
+		begin
+			declare finished int default 0;
+            declare r_subcategoryId varchar(100);
+            declare c_product_details cursor for select subCategoryId from subcategory;
+            declare continue handler for not found set finished = 1;
+            
+            open c_product_details;
+				c_loop: loop
+					fetch c_product_details into r_subcategoryId;
+                    if finished = 1 then
+						leave c_loop;
+                    end if;
+                    
+                    SELECT p.productName, c.categoryName, s.subCategoryName, b.brandName, p.price, p.quantity FROM product p 
+                    LEFT JOIN category c ON c.categoryID = p.categoryId 
+                    LEFT JOIN brand b ON b.brandID = p.brandId 
+                    LEFT JOIN subCategory s ON s.subCategoryID = p.subCategoryId
+                    WHERE s.subCategoryId = r_subcategoryId;
+                    
+                end loop;
+            close c_product_details;
+		end $$
+delimiter ;
+
+
+
+
+
+-- City Wise Sellers
+drop procedure if exists cityWiseSellers;
+
+delimiter $$
+	create procedure cityWiseSellers()
+		begin
+			declare finished int default 0;
+            declare r_state varchar(100);
+            declare c_state cursor for select city from seller;
+            declare continue handler for not found set finished = 1;
+            
+            open c_state;
+				sellerDetails: loop
+					fetch c_state into r_state;
+                    if finished = 1 then
+						leave sellerDetails;
+                    end if;
+                    
+                    select concat(firstName, " ", middleName, " ", lastName) as "Name", 
+                    concat (address1, " ", landmark, " ", area, " ", city, " ", state, " ", postalcode) as "Address",
+                    contactNumber, email, gstNumber
+                    from seller where city = r_state;
+                end loop;
+            close c_state;
+        end $$
+delimiter ;
+
+call cityWiseSellers();
+
+
+
+
+-- State Wise Sellers
+
+drop procedure if exists stateWiseSellers;
+
+delimiter $$
+	create procedure stateWiseSellers()
+		begin
+			declare finished int default 0;
+            declare r_state varchar(100);
+            declare c_state cursor for select state from seller;
+            declare continue handler for not found set finished = 1;
+            
+            open c_state;
+				sellerDetails: loop
+					fetch c_state into r_state;
+                    if finished = 1 then
+						leave sellerDetails;
+                    end if;
+                    
+                    select concat(firstName, " ", middleName, " ", lastName) as "Name", 
+                    concat (address1, " ", landmark, " ", area, " ", city, " ", state, " ", postalcode) as "Address",
+                    contactNumber, email, gstNumber
+                    from seller where state = r_state;
+                end loop;
+            close c_state;
+        end $$
+delimiter ;
+
+
+-- Function for transaction count
+drop function if exists transactionCount;
+
+delimiter $$
+	create function transactionCount() returns int deterministic
+		begin
+			declare count int default 0;
+            declare finished int default 0;
+            declare r_transactionId varchar(100);
+            declare c_transactionId cursor for select transactionId from transaction;
+            declare continue handler for not found set finished = 1;
+            
+            open c_transactionId;
+				getCount: loop
+					fetch c_transactionId into r_transactionId;
+                    if finished = 1 then
+						leave getCount;
+                    end if;
+                    
+                    select count + 1 into count;
+                end loop;
+            close c_transactionId;
+            
+            return count;
+        end $$
+delimiter ;
+
+select transactionCount() as "TransactionCount";
+
+
+
+
+-- Stock Product Name Wise
+drop function if exists stockProductNameWise;
+
+delimiter $$
+	create function stockProductNameWise(p_productName varchar(100)) returns int deterministic
+		begin
+			declare stock int default 0;
+            
+            select quantity from product where productName = p_productName into stock;
+            
+            return stock;
+        end $$
+delimiter ;
+
+select stockProductNameWise("OnePlus 8") as "Stock";
+
+
+
+
+-- Transaction Count with Product Name and Date Range as Parameter
+drop function if exists productTransactionCount;
+
+delimiter $$
+	create function productTransactionCount(productName varchar(100), startingDate date) returns int deterministic
+		begin
+			declare count int default 0;
+            declare finished int default 0;
+            declare r_orderId varchar(100);
+            declare sDate date;
+            declare eDate date;
+            declare c_orderId cursor for select orderId from transaction;
+            declare continue handler for not found set finished = 1;
+            
+            open c_orderId;
+				getCount: loop
+					fetch c_orderId into r_orderId;
+                    if finished = 1 then
+						leave getCount;
+                    end if;
+                    select date(datetime) into sDate;
+                    
+                    if sDate >= startingDate then
+						set count = count+1;
+                    end if;
+                end loop;
+            close c_orderId;
+            return count;
+        end $$
+delimiter ;
+
+select productTransactionCount("OnePlus 8", "2021-04-04") as "Count";
+
+
+
+-- 
