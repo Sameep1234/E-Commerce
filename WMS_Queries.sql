@@ -204,17 +204,19 @@ BEGIN
 	DECLARE r_transactionId VARCHAR(20);
     DECLARE r_orderId VARCHAR(20);
     DECLARE r_mop VARCHAR(20);
-    DECLARE c_transaction CURSOR FOR
-		SELECT transactionId, orderId, modeOfPayment from transaction;
+    
 	 DECLARE c_end INT DEFAULT 0;
+    DECLARE c_transaction CURSOR FOR
+		SELECT transactionId, orderId, modeOfPayment from transaction
+        WHERE paymentStatus = true;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
 	OPEN c_transaction;
 		getSuccessfulTransaction: LOOP
-			IF c_end = 1 THEN 
-					LEAVE getCustomer;
-			END IF;
 			FETCH c_transaction INTO r_transactionId, r_orderId, r_mop;
-            SELECT o.orderId, b.buyerId, b.firstName, b.middleName, b.lastName FROM order o
+			IF c_end = 1 THEN 
+					LEAVE getSuccessfulTransaction;
+			END IF;
+            SELECT o.orderId, b.buyerId, b.firstName, b.middleName, b.lastName FROM orders o
             LEFT JOIN buyer b ON o.buyerId = b.buyerId
             WHERE o.orderId = r_orderId;
         END LOOP;
@@ -222,7 +224,7 @@ BEGIN
 END$$;
 DELIMITER ;
 
-
+call successfulTransaction();
 -- *********************************************************************
 
 -- CART 
@@ -240,16 +242,17 @@ DELIMITER $$
         DECLARE r_middleName varchar(20);
         DECLARE r_lastName varchar(20);
         DECLARE r_email varchar(100);
-        DECLARE c1_end INT DEFAULT 0;
+        DECLARE c1_ensd INT DEFAULT 0;
         DECLARE c1_customer CURSOR FOR
 			SELECT buyerId, firstName, middleName, lastName,email FROM buyer;
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET c1_end = 1;
         OPEN c1_customer;
 			getCustomer: LOOP
+            
+				FETCH c1_customer INTO r_buyerId, r_firstName, r_middleName, r_lastName, r_email;
 				IF c1_end = 1 THEN 
 					LEAVE getCustomer;
 				END IF;
-				FETCH c1_customer INTO r_buyerId, r_firstName, r_middleName, r_lastName, r_email;
                 SELECT 
 								r_buyerId as "BuyerId", 
                                 CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
@@ -271,9 +274,6 @@ DELIMITER $$
 							END IF;
 							FETCH c2_cartProducts INTO r_productId, r_dateTime, r_quantity, r_totalPrice;
                             SELECT 
-								r_buyerId as "BuyerId", 
-                                CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
-                                r_email as "Email",
 								r_productId as "ProductId", 
 								r_dateTime as "DateTime", 
 								r_quantity as "Quantity", 
@@ -288,4 +288,37 @@ DELIMITER $$
 DELIMITER ;
 
 CALL cart();
+
+-- BILL
+-- buyer id, order placement date time 
+-- Bill to: buyer p. details
+-- prod details,seller details(form order, get seller id), quty, amt, total,
+
+-- CURSORS
+-- for each buyer
+
+DROP PROCEDURE IF EXISTS bill;
+
+DELIMITER $$
+	CREATE PROCEDURE bill()
+    BEGIN
+		DECLARE c_end INT DEFAULT 0;
+        DECLARE r_orderId varchar(20);
+        DECLARE r_buyerId varchar(20);
+        DECLARE r_orderDateTime date; 
+        DECLARE r_sellerId varchar(20);
+        DECLARE c_buyer CURSOR FOR
+			SELECT DISTINCT buyerId, dateTime FROM orders;
+		OPEN c_buyer;
+			getBuyer:LOOP
+				FETCH c_buyer INTO r_buyerId;
+                SELECT  orderId, date(dateTime) as date, sellerId FROM orders WHERE buyerId = r_buyerId GROUP BY date(dateTime);
+            END LOOP;
+        CLOSE c_buuyer;
+    END$$;
+DELIMITER ;
+
+
+
+
 
