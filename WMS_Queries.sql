@@ -59,7 +59,8 @@ create table cart(buyerId varchar(10) not null, foreign key(buyerId) references 
 							totalPrice int,
 							primary key(buyerId, productId, dateTime));
 
-
+ALTER TABLE `wms`.`transaction` 
+CHANGE COLUMN `modeOfPayment` `modeOfPayment` VARCHAR(25) NOT NULL ;
 
 -- INSERT QUERIES
 
@@ -90,6 +91,7 @@ insert into seller values ('S103', 'Sameep', 'Nilesh', 'Vani', 'S-10', 'Galaxy T
 insert into seller values ('S110', 'Aneri', 'Dipakbhai', 'Dalwadi', 'S-206', 'Gujaan Tower', 'Grand Bhagwati', 'Mall Road', 'Mumbai', 'Maharashtra', 'India', '658902', '741258963', 'aneri.d@ahduni.edu.in', '256398');
 insert into seller values ('S120', 'Pratik', 'Popatlal', 'Pandya', 'P-121', 'Prev Tower', 'Global Hotel', 'Bandra', 'Mumbai', 'Maharashtra', 'India', '658822', '741289622', 'pratik@gmail.com', '256247');
 
+-- BRAND TABLE
 INSERT INTO brand VALUES('L101','Dell');
 INSERT INTO brand VALUES('L102','HP');
 INSERT INTO brand VALUES('M101','Oneplus');
@@ -107,16 +109,56 @@ INSERT INTO brand VALUES('G101','Sony');
 INSERT INTO brand VALUES('FD101','Aashirvaad');
 INSERT INTO brand VALUES('FD102','Patanjali');
 INSERT INTO brand VALUES('FD103','Dabur');
+
+-- SUB CATEGORY
 INSERT INTO subCategory VALUES('LS101','Laptop','1');
 INSERT INTO subCategory VALUES('MS101','Mobile','1');
 INSERT INTO subCategory VALUES('CKS101','Glasses','3');
+INSERT INTO subCategory VALUES('OXM101','Oximeter','6');
+INSERT INTO subCategory VALUES('VGF100','Vegetables','5');
+INSERT INTO subCategory VALUES('KM103','Baby Care','4');
+INSERT INTO subCategory VALUES('CTS101','TShirts','2');
+
+
+
+-- SPECIFICATION
 INSERT INTO specification VALUES('SPEC101','1','LS101','L101','Inspiron 5592','16gb Ram 512gb SSD');
 INSERT INTO specification VALUES('SPEC102','1','MS101','M101','OnePlus 8','8gb ram 128gb storage');
 INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainless Steel 1.5L');
+
+-- PRODUCT
 INSERT INTO product VALUES('PD101','OnePlus 8','1','MS101','M101','SPEC102','Mirror Gray','32999','50','6.5 Inch');
 INSERT INTO product VALUES('PD102','Thermos','3','CKS101','CR101','SPEC103','Steel Gray','1000','100','45cm');
 INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','25','15.6 Inch');
-INSERT INTO orders VALUES('O101',current_timestamp,'B101','PD101','1','1000','','Hetarth Party Plot','Science City','Ahmedabad','Gujarat','India','S101');
+
+-- ORDERS
+INSERT INTO orders VALUES ('O101',current_timestamp,'B101','PD101','1','1000','','Hetarth Party Plot','Science City','Ahmedabad','Gujarat','India','S101');
+INSERT INTO orders VALUES ('O102', '2021-03-13 13:45:10', 'B102', 'PD102', '3', '4500', 'G-304', 'Ambamata temple', 'Infocity', 'Gandhinagar', 'Gujarat', 'India', 'S102');
+INSERT INTO orders VALUES ('O103', '2020-12-04 09:15:45', 'B103', 'PD103', '2', '1500', '450/2', 'Hotel Hyatt', 'Malad', 'Mumbai', 'Maharashtra', 'India', 'S103');
+INSERT INTO orders VALUES ('O104', current_timestamp, 'B101', 'PD103', '4', '3000', 'H-101', 'Swagat Party Plot', 'Sector4', 'New Delhi', 'New Delhi', 'India', 'S102');
+INSERT INTO orders VALUES ('O105', current_timestamp, 'B104', 'PD101', '2', '2000', '6512/3', 'Hotel Greenz', 'Sector3', 'Gandhinagar', 'Gandhinagar', 'India', 'S110');
+
+-- SHIPPING
+INSERT INTO shipping VALUES ('SP101', 'O105', '2017-04-22', '2017-04-22');
+INSERT INTO shipping VALUES ('SP102', 'O104', '2020-05-05', '2020-05-05');
+INSERT INTO shipping VALUES ('SP103', 'O101', '2020-12-18', '2020-12-18');
+INSERT INTO shipping VALUES ('SP104', 'O104', '2021-04-05', '2021-04-05');
+INSERT INTO shipping VALUES ('SP105', 'O103', '2020-08-15', '2020-08-15');
+
+-- CART
+INSERT INTO cart VALUES ('B103', 'PD102', '2019-12-11', '4', '4000');
+INSERT INTO cart VALUES ('B102', 'PD101', '2019-12-11', '2', '65998');
+INSERT INTO cart VALUES ('B101', 'PD103', '2020-03-11', '1', '83000');
+INSERT INTO cart VALUES ('B101', 'PD102', '2019-04-12', '1', '1000');
+INSERT INTO cart VALUES ('B103', 'PD103', '2020-12-11', '1', '83000');
+
+-- transaction
+INSERT INTO transaction VALUES ('TR101', 'O103', 'COD', '0');
+INSERT INTO transaction VALUES ('TR102', 'O101', 'COD', '1');
+INSERT INTO transaction VALUES ('TR013', 'O103', 'CREDIT CARD', '1');
+INSERT INTO transaction VALUES ('TR104', 'O102', 'DEBIT CARD', '0');
+INSERT INTO transaction VALUES ('TR105', 'O104', 'CREDIT CARD', '0');
+INSERT INTO transaction VALUES ('TR106', 'O105', 'CREDIT CARD', '1');
 
 -- PROCEDURE
 -- Pending transaction
