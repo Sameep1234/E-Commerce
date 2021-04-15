@@ -49,7 +49,6 @@ class Dashboard extends Component {
 
     // PENDING TRANSACTION
     handlePendingTransaction() {
-        alert("In pt");
         this.setState({
             display: 'Pending Transaction',
             color: 'blueText',
