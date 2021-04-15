@@ -1,7 +1,7 @@
 const pool = require('../../pool');
 
 exports.getProduct = ((req,res) => {
-    let productId = req.headers.productId;
+    let productId = req.headers.productid;
 
     pool.getConnection((err) => {
         if(err){

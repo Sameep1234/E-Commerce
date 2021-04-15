@@ -10,7 +10,7 @@ exports.successfulTransaction = (req, res) => {
             })
         }
         else{
-            let fetch = 'SELECT * FROM transaction WHERE paymentStatus = "successful";';
+            let fetch = 'call successfulTransaction();';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({

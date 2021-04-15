@@ -1,9 +1,10 @@
 const pool = require('../../pool');
 
 exports.deleteProduct = (req,res) => {
-    let productId = req.header.productId;
+    let productId = req.headers.productid;
+    console.log(productId);
 
-    pool.createConnection((err => {
+    pool.getConnection((err => {
         if(err){
             res.send({
                 status: 0,
@@ -12,7 +13,7 @@ exports.deleteProduct = (req,res) => {
             });
         }
         else{
-            let fetch = "DELETE FROM product WHERE productId = "+ {productId} +";";
+            let fetch = "DELETE FROM product WHERE productId = '"+ productId +"';";
             pool.query(fetch, (err,result) => {
                 if(err){
                    res.send({
@@ -20,6 +21,7 @@ exports.deleteProduct = (req,res) => {
                         msg: err.message,
                         status: 0
                     })
+                    console.log(err);
                 }
                 else{
                     res.send({

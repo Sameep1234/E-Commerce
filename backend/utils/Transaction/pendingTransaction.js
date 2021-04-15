@@ -20,7 +20,6 @@ exports.pendingTransaction = (req, res) => {
                     })
                 }
                 else{
-                    console.log("cursor result ",result);
                     res.send({
                         status: 1,
                         msg: 'Pending Transaction List',

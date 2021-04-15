@@ -1,7 +1,9 @@
 -- CREATE AND USE DATABASE
 create database if not exists wms;
 use wms;
-set FOREIGN_KEY_CHECKS = 0;
+
+-- ******************************************************************************************************************************************************************
+
 -- CREATE TABLE QUERIES
 create table buyer(buyerId varchar(10) primary key, firstName varchar(20) not null, middleName varchar(20), lastName varchar(20) not null, 
 							appartmentNumber varchar(10), address1 varchar(500), landmark varchar(100), area varchar(20),
@@ -26,41 +28,55 @@ create table employee(employeeId varchar(10) primary key,
 							hiringDate date not null);
 
 create table subCategory (subCategoryId varchar(10) primary key, subCategoryName varchar(50) not null,
-							categoryId varchar(10), foreign key(categoryId) references category(categoryId));
+							categoryId varchar(10), foreign key(categoryId) references category(categoryId) 
+                            on update cascade on delete cascade);
 
 create table specification (specificationId varchar(10) primary key,
-							categoryId varchar(10) not null, foreign key(categoryId) references category(categoryId),
-                            subCategoryId varchar(10) not null, foreign key(subCategoryId) references subcategory(subCategoryId),
-							brandId varchar(10) not null, foreign key(brandId) references brand(brandId),
+							categoryId varchar(10) not null, foreign key(categoryId) references category(categoryId)
+                            on update cascade on delete cascade,
+                            subCategoryId varchar(10) not null, foreign key(subCategoryId) references subcategory(subCategoryId)
+                            on update cascade on delete cascade,
+							brandId varchar(10) not null, foreign key(brandId) references brand(brandId)
+                            on update cascade on delete cascade,
                             model VARCHAR(25), productDescription VARCHAR(200));
                             
-create table product (productId varchar(10) primary key, productName VARCHAR(50) not null, categoryId varchar(10) not null, foreign key(categoryId) references category (categoryId), 
-							subCategoryId varchar(10) not null, foreign key(subCategoryId) references subCategory (subCategoryId),
-                            brandId varchar(10) not null, foreign key(brandId) references brand (brandId), 
-                            specificationId varchar(10) not null, foreign key(specificationId) references specification (specificationId), 
+create table product (productId varchar(10) primary key, productName VARCHAR(50) not null, categoryId varchar(10) not null, 
+							foreign key(categoryId) references category (categoryId)
+                            on update cascade on delete cascade, 
+							subCategoryId varchar(10) not null, foreign key(subCategoryId) references subCategory (subCategoryId)
+                            on update cascade on delete cascade,
+                            brandId varchar(10) not null, foreign key(brandId) references brand (brandId)
+                            on update cascade on delete cascade, 
+                            specificationId varchar(10) not null, foreign key(specificationId) references specification (specificationId)
+                            on update cascade on delete cascade, 
 							color VARCHAR(20) not null, price INT not null, quantity INT not null, size VARCHAR(25));
 
-create table orders (orderId varchar(10) primary key, dateTime datetime, buyerId varchar(10) not null, foreign key(buyerId) references buyer(buyerId), 
-							productId varchar(10) not null, foreign key(productId) references product(productId), quantityOrdered int not null, 
+create table orders (orderId varchar(10) primary key, dateTime datetime, buyerId varchar(10) not null, 
+							foreign key(buyerId) references buyer(buyerId)
+                            on update cascade on delete cascade, 
+							productId varchar(10) not null, foreign key(productId) references product(productId)
+                            on update cascade on delete cascade, quantityOrdered int not null, 
 							totalPrice int not null, address1 varchar(100) not null, landmark varchar(100), area varchar(20),
                             city varchar(50), state varchar(50), country varchar(50),
-                            sellerId varchar(10) not null, foreign key(sellerId) references seller(sellerId));
+                            sellerId varchar(10) not null, foreign key(sellerId) references seller(sellerId)
+                            on update cascade on delete cascade);
                             
-create table transaction (transactionId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId),
-							modeOfPayment varchar(10) not null, paymentStatus boolean not null);
+create table transaction (transactionId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId)
+							on update cascade on delete cascade,
+							modeOfPayment varchar(25) not null, paymentStatus boolean not null);
                                 
-create table shipping(shippingId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId), 
+create table shipping(shippingId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId)
+							on update cascade on delete cascade, 
 							dispatchDate date not null, arrivalDate date not null);
                             
 create table cart(buyerId varchar(10) not null, foreign key(buyerId) references buyer(buyerId),
-							productId varchar(10) not null, foreign key(productId) references product(productId),
+							productId varchar(10) not null, foreign key(productId) references product(productId) on update cascade on delete cascade,
 							dateTime datetime not null,
 							quantity int default 1,
 							totalPrice int,
 							primary key(buyerId, productId, dateTime));
 
-ALTER TABLE `wms`.`transaction` 
-CHANGE COLUMN `modeOfPayment` `modeOfPayment` VARCHAR(25) NOT NULL ;
+-- ********************************************************************************************************************************************************************
 
 -- INSERT QUERIES
 
@@ -68,6 +84,7 @@ CHANGE COLUMN `modeOfPayment` `modeOfPayment` VARCHAR(25) NOT NULL ;
 insert into buyer values ('B101', 'Sameep', 'Nilesh', 'Vani', 'C-92', 'Galaxy Tower', 'The Grand Bhagwati Hotel', 'Bodakdev', 'Ahmedabad', 'Gujarat', 'India', '380054', '999888777', 'sameep.v@ahduni.edu.in');
 insert into buyer values ('B102', 'Aneri', 'Dipakbhai', 'Dalwadi', '17', 'Kalhaar Exotica', 'Hetarth Party Plot', 'Science City', 'Ahmedabad', 'Gujarat', 'India', '380060', '987654321', 'aneri.d@ahduni.edu.in');
 insert into buyer values ('B103', 'Kavya', 'Rashmi', 'Patel', '2', 'Bunglow', 'Sector 4', 'Gandhinagar', 'Gandhinagar', 'Gujarat', 'India', '350000', '654789321', 'kavya.p2@ahduni.edu.in');
+INSERT INTO buyer VALUES ('B104', 'Malav', 'Pragnesh', 'Doshi', '1-2', 'Saraswat Villa', 'Amul Corner', 'Vastrapur', 'Jaipur', 'Rajasthan', 'India', '123456', '985632147', 'malav.d@ahduni.edu.in');
 
 -- CATEGORY TABLE
 insert into category values ('1', 'Electronics');
@@ -129,7 +146,7 @@ INSERT INTO specification VALUES('SPEC103','3','CKS101','CR102','Bottle','Stainl
 -- PRODUCT
 INSERT INTO product VALUES('PD101','OnePlus 8','1','MS101','M101','SPEC102','Mirror Gray','32999','50','6.5 Inch');
 INSERT INTO product VALUES('PD102','Thermos','3','CKS101','CR101','SPEC103','Steel Gray','1000','100','45cm');
-INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','25','15.6 Inch');
+INSERT INTO product VALUES('PD103','Inspiron 5593','1','LS101','L101','SPEC101','Black','83000','2','15.6 Inch');
 
 -- ORDERS
 INSERT INTO orders VALUES ('O101',current_timestamp,'B101','PD101','1','1000','','Hetarth Party Plot','Science City','Ahmedabad','Gujarat','India','S101');
@@ -160,8 +177,13 @@ INSERT INTO transaction VALUES ('TR104', 'O102', 'DEBIT CARD', '0');
 INSERT INTO transaction VALUES ('TR105', 'O104', 'CREDIT CARD', '0');
 INSERT INTO transaction VALUES ('TR106', 'O105', 'CREDIT CARD', '1');
 
+
+-- ********************************************************************************************************************************************************************
+
 -- PROCEDURE
+
 -- Pending transaction
+
 -- ******* ADD CONDITIONS FOR END LOOPPP ********
 DROP PROCEDURE IF EXISTS pendingTransaction;
 DELIMITER $$
@@ -182,16 +204,16 @@ DELIMITER $$
 					LEAVE getTransaction;
 				END IF;
 				SELECT r_transaction as "Transaction Id";
-				SELECT o.orderId, b.firstName, b.middleName, b.lastName FROM orders o, buyer b 
+				SELECT o.orderId, b.firstName, b.middleName, b.lastName FROM orders o
 				LEFT JOIN transaction t ON t.orderId = o.orderId AND t.transactionId = r_transaction
+                LEFT JOIN buyer b ON b.buyerId = o.orderId
 				WHERE b.buyerId = o.buyerId;
 			END LOOP;
             CLOSE c_transaction;
     END$$;
 DELIMITER ;
- 
- CALL pendingTransaction();
--- *********************************************************************
+
+
 -- REDUCING STOCKS
  
 DROP PROCEDURE IF EXISTS reducingStock;
@@ -234,9 +256,6 @@ DELIMITER $$
 		END$$;
 DELIMITER ;
 
-
--- *********************************************************************
-
 -- SUCCESSFUL TRANSACTIONS
 DROP PROCEDURE IF EXISTS successfulTransaction;
 
@@ -266,13 +285,7 @@ BEGIN
 END$$;
 DELIMITER ;
 
-call successfulTransaction();
--- *********************************************************************
-
--- CART 
--- c1: user name
--- c2: products in it
--- Get product name too!
+-- Cart
 DROP PROCEDURE IF EXISTS cart;
 
 DELIMITER $$
@@ -329,8 +342,6 @@ DELIMITER $$
 
 DELIMITER ;
 
-CALL cart();
-
 -- BILL
 -- buyer id, order placement date time 
 -- Bill to: buyer p. details
@@ -360,11 +371,6 @@ DELIMITER $$
     END$$;
 DELIMITER ;
 
-
-
-
-
-
 -- Brand Wise Product
 drop procedure brandWiseProduct;
 
@@ -393,9 +399,6 @@ delimiter $$
             close c_product_details;
 		end $$
 delimiter ;
-
-
-
 
 -- CategoryWise
 
@@ -427,7 +430,6 @@ delimiter $$
 		end $$
 delimiter ;
 
-
 -- SubCategoryWise
 
 drop procedure if exists subcategoryWiseProduct;
@@ -458,10 +460,6 @@ delimiter $$
 		end $$
 delimiter ;
 
-
-
-
-
 -- City Wise Sellers
 drop procedure if exists cityWiseSellers;
 
@@ -488,11 +486,6 @@ delimiter $$
             close c_state;
         end $$
 delimiter ;
-
-call cityWiseSellers();
-
-
-
 
 -- State Wise Sellers
 
@@ -522,8 +515,11 @@ delimiter $$
         end $$
 delimiter ;
 
+-- ********************************************************************************************************************************************************************
 
--- Function for transaction count
+-- FUNCTIONS
+
+-- Transaction Count
 drop function if exists transactionCount;
 
 delimiter $$
@@ -550,11 +546,6 @@ delimiter $$
         end $$
 delimiter ;
 
-select transactionCount() as "TransactionCount";
-
-
-
-
 -- Stock Product Name Wise
 drop function if exists stockProductNameWise;
 
@@ -568,11 +559,6 @@ delimiter $$
             return stock;
         end $$
 delimiter ;
-
-select stockProductNameWise("OnePlus 8") as "Stock";
-
-
-
 
 -- Transaction Count with Product Name and Date Range as Parameter
 drop function if exists productTransactionCount;
@@ -604,9 +590,3 @@ delimiter $$
             return count;
         end $$
 delimiter ;
-
-select productTransactionCount("OnePlus 8", "2021-04-04") as "Count";
-
-
-
--- 

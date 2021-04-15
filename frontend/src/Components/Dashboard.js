@@ -6,20 +6,22 @@ import axios from 'axios';
 
 
 // DETAILS FUNCTIONAL COMPONENT
-function Details({ result, color, write }) {
+function Details({ result }) {
 
     let renderList = result.map((rl) => {
+        // alert(rl[0].orderId);
+        if (Array.isArray(rl)) {
+            return (
+                <tr>
+                    <td><div className="d-flex justify-content-center">{rl[0].orderId}</div></td>
+                    <td><div className="d-flex justify-content-center">{rl[0].buyerId}</div></td>
+                    <td><div className="d-flex justify-content-center">{rl[0].firstName}</div></td>
+                    <td><div className="d-flex justify-content-center">{rl[0].middleName}</div></td>
+                    <td><div className="d-flex justify-content-center">{rl[0].lastName}</div></td>
+                </tr>
 
-        return (
-            <div className="row mt-5 d-flex justify-content-center">
-
-                <table style={{ width: "100%" }}>
-                    <tr>
-                        <td><div className="d-flex justify-content-center">{rl}</div></td>
-                    </tr>
-                </table>
-            </div>
-        );
+            );
+        }
     });
 
     return (renderList);
@@ -160,7 +162,20 @@ class Dashboard extends Component {
                         <div className="row mt-5 d-flex justify-content-center">
                             <h1 className={this.state.color}>{this.state.display}</h1>
                         </div>
-                        {display}
+                        <div>
+                            <div className="m-5">
+                                <table style={{ width: '100%' }}>
+                                    <tr>
+                                        <th><div className="d-flex justify-content-center">Order Id</div></th>
+                                        <th><div className="d-flex justify-content-center">Buyer Id</div></th>
+                                        <th><div className="d-flex justify-content-center">First Name</div></th>
+                                        <th><div className="d-flex justify-content-center">Middle Name</div></th>
+                                        <th><div className="d-flex justify-content-center">Last Name</div></th>
+                                    </tr>
+                                    <Details result={this.state.result} />
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

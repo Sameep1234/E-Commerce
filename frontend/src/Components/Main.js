@@ -25,6 +25,13 @@ import PlaceOrder from './Orders/PlaceOrder';
 
 class Main extends Component {
     render() {
+        const EditProductWithId = ({match}) => {
+            // alert(match.params.productId);
+            return(
+                <EditProduct productId={match.params.productId} />
+            );
+        }
+        
         return (
             <div>
                 <Switch location={window.location} key={window.location.pathname}>
@@ -40,7 +47,7 @@ class Main extends Component {
                     
 
                     <Route path='/add-product' component={AddProduct} />
-                    <Route path='/edit-product' component={EditProduct} />
+                    <Route path='/edit-product/:productId' component={EditProductWithId} />
                     <Route path='/product-list' component={Product} />
 
                     <Route path='/employee-list' component={Employee} />
