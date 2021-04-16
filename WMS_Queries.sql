@@ -617,20 +617,6 @@ delimiter $$
         end$$
 delimiter ;
 
-
--- Category Deleted then Product Delete
-
-drop trigger if exists deleteChildCategoryWise;
-
-delimiter $$
-	create trigger deleteChildCategoryWise before delete on category for each row
-    begin
-		delete from product where categoryId = old.categoryId;
-		delete from subcategory where categoryId = old.categoryId;
-        delete from specification where categoryId = old.categoryId;
-    end$$
-delimiter ;
-
 -- Trigger to automatically add details of recently placed order in shipping table
 
 DROP TRIGGER IF EXISTS autoAddShipping;
@@ -641,3 +627,27 @@ DELIMITER $$
 		insert into shipping(orderId, dispatchDate, arrivalDate) Values ( new.orderId, date(new.dateTime)+2, date(new.dateTime)+10);
     end$$;
 DELIMITER ;
+
+-- Delete from product and specification if deleted from subcategory
+drop trigger if exists deleteChildSubcategoryWise;
+
+delimiter $$
+	create trigger deleteChildSubcategoryWise before delete on subcategory for each row
+		begin
+			delete from product where subCategoryId = old.subCategoryId;
+            delete from specification where subCategoryId = old.subCategoryId;
+		end $$
+delimiter ;
+
+-- Category Deleted then delete from Product, subcategory and specification
+
+drop trigger if exists deleteChildCategoryWise;
+
+delimiter $$
+	create trigger deleteChildCategoryWise before delete on category for each row
+    begin
+		delete from product where categoryId = old.categoryId;
+		delete from subcategory where categoryId = old.categoryId;
+        delete from specification where categoryId = old.categoryId;
+    end $$
+delimiter ;
