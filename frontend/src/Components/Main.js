@@ -28,23 +28,26 @@ import EditCategory from './Category/EditCategory';
 class Main extends Component {
     render() {
         const EditProductWithId = ({match}) => {
-            // alert(match.params.productId);
             return(
                 <EditProduct productId={match.params.productId} />
             );
         }
 
         const EditBrandWithId = ({match}) => {
-            // alert(match.params.productId);
             return(
                 <EditBrand brandId={match.params.brandId} />
             );
         }
 
         const EditCategoryWithId = ({match}) => {
-            // alert(match.params.productId);
             return(
                 <EditCategory categoryId={match.params.categoryId} />
+            );
+        }
+
+        const EditEmployeeWithId = ({match}) => {
+            return(
+                <EditEmployee employeeId={match.params.employeeId} />
             );
         }
 
@@ -69,7 +72,7 @@ class Main extends Component {
                     <Route path='/employee-list' component={Employee} />
                     <Route path='/add-employee' component={AddEmployee} />
                     <Route path='/edit-employee' component={EditEmployee} />
-
+                    <Route path='/edit-employee/:employeeId' component={EditEmployeeWithId} />
                     
                     <Route path='/buyers-list' component={Buyer} />
                     

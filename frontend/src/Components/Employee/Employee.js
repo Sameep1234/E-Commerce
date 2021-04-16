@@ -1,28 +1,48 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import axios from 'axios';
 
 
-// RENDER PRODUCT LIST FUNCTIONAL COMPONENT
-function EmployeeList({ result }) {
-    let renderList = result.map((el) => {
+// RENDER PRODUCT LIST CLASS COMPONENT
 
-        return (
-            <tr>
-                <div className="d-flex justify-content-center"><span role="button" className="fa fa-trash" /></div>
-                <td><div className="d-flex justify-content-center">{el.employeeId}</div></td>
-                <td><div className="d-flex justify-content-center">{el.employeeType}</div></td>
-                <td><div className="d-flex justify-content-center">{el.firstName}</div></td>
-                <td><div className="d-flex justify-content-center">{el.middleName}</div></td>
-                <td><div className="d-flex justify-content-center">{el.lastName}</div></td>
-                <td><div className="d-flex justify-content-center">{el.salary}</div></td>
-                <td><div className="d-flex justify-content-center">{el.hiringDate}</div></td>
-                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-            </tr>
-        );
-    })
-    return (renderList);
+class EmployeeList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            redirectVar: false,
+            eid: '',
+        }
+    }
+
+    render() {
+        if (this.state.redirectVar) {
+            return (
+                <Redirect to={`/edit-employee/${this.state.eid}`} />
+            )
+        }
+
+        let renderList = this.props.result.map((el) => {
+
+                    return (
+                        <tr>
+                            <div className="d-flex justify-content-center"><span  onClick={() => { axios.get('http://localhost:5000/deleteEmployee', { headers: { employeeId: el.employeeId } }) }} role="button" className="fa fa-trash" /></div>
+                            <td><div className="d-flex justify-content-center">{el.employeeId}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.employeeType}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.firstName}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.middleName}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.lastName}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.salary}</div></td>
+                            <td><div className="d-flex justify-content-center">{el.hiringDate}</div></td>
+                            <td><div className="d-flex justify-content-center"><span onClick={() => {this.setState({eid: el.employeeId, redirectVar: true})}} className="fa fa-pencil" role="button" /></div></td>
+                        </tr>
+                    );
+                })
+
+        return (renderList);
+    }
 
 }
 

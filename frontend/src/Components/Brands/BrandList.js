@@ -39,12 +39,6 @@ class BrandDetails extends Component {
 
 }
 
-// function BrandDetails({ result }) {
-
-
-//     return (renderList);
-// }
-
 class BrandList extends Component {
     constructor(props) {
         super(props);
