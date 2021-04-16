@@ -248,9 +248,9 @@ DELIMITER $$
                     IF c_end = 1 THEN 
 						LEAVE getProduct;
 					END IF;
-                    SELECT r_productId as "Pruduct Id", r_productName as "Name", r_quantity as "Quantity";
-                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "Product Category", 
-						r_specificationId as "Specification Id",
+                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity";
+                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
+						r_specificationId as "SpecificationId",
 						r_brand as "Brand",
 						r_price as "Price";
                 END LOOP;
@@ -345,14 +345,8 @@ DELIMITER $$
         END$$;
 
 DELIMITER ;
- call cart();
--- BILL
--- buyer id, order placement date time 
--- Bill to: buyer p. details
--- prod details,seller details(form order, get seller id), quty, amt, total,
 
--- CURSORS
--- for each buyer
+-- BILL
 
 DROP PROCEDURE IF EXISTS bill;
 
@@ -588,13 +582,12 @@ delimiter ;
 drop function if exists productTransactionCount;
 
 delimiter $$
-	create function productTransactionCount(productName varchar(100), startingDate date) returns int deterministic
+	create function productTransactionCount(p_productName varchar(100), startingDate date, endingDate date) returns int deterministic
 		begin
 			declare count int default 0;
             declare finished int default 0;
             declare r_orderId varchar(100);
             declare sDate date;
-            declare eDate date;
             declare c_orderId cursor for select orderId from transaction;
             declare continue handler for not found set finished = 1;
             
@@ -604,9 +597,11 @@ delimiter $$
                     if finished = 1 then
 						leave getCount;
                     end if;
-                    select date(datetime) into sDate;
+                    select date(o.dateTime) from orders o 
+                    left join product p on o.productId = p.productId
+                    where orderId = r_orderId and p.productName = p_productName into sDate;
                     
-                    if sDate >= startingDate then
+                    if sDate >= startingDate and sDate <= endingDate then
 						set count = count+1;
                     end if;
                 end loop;
@@ -664,3 +659,5 @@ delimiter $$
         delete from specification where categoryId = old.categoryId;
     end $$
 delimiter ;
+
+-- Add to Bill Once Order is placed
