@@ -65,7 +65,7 @@ create table transaction (transactionId varchar(10) primary key, orderId varchar
 							on update cascade on delete cascade,
 							modeOfPayment varchar(25) not null, paymentStatus boolean not null);
                                 
-create table shipping(shippingId varchar(10) primary key, orderId varchar(10) not null, foreign key(orderId) references orders(orderId)
+create table shipping(shippingId int primary key auto_increment, orderId varchar(10) not null, foreign key(orderId) references orders(orderId)
 							on update cascade on delete cascade, 
 							dispatchDate date not null, arrivalDate date not null);
                             
@@ -156,11 +156,11 @@ INSERT INTO orders VALUES ('O104', current_timestamp, 'B101', 'PD103', '4', '300
 INSERT INTO orders VALUES ('O105', current_timestamp, 'B104', 'PD101', '2', '2000', '6512/3', 'Hotel Greenz', 'Sector3', 'Gandhinagar', 'Gandhinagar', 'India', 'S110');
 
 -- SHIPPING
-INSERT INTO shipping VALUES ('SP101', 'O105', '2017-04-22', '2017-04-22');
-INSERT INTO shipping VALUES ('SP102', 'O104', '2020-05-05', '2020-05-05');
-INSERT INTO shipping VALUES ('SP103', 'O101', '2020-12-18', '2020-12-18');
-INSERT INTO shipping VALUES ('SP104', 'O104', '2021-04-05', '2021-04-05');
-INSERT INTO shipping VALUES ('SP105', 'O103', '2020-08-15', '2020-08-15');
+INSERT INTO shipping VALUES ('1', 'O105', '2017-04-22', '2017-04-22');
+INSERT INTO shipping VALUES ('2', 'O104', '2020-05-05', '2020-05-05');
+INSERT INTO shipping VALUES ('3', 'O101', '2020-12-18', '2020-12-18');
+INSERT INTO shipping VALUES ('4', 'O104', '2021-04-05', '2021-04-05');
+INSERT INTO shipping VALUES ('5', 'O103', '2020-08-15', '2020-08-15');
 
 -- CART
 INSERT INTO cart VALUES ('B103', 'PD102', '2019-12-11', '4', '4000');
@@ -628,5 +628,16 @@ delimiter $$
 		delete from product where categoryId = old.categoryId;
 		delete from subcategory where categoryId = old.categoryId;
         delete from specification where categoryId = old.categoryId;
-    end $$
+    end$$
 delimiter ;
+
+-- Trigger to automatically add details of recently placed order in shipping table
+
+DROP TRIGGER IF EXISTS autoAddShipping;
+
+DELIMITER $$
+	CREATE TRIGGER autoAddShipping before insert on orders for each row
+    begin
+		insert into shipping(orderId, dispatchDate, arrivalDate) Values ( new.orderId, date(new.dateTime)+2, date(new.dateTime)+10);
+    end$$;
+DELIMITER ;
