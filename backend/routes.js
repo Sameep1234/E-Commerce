@@ -21,6 +21,7 @@ const getProduct = require('./utils/Product/getProduct');
 //CATEGORY ROUTES
 const addCategory = require('./utils/Category/addCategory');
 const categoryList = require('./utils/Category/categoryList');
+const categorywiseProd = require('./utils/Category/categorywiseProd');
 
 //BUYER ROUTES
 const buyerList = require('./utils/Buyer/buyerList');
@@ -52,6 +53,8 @@ const getSeller = require('./utils/Seller/getSeller');
 const addSeller = require('./utils/Seller/addSeller');
 const deleteSeller = require('./utils/Seller/deleteSeller');
 const updateSeller = require('./utils/Seller/updateSeller');
+const sellerCityWise = require('./utils/Seller/sellerCityWise');
+const sellerStateWise = require('./utils/Seller/sellerStateWise');
 
 //STOCK ROUTES
 const stockList = require('./utils/Stock/stockList');
@@ -76,6 +79,7 @@ const addSpecification = require('./utils/Specification/addSpecification');
 //SUBCATEGORY ROUTES
 const addSubCategory = require('./utils/SubCategory/addSubCategory');
 const subCategoryList = require('./utils/SubCategory/subCategoryList');
+const subCategorywiseProd = require('./utils/SubCategory/subCategorywiseProd');
 
 router.get('/', (req, res) => {res.send('Server Running')});
 
@@ -131,6 +135,8 @@ router.get('/getSeller', getSeller.getSeller);
 router.post('/addSeller', addSeller.addSeller);
 router.get('/deleteSeller', deleteSeller.deleteSeller);
 router.post('/updateSeller', updateSeller.updateSeller);
+router.get('/sellerCityWise',sellerCityWise.sellerCityWise);
+router.get('/sellerStateWise', sellerStateWise.sellerStateWise);
 
 //STOCK APIs
 router.get('/stockList', stockList.stockList);
@@ -152,9 +158,11 @@ router.get('/brandwiseProd', brandwiseProd.brandwiseProd);
 //CATEGORY APIs
 router.post('/addCategory', addCategory.addCategory);
 router.get('/categoryList', categoryList.categoryList);
+router.get('/categorywiseProd', categorywiseProd.categorywiseProd);
 
 //SUBCATEGORY APIs
 router.post('/addSubCategory', addSubCategory.addSubCategory);
 router.get('/subCategoryList', subCategoryList.subCategoryList);
+router.get('/subCategorywiseProd', subCategorywiseProd.subCategorywiseProd);
 
 module.exports = router;
