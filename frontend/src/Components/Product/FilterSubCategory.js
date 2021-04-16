@@ -1,50 +1,43 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Button } from 'reactstrap';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import axios from 'axios';
 
-
-// RENDER PRODUCT LIST FUNCTIONAL COMPONENT
-class ProductList extends Component {
+class SubCategoryWiseList extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            redirectVar: false,
-            pid: '',
-        }
     }
 
     render() {
-        if (this.state.redirectVar) {
-            return (
-                <Redirect to={`/edit-product/${this.state.pid}`} />
-            )
-        }
+        let renderList = this.props.result.map((fc) => {
+            if (Array.isArray(fc)) {
+                if (fc.length > 0) {
+                    let loop2 = fc.map((lfc) => {
+                        return (
+                            <tr>
+                                <td><div className="d-flex justify-content-center">{lfc.productName}</div></td>
+                                <td><div className="d-flex justify-content-center">{lfc.categoryName}</div></td>
+                                <td><div className="d-flex justify-content-center">{lfc.subCategoryName}</div></td>
+                                <td><div className="d-flex justify-content-center">{lfc.brandName}</div></td>
+                                <td><div className="d-flex justify-content-center">{lfc.price}</div></td>
+                                <td><div className="d-flex justify-content-center">{lfc.quantity}</div></td>
+                            </tr>
+                        );
+                    })
+                    return (loop2);
+                }
 
-        let renderList = this.props.result.map((pl) => {
-            return (
-                <tr>
-                    <div className="d-flex justify-content-center"><span id={pl.productId} className="fa fa-trash" onClick={() => { axios.get('http://localhost:5000/deleteProduct', { headers: { productId: pl.productId } }) }} role="button" /></div>
-                    <td><div className="d-flex justify-content-center">{pl.productName}</div></td>
-                    <td><div className="d-flex justify-content-center">{pl.categoryName}</div></td>
-                    <td><div className="d-flex justify-content-center">{pl.subCategoryName}</div></td>
-                    <td><div className="d-flex justify-content-center">{pl.brandName}</div></td>
-                    <td><div className="d-flex justify-content-center">{pl.price}</div></td>
-                    <td><div className="d-flex justify-content-center">{pl.quantity}</div></td>
-                    <td><div className="d-flex justify-content-center"><span id={pl.productId} className="fa fa-pencil" onClick={() => { this.setState({ pid: pl.productId, redirectVar: true }) }} role="button" /></div></td>
-                </tr>
-            );
-        })
+            }
+        });
 
         return (renderList);
     }
-
 }
 
-class Products extends Component {
+
+class FilterSubCategory extends Component {
     constructor(props) {
         super(props);
 
@@ -79,27 +72,25 @@ class Products extends Component {
         });
     }
 
-    // FETCH RECORD AS SOON AS PAGE LOADS
     componentDidMount() {
-        axios.get('http://localhost:5000/productList')
+        axios.get('http://localhost:5000/subcategoryWiseProd')
             .then((response) => {
-                if (response.data.status === 1) {
-                    this.setState({
-                        result: response.data.data,
-                    });
-                }
                 this.setState({
                     msg: response.data.msg,
-                });
+                })
+                if (response.data.status) {
+                    this.setState({
+                        result: response.data.data,
+                    })
+                }
             })
             .catch((err) => {
                 this.setState({
                     msg: err,
                 });
-            });
+            })
     }
 
-    // RENDER METHOD
     render() {
         if (this.state.brandFilter) {
             return (
@@ -141,16 +132,16 @@ class Products extends Component {
                         <div className="m-5">
                             <table style={{ width: '100%' }}>
                                 <tr>
-                                    <th><div className="d-flex justify-content-center">Delete</div></th>
+                                    {/* <th><div className="d-flex justify-content-center">Delete</div></th> */}
                                     <th><div className="d-flex justify-content-center">Product Name</div></th>
                                     <th><div className="d-flex justify-content-center">Category Name</div></th>
                                     <th><div className="d-flex justify-content-center">Sub-Category Name</div></th>
                                     <th><div className="d-flex justify-content-center">Brand Name</div></th>
                                     <th><div className="d-flex justify-content-center">Price</div></th>
                                     <th><div className="d-flex justify-content-center">Quantity</div></th>
-                                    <th><div className="d-flex justify-content-center">Edit</div></th>
+                                    {/* <th><div className="d-flex justify-content-center">Edit</div></th> */}
                                 </tr>
-                                <ProductList result={this.state.result} />
+                                <SubCategoryWiseList result={this.state.result} />
                             </table>
                         </div>
                     </div>
@@ -160,4 +151,4 @@ class Products extends Component {
     }
 }
 
-export default Products;
+export default FilterSubCategory;

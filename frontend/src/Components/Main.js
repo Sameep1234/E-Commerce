@@ -24,6 +24,9 @@ import SubCategoryList from './SubCategory/SubCategoryList';
 import PlaceOrder from './Orders/PlaceOrder';
 import EditBrand from './Brands/EditBrand';
 import EditCategory from './Category/EditCategory';
+import FilterBrand from './Product/FilterBrand';
+import FilterCategory from './Product/FilterCategory';
+import FilterSubCategory from './Product/FilterSubCategory';
 
 class Main extends Component {
     render() {
@@ -67,7 +70,10 @@ class Main extends Component {
 
                     <Route path='/add-product' component={AddProduct} />
                     <Route path='/edit-product/:productId' component={EditProductWithId} />
-                    <Route path='/product-list' component={Product} />
+                    <Route exact path='/product-list' component={Product} />
+                    <Route exact path='/product-list/filter-brand' component={FilterBrand} />
+                    <Route exact path='/product-list/filter-category' component={FilterCategory} />
+                    <Route exact path='/product-list/filter-subCategory' component={FilterSubCategory} />
 
                     <Route path='/employee-list' component={Employee} />
                     <Route path='/add-employee' component={AddEmployee} />
