@@ -345,7 +345,6 @@ DELIMITER $$
         END$$;
 
 DELIMITER ;
- call cart();
 
 -- CURSORS
 -- for each buyer
@@ -354,29 +353,29 @@ DELIMITER ;
 drop procedure brandWiseProduct;
 
 delimiter $$
-	create procedure brandWiseProduct()
-		begin
-			declare finished int default 0;
+    create procedure brandWiseProduct()
+        begin
+            declare finished int default 0;
             declare r_brandId varchar(100);
             declare c_product_details cursor for select brandID from brand;
             declare continue handler for not found set finished = 1;
-            
+
             open c_product_details;
-				c_loop: loop
-					fetch c_product_details into r_brandId;
+                c_loop: loop
+                    fetch c_product_details into r_brandId;
                     if finished = 1 then
-						leave c_loop;
+                        leave c_loop;
                     end if;
-                    
+
                     SELECT p.productName, c.categoryName, s.subCategoryName, b.brandName, p.price, p.quantity FROM product p 
                     LEFT JOIN category c ON c.categoryID = p.categoryId 
                     LEFT JOIN brand b ON b.brandID = p.brandId 
                     LEFT JOIN subCategory s ON s.subCategoryID = p.subCategoryId
                     WHERE b.brandID = r_brandId;
-                    
+
                 end loop;
             close c_product_details;
-		end $$
+        end$$
 delimiter ;
 
 -- CategoryWise
@@ -406,7 +405,7 @@ delimiter $$
                     
                 end loop;
             close c_product_details;
-		end $$
+		end$$
 delimiter ;
 
 -- SubCategoryWise
@@ -463,7 +462,7 @@ delimiter $$
                     from seller where city = r_state;
                 end loop;
             close c_state;
-        end $$
+        end$$
 delimiter ;
 
 -- State Wise Sellers
@@ -491,7 +490,7 @@ delimiter $$
                     from seller where state = r_state;
                 end loop;
             close c_state;
-        end $$
+        end$$
 delimiter ;
 
 -- ********************************************************************************************************************************************************************
@@ -511,7 +510,7 @@ delimiter ;
         select price_1*p_quantity into ans;
         
         return ans;
-    end $$
+    end$$
  delimiter ;
 
 -- Transaction Count
@@ -587,10 +586,6 @@ delimiter $$
 delimiter ;
 
 -- BILL
--- buyer id, order placement date time 
--- Bill to: buyer p. details
--- prod details,seller details(form order, get seller id), quty, amt, total,
-
 
 DROP PROCEDURE IF EXISTS bill;
 
@@ -598,20 +593,77 @@ DELIMITER $$
 	CREATE PROCEDURE bill()
     BEGIN
 		DECLARE c_end INT DEFAULT 0;
-        DECLARE r_orderId varchar(20);
-        DECLARE r_buyerId varchar(20);
-        DECLARE r_orderDateTime date; 
-        DECLARE r_sellerId varchar(20);
+        DECLARE r_buyerId varchar(20); 
+        
         DECLARE c_buyer CURSOR FOR
-			SELECT DISTINCT buyerId, dateTime FROM orders;
+			SELECT DISTINCT buyerId orders;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+        
+        -- buyer id, order placement date time 
+		-- Bill to: buyer p. details
+		-- prod details,seller details(form order, get seller id), quty, amt, total,
 		OPEN c_buyer;
 			getBuyer:LOOP
-				FETCH c_buyer INTO r_buyerId;
-                IF c_end = 1 THEN
-					LEAVE getBuyer;
-				END IF ;
-                SELECT  orderId, date(dateTime) as date, sellerId FROM orders WHERE buyerId = r_buyerId GROUP BY date(dateTime);
+				BEGIN
+					DECLARE r_b_firstName varchar(100);
+                    DECLARE r_b_lastName varchar(100);
+                    DECLARE r_b_contactNumber varchar(100);
+                    DECLARE r_b_email varchar(100);
+                    DECLARE r_b_middleName varchar(100);
+                    DECLARE r_s_firstName varchar(100);
+                    DECLARE r_s_middleName varchar(100);
+                    DECLARE r_s_lastName varchar(100);
+					DECLARE r_s_contactNumber varchar(100);
+                    DECLARE r_s_email varchar(100);
+                    
+					FETCH c_buyer 
+					INTO  r_buyerId, r_orderId, r_sellerId, r_totalPrice, 
+						r_adderss1, r_landmark, r_area, r_city, r_state ,r_country , r_dateTime;
+					IF c_end = 1 THEN
+						LEAVE getBuyer;
+					END IF;
+					
+                    -- get buyer details
+						SELECT firstName, middleName,lastName, contactNumber, email from buyer 
+                        where buyerId = r_buyerId 
+                        into r_b_firstName, r_b_middleName, r_b_lastName, r_b_contactNumber, r_b_email;
+
+                    -- get seller details
+						SELECT firstName, middleName,lastName, contactNumber, email from buyer 
+                        where buyerId = r_buyerId 
+                        into r_s_firstName, r_s_middleName, r_s_lastName, r_s_contactNumber, r_s_email;
+                        
+                        select concat(r_b_firstName, r_b_middleName, r_b_lastName) as "b_Name", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email", 
+                        concat(r_s_firstName , r_s_middleName, r_s_lastName) as "s_name", r_s_contactNumber as "s_contactNumber", r_s_email as "s_email";
+                        
+                    -- get order
+						BEGIN
+							DECLARE r_orderId varchar(100);
+                            DECLARE r_sellerId varchar(20);
+							DECLARE r_totalPrice int;
+							DECLARE r_address1 varchar(100);
+							DECLARE r_landmark varchar(100);
+							DECLARE r_area  varchar(100);
+							DECLARE r_city varchar(100);
+							DECLARE r_state varchar(100);
+							DECLARE r_country varchar(100);
+							DECLARE r_orderDateTime date;
+                            declare finish1 int default 0;
+                            declare c_order cursor for
+								select orderId from orders where buyerId = r_buyerId;
+							DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+                            open c_order;
+								getOrder: loop
+									fetch c_order into orderId;
+                                    if finish1 = 1 then 
+										leave getOrder;
+                                    end if;
+									-- SELECT sellerId, totalPrice, adderss1, landmark, area, city, state ,country , dateTime FROM order where orderId = r_orderId;
+                                end loop;
+                            close c_order;
+                        END;
+                    -- get total
+				END;
             END LOOP;
         CLOSE c_buyer;
     END$$;
@@ -653,7 +705,7 @@ delimiter $$
 		begin
 			delete from product where subCategoryId = old.subCategoryId;
             delete from specification where subCategoryId = old.subCategoryId;
-		end $$
+		end$$
 delimiter ;
 
 -- Category Deleted then delete from Product, subcategory and specification
@@ -666,5 +718,5 @@ delimiter $$
 		delete from product where categoryId = old.categoryId;
 		delete from subcategory where categoryId = old.categoryId;
         delete from specification where categoryId = old.categoryId;
-    end $$
+    end$$
 delimiter ;

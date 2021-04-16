@@ -40,6 +40,7 @@ const transactionList = require('./utils/Transaction/transactionList')
 const getTransaction = require('./utils/Transaction/getTransaction');
 const pendingTransaction = require('./utils/Transaction/pendingTransaction');
 const successfulTransaction = require('./utils/Transaction/successfulTransaction');
+const transactionCount = require('./utils/Transaction/transactionCount');
 
 //CART ROUTES
 const cartList = require('./utils/Cart/cartList');
@@ -67,6 +68,7 @@ const brandList = require('./utils/Brand/brandList');
 const addBrand = require('./utils/Brand/addBrand');
 const deleteBrand = require('./utils/Brand/deleteBrand');
 const updateBrand = require('./utils/Brand/updateBrand');
+const brandwiseProd = require('./utils/Brand/brandwiseProd');
 
 //SPECIFICATION ROUTES
 const addSpecification = require('./utils/Specification/addSpecification');
@@ -117,6 +119,7 @@ router.get('/transactionList', transactionList.transactionList);
 router.get('/getTransaction', getTransaction.getTransaction);
 router.get('/successfulTransaction', successfulTransaction.successfulTransaction);
 router.get('/pendingTransaction', pendingTransaction.pendingTransaction);
+router.get('/transactionCount', transactionCount.transactionCount);
 
 //CART APIs
 router.get('/cartList', cartList.cartList);
@@ -144,6 +147,7 @@ router.get('/brandList', brandList.brandList);
 router.post('/addBrand', addBrand.addBrand);
 router.get('/deleteBrand', deleteBrand.deleteBrand);
 router.post('/updateBrand', updateBrand.updateBrand);
+router.get('/brandwiseProd', brandwiseProd.brandwiseProd);
 
 //CATEGORY APIs
 router.post('/addCategory', addCategory.addCategory);
