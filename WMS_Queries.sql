@@ -312,11 +312,7 @@ DELIMITER $$
                 DECLARE r_middleName varchar(100);
                 DECLARE r_lastName varchar(100);
                 DECLARE r_email varchar(100);
-                DECLARE r_productId varchar(100);
-                DECLARE r_productName varchar(100);
-                DECLARE r_categoryName varchar(100);
-                DECLARE r_subCategoryName varchar(100);
-                DECLARE r_brandName varchar(100);
+                
                 
 				FETCH c1_customer INTO r_buyerId;
 				IF c1_end = 1 THEN 
@@ -328,23 +324,37 @@ DELIMITER $$
 						r_buyerId as "BuyerId", 
 						CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
 						r_email as "Email";
-                        
-				
-                SELECT cart.productId, p.productName from cart 
-                left join product p on cart.productId = p.productId
-                where cart.buyerId = r_buyerId into r_productId, r_productName;
-                
-                select c.categoryName, s.subcategoryName, b.brandName from product p
-                left join category c on p.categoryId = c.categoryId 
-                left join subCategory s on p.subCategoryId = s.subCategoryId
-                left join brand b on p.brandId = b.brandId
-                where p.productId = r_productId
-                into r_categoryName, r_subCategoryName, r_brandName;
-                
-                select  
-                r_firstName as "firstName", r_middleName as "middleName", r_lastName as "lastName", r_email as "email",
-                r_productId as "productId", r_productName as "productName",
-                r_categoryName as "categoryName", r_subCategoryName as "subCategoryName", r_brandName as "brandName";
+				BEGIN
+					DECLARE r_productId varchar(100);
+					DECLARE r_productName varchar(100);
+					DECLARE r_categoryName varchar(100);
+					DECLARE r_subCategoryName varchar(100);
+					DECLARE r_brandName varchar(100);
+                    declare cEnd int default 0;
+                    declare c_getProduct cursor for
+						SELECT cart.productId from cart 
+						 where cart.buyerId = r_buyerId; 
+					declare continue handler for not found set cEnd = 1;
+                    open c_getProduct;
+						getProdut: loop
+                        fetch c_getProduct into r_productId;
+                        if cEnd = 1 then
+                        leave getProduct;
+                        end if;
+                        select c.categoryName, s.subcategoryName, b.brandName from product p
+						 left join category c on p.categoryId = c.categoryId 
+						 left join subCategory s on p.subCategoryId = s.subCategoryId
+						 left join brand b on p.brandId = b.brandId
+						 where p.productId = r_productId
+						 into r_categoryName, r_subCategoryName, r_brandName;
+                 
+							select  
+							r_firstName as "firstName", r_middleName as "middleName", r_lastName as "lastName", r_email as "email",
+							r_productId as "productId", r_productName as "productName",
+							r_categoryName as "categoryName", r_subCategoryName as "subCategoryName", r_brandName as "brandName";
+							end loop;
+                    close c_getProduct;
+                END;
                 END;
             END LOOP;
         CLOSE c1_customer;
