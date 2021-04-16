@@ -1,19 +1,23 @@
 const pool = require('../../pool');
 
-exports.cartList = (req, res) => {
-    pool.getConnection((err) => {
+exports.updateBrand = (req,res) => {
+
+    let brandId = req.body.employeeId;
+    let brandName = req.body.brandName;
+
+    pool.getConnection((err => {
         if(err){
             res.send({
-                data: null,
+                status: 0,
                 msg: err.message,
-                status: 0
-            })
+                data: null,
+            });d
         }
         else{
-            let fetch = `CALL cart()`;
+            let fetch = "UPDATE brand SET brandName = '"+ brandName +"';";
             pool.query(fetch, (err,result) => {
                 if(err){
-                    res.send({ 
+                   res.send({
                         data: null,
                         msg: err.message,
                         status: 0
@@ -22,11 +26,11 @@ exports.cartList = (req, res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Cart List',
+                        msg: 'Updated brand',
                         data: result,
                     });
                 }
             })
         }
-    })
+    }))
 }

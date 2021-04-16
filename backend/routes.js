@@ -55,6 +55,7 @@ const updateSeller = require('./utils/Seller/updateSeller');
 //STOCK ROUTES
 const stockList = require('./utils/Stock/stockList');
 const updateStock = require('./utils/Stock/updateStock');
+const reducingStock = require('./utils/Stock/reducingStock');
 
 //ORDER ROUTES
 const orderList = require('./utils/Order/orderList');
@@ -64,6 +65,8 @@ const addOrder = require('./utils/Order/addOrder');
 //BRAND ROUTES
 const brandList = require('./utils/Brand/brandList');
 const addBrand = require('./utils/Brand/addBrand');
+const deleteBrand = require('./utils/Brand/deleteBrand');
+const updateBrand = require('./utils/Brand/updateBrand');
 
 //SPECIFICATION ROUTES
 const addSpecification = require('./utils/Specification/addSpecification');
@@ -129,6 +132,7 @@ router.post('/updateSeller', updateSeller.updateSeller);
 //STOCK APIs
 router.get('/stockList', stockList.stockList);
 router.post('/updateStock', updateStock.updateStock);
+router.get('/reducingStock', reducingStock.reducingStock);
 
 //ORDER APIs
 router.get('/orderList', orderList.orderList);
@@ -138,6 +142,8 @@ router.post('/addOrder', addOrder.addOrder);
 //BRAND APIs
 router.get('/brandList', brandList.brandList);
 router.post('/addBrand', addBrand.addBrand);
+router.get('/deleteBrand', deleteBrand.deleteBrand);
+router.post('/updateBrand', updateBrand.updateBrand);
 
 //CATEGORY APIs
 router.post('/addCategory', addCategory.addCategory);

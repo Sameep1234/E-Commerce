@@ -228,7 +228,7 @@ DELIMITER $$
             DECLARE r_specificationId VARCHAR(20);
             DECLARE r_quantity VARCHAR(20);
             DECLARE r_price VARCHAR(20);
-            
+            DECLARE c_end int default 0;
             DECLARE c_product CURSOR FOR
 				SELECT 
 					p.productId, p.productName, p.specificationId, p.quantity, p.price,
@@ -236,15 +236,18 @@ DELIMITER $$
 					sc.subcategoryName, 
 					b.brandName 
                     FROM product p
-						LEFT JOIN catrgory c ON p.categoryId = c.categoryId
+						LEFT JOIN category c ON p.categoryId = c.categoryId
 						LEFT JOIN subCategory sc ON p.subCategoryId = sc.subCategoryId
 						LEFT JOIN brand b ON p.brandId = b.brandId
-					WHERE p.stock <10;
+					WHERE p.quantity <10;
                 
             DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end= 1;  
             OPEN c_product;
 				getProduct: LOOP
-					FETCH c_product INTO r_productId, r_productName, r_category, r_subCategory, r_brand, r_specification, r_quantity, r_price;
+					FETCH c_product INTO r_productId, r_productName, r_category, r_subCategory, r_brand, r_specificationId, r_quantity, r_price;
+                    IF c_end = 1 THEN 
+						LEAVE getProduct;
+					END IF;
                     SELECT r_productId as "Pruduct Id", r_productName as "Name", r_quantity as "Quantity";
                     SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "Product Category", 
 						r_specificationId as "Specification Id",
@@ -254,6 +257,8 @@ DELIMITER $$
             CLOSE c_product;
 		END$$;
 DELIMITER ;
+
+
 
 -- SUCCESSFUL TRANSACTIONS
 DROP PROCEDURE IF EXISTS successfulTransaction;
@@ -296,7 +301,7 @@ DELIMITER $$
         DECLARE r_middleName varchar(20);
         DECLARE r_lastName varchar(20);
         DECLARE r_email varchar(100);
-        DECLARE c1_ensd INT DEFAULT 0;
+        DECLARE c1_end INT DEFAULT 0;
         DECLARE c1_customer CURSOR FOR
 			SELECT buyerId, firstName, middleName, lastName,email FROM buyer;
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET c1_end = 1;
@@ -308,9 +313,9 @@ DELIMITER $$
 					LEAVE getCustomer;
 				END IF;
                 SELECT 
-								r_buyerId as "BuyerId", 
-                                CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
-                                r_email as "Email";
+						r_buyerId as "BuyerId", 
+						CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
+						r_email as "Email";
                 BEGIN
                     DECLARE r_productId varchar(20);
                     DECLARE r_dateTime varchar(20);
@@ -361,12 +366,16 @@ DELIMITER $$
         DECLARE r_sellerId varchar(20);
         DECLARE c_buyer CURSOR FOR
 			SELECT DISTINCT buyerId, dateTime FROM orders;
+		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
 		OPEN c_buyer;
 			getBuyer:LOOP
 				FETCH c_buyer INTO r_buyerId;
+                IF c_end = 1 THEN
+					LEAVE getBuyer;
+				END IF ;
                 SELECT  orderId, date(dateTime) as date, sellerId FROM orders WHERE buyerId = r_buyerId GROUP BY date(dateTime);
             END LOOP;
-        CLOSE c_buuyer;
+        CLOSE c_buyer;
     END$$;
 DELIMITER ;
 
@@ -456,7 +465,7 @@ delimiter $$
                     
                 end loop;
             close c_product_details;
-		end $$
+		end$$
 delimiter ;
 
 -- City Wise Sellers
@@ -542,7 +551,7 @@ delimiter $$
             close c_transactionId;
             
             return count;
-        end $$
+        end$$
 delimiter ;
 
 -- Stock Product Name Wise
@@ -556,7 +565,7 @@ delimiter $$
             select quantity from product where productName = p_productName into stock;
             
             return stock;
-        end $$
+        end$$
 delimiter ;
 
 -- Transaction Count with Product Name and Date Range as Parameter
@@ -587,5 +596,5 @@ delimiter $$
                 end loop;
             close c_orderId;
             return count;
-        end $$
+        end$$
 delimiter ;

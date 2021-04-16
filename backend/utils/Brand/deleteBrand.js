@@ -1,19 +1,21 @@
-const pool = require('../../pool');
+const pool = require('../../pool'); 
 
-exports.cartList = (req, res) => {
-    pool.getConnection((err) => {
+exports.deleteBrand = (req,res) => {
+    let brandId = req.header.brandId;
+
+    pool.createConnection((err => {
         if(err){
             res.send({
-                data: null,
+                status: 0,
                 msg: err.message,
-                status: 0
-            })
+                data: null,
+            });
         }
         else{
-            let fetch = `CALL cart()`;
+            let fetch = "DELETE FROM brand WHERE brandId = "+ {brandId} +";";
             pool.query(fetch, (err,result) => {
                 if(err){
-                    res.send({ 
+                   res.send({
                         data: null,
                         msg: err.message,
                         status: 0
@@ -22,11 +24,11 @@ exports.cartList = (req, res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Cart List',
+                        msg: 'Deleted Brand',
                         data: result,
                     });
                 }
             })
         }
-    })
+    }))
 }
