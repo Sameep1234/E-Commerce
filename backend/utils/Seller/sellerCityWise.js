@@ -1,6 +1,6 @@
 const pool = require('../../pool');
 
-exports.subCategorywiseProd = (req, res) => {
+exports.sellerCityWise = (req, res) => {
     pool.getConnection((err) => {
         if(err){
             res.send({
@@ -10,7 +10,7 @@ exports.subCategorywiseProd = (req, res) => {
             })
         }
         else{
-            let fetch = `call subCategoryWiseProduct();`;
+            let fetch = 'call cityWiseSellers();';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
@@ -22,7 +22,7 @@ exports.subCategorywiseProd = (req, res) => {
                 else{
                     res.send({
                         status: 1,
-                        msg: 'Sub Category Wise Product List',
+                        msg: 'City wise seller list',
                         data: result,
                     });
                 }
