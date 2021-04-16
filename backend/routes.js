@@ -1,6 +1,9 @@
 const express = require('express');
 var router = express.Router();
 
+//BILL ROUTES
+const bill = require('./utils/Bill/bill');
+
 //EMPLOYEE ROUTES
 const employeeList = require('./utils/Employee/employeeList');
 const getEmployee = require('./utils/Employee/getEmployee');
@@ -17,6 +20,7 @@ const updateProduct = require('./utils/Product/updateProduct');
 const deleteProduct = require('./utils/Product/deleteProduct');
 const addProduct = require('./utils/Product/addProduct');
 const getProduct = require('./utils/Product/getProduct');
+const getTotalPrice = require('./utils/Product/getTotalPrice');
 
 //CATEGORY ROUTES
 const addCategory = require('./utils/Category/addCategory');
@@ -42,6 +46,7 @@ const getTransaction = require('./utils/Transaction/getTransaction');
 const pendingTransaction = require('./utils/Transaction/pendingTransaction');
 const successfulTransaction = require('./utils/Transaction/successfulTransaction');
 const transactionCount = require('./utils/Transaction/transactionCount');
+const productTransactionCount = require('./utils/Transaction/productTransactionCount');
 
 //CART ROUTES
 const cartList = require('./utils/Cart/cartList');
@@ -60,6 +65,7 @@ const sellerStateWise = require('./utils/Seller/sellerStateWise');
 const stockList = require('./utils/Stock/stockList');
 const updateStock = require('./utils/Stock/updateStock');
 const reducingStock = require('./utils/Stock/reducingStock');
+const stockProductNameWise = require('./utils/Stock/stockProductNameWise');
 
 //ORDER ROUTES
 const orderList = require('./utils/Order/orderList');
@@ -85,6 +91,9 @@ router.get('/', (req, res) => {res.send('Server Running')});
 
 //__________________________________________________________________________
 
+//BILL API's
+router.get('/bill', bill.bill);
+
 //SPECIFICATION APIs
 router.post('/addSpecification', addSpecification.addSpecification);
 
@@ -104,6 +113,7 @@ router.post('/updateProduct', updateProduct.updateProduct);
 router.get('/deleteProduct', deleteProduct.deleteProduct);
 router.post('/addProduct', addProduct.addProduct);
 router.get('/getProduct', getProduct.getProduct);
+router.get('/getTotalPrice', getTotalPrice.getTotalPrice);
 
 //BUYER APIs
 router.get('/buyerList', buyerList.buyerList);
@@ -124,6 +134,7 @@ router.get('/getTransaction', getTransaction.getTransaction);
 router.get('/successfulTransaction', successfulTransaction.successfulTransaction);
 router.get('/pendingTransaction', pendingTransaction.pendingTransaction);
 router.get('/transactionCount', transactionCount.transactionCount);
+router.get('/productTransactionCount', productTransactionCount.productTransactionCount);
 
 //CART APIs
 router.get('/cartList', cartList.cartList);
@@ -142,6 +153,7 @@ router.get('/sellerStateWise', sellerStateWise.sellerStateWise);
 router.get('/stockList', stockList.stockList);
 router.post('/updateStock', updateStock.updateStock);
 router.get('/reducingStock', reducingStock.reducingStock);
+router.get('/stockProductNameWise', stockProductNameWise.stockProductNameWise);
 
 //ORDER APIs
 router.get('/orderList', orderList.orderList);
