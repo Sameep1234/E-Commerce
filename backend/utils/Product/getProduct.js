@@ -25,7 +25,7 @@ exports.getProduct = ((req,res) => {
                     res.send({
                         status: 1,
                         msg: 'Product Detail',
-                        data: result,
+                        data: result[0],
                     });
                 }
             })

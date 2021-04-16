@@ -2,7 +2,6 @@ const pool = require('../../pool');
 
 exports.deleteProduct = (req,res) => {
     let productId = req.headers.productid;
-    console.log(productId);
 
     pool.getConnection((err => {
         if(err){

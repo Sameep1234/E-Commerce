@@ -6,13 +6,25 @@ import axios from 'axios';
 
 
 // RENDER PRODUCT LIST FUNCTIONAL COMPONENT
-function ProductList({ result }) {
+class ProductList extends Component {
+    constructor(props)
+    {
+        super(props);
 
-    const [redirectVar, changeRV] = useState(false);
+        this.state = {
+            redirectVar: false,
+            pid: '',
+        }
+    }
+    
+    render() {
+        if(this.state.redirectVar) {
+            return(
+                <Redirect to={`/edit-product/${this.state.pid}`} />
+            )
+        }
 
-    let renderList = result.map((pl) => {
-
-        if (!redirectVar) {
+        let renderList = this.props.result.map((pl) => {
             return (
                 <tr>
                     <div className="d-flex justify-content-center"><span id={pl.productId} className="fa fa-trash" onClick={() => { axios.get('http://localhost:5000/deleteProduct', { headers: { productId: pl.productId } }) }} role="button" /></div>
@@ -22,20 +34,13 @@ function ProductList({ result }) {
                     <td><div className="d-flex justify-content-center">{pl.brandName}</div></td>
                     <td><div className="d-flex justify-content-center">{pl.price}</div></td>
                     <td><div className="d-flex justify-content-center">{pl.quantity}</div></td>
-                    <td><div className="d-flex justify-content-center"><span id={pl.productId} className="fa fa-pencil" onClick={() => { changeRV(true) }} role="button" /></div></td>
+                    <td><div className="d-flex justify-content-center"><span id={pl.productId} className="fa fa-pencil" onClick={() => {this.setState({pid: pl.productId, redirectVar: true})}} role="button" /></div></td>
                 </tr>
             );
-        }
-        else {
-            // alert('HERE');
-            return (
-                <Redirect to={`/edit-product/${pl.productId}`} />
-            )
-        }
+        })
 
-    });
-
-    return (renderList);
+        return (renderList);
+    }
 
 }
 
