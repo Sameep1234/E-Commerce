@@ -67,17 +67,112 @@ class Cart extends Component {
                         <Sidebar />
                     </div>
                     <div style={{ minWidth: '75%' }}>
-                        <div className="mt-3 d-flex justify-content-center">
-                            Showing Orders of:<br />
-                            <div className="ml-2">
-                                <select name="year" id="year" onBlur={this.handleInputChange}>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                </select>
-                            </div>
-                            <div style={{ maxHeight: '35vh' }} className="mt-3 d-flex justify-content-center">
-                                <ShowCart result={this.state.result} />
+                        <div className="mt-3 ">
+                            <div className="mt-3 d-flex justify-content-center">
+                                {/* <ShowCart result={this.state.result} /> */}
+                                <Card className="ml-5 col-md-12">
+                                    <CardHeader className="row">
+                                        <div className="col">
+                                            <p className="row">SHIP TO</p>
+                                            <p className="row">Sameep Nilesh Vani</p>
+                                        </div>
+                                        <div className="col">
+                                            <p className="row">Buyer ID</p>
+                                            <p className="row">B101</p>
+                                        </div>
+                                        <div className="col">
+                                            <p className="row">Buyer Email</p>
+                                            <p className="row">sameep.v@ahduni.edu.in</p>
+                                        </div>
+                                    </CardHeader>
+                                    <CardBody > 
+                                        <div className="row">
+                                            <div className="col">
+                                                <p className="row">Product ID</p>
+                                                <p className="row"> PD102</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Product Name</p>
+                                                <p className="row"> Thermos</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Category</p>
+                                                <p className="row"> Crockery</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Sub Category</p>
+                                                <p className="row"> Glasses</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Brand</p>
+                                                <p className="row"> Tupperware</p>
+                                            </div>
+                                        </div>
+                                        <div className="row mb-3">
+                                            <div className="col">
+                                                <p className="row">Product ID</p>
+                                                <p className="row"> PD103</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Product Name</p>
+                                                <p className="row"> Inspiron 5593</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Category</p>
+                                                <p className="row"> Electronics</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Sub Category</p>
+                                                <p className="row"> Laptop</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Brand</p>
+                                                <p className="row"> Dell</p>
+                                            </div>
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                                <Card className="ml-5 col-md-12">
+                                    <CardHeader className="row">
+                                        <div className="col">
+                                            <p className="row">SHIP TO</p>
+                                            <p className="row">Aneri Dipakbhai Dalwadi</p>
+                                        </div>
+                                        <div className="col">
+                                            <p className="row">Buyer ID</p>
+                                            <p className="row">B102</p>
+                                        </div>
+                                        <div className="col">
+                                            <p className="row">Buyer Email</p>
+                                            <p className="row">aneri.d@ahduni.edu.in</p>
+                                        </div>
+                                    </CardHeader>
+                                    <CardBody > 
+                                        <div className="row">
+                                            <div className="col">
+                                                <p className="row">Product ID</p>
+                                                <p className="row"> PD102</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Product Name</p>
+                                                <p className="row"> Thermos</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Category</p>
+                                                <p className="row"> Crockery</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Sub Category</p>
+                                                <p className="row"> Glasses</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="row">Brand</p>
+                                                <p className="row"> Tupperware</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </CardBody>
+                                </Card>
                             </div>
                         </div>
                     </div>

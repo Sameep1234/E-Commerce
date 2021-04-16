@@ -196,7 +196,7 @@ BEGIN
 	 DECLARE c_end INT DEFAULT 0;
     DECLARE c_transaction CURSOR FOR
 		SELECT transactionId, orderId, modeOfPayment from transaction
-        WHERE paymentStatus = 0;
+        WHERE paymentStatus = false;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
 	OPEN c_transaction;
 		getPendingTransaction: LOOP
@@ -248,8 +248,8 @@ DELIMITER $$
                     IF c_end = 1 THEN 
 						LEAVE getProduct;
 					END IF;
-                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity",
-                    CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
+                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity";
+                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
 						r_specificationId as "SpecificationId",
 						r_brand as "Brand",
 						r_price as "Price";
@@ -303,42 +303,58 @@ DELIMITER $$
         DECLARE r_email varchar(100);
         DECLARE c1_end INT DEFAULT 0;
         DECLARE c1_customer CURSOR FOR
-			SELECT buyerId, firstName, middleName, lastName,email FROM buyer;
+			SELECT distinct buyerId FROM cart;
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET c1_end = 1;
         OPEN c1_customer;
 			getCustomer: LOOP
-            
-				FETCH c1_customer INTO r_buyerId, r_firstName, r_middleName, r_lastName, r_email;
+				BEGIN
+                DECLARE r_firstName varchar(100);
+                DECLARE r_middleName varchar(100);
+                DECLARE r_lastName varchar(100);
+                DECLARE r_email varchar(100);
+                
+                
+				FETCH c1_customer INTO r_buyerId;
 				IF c1_end = 1 THEN 
 					LEAVE getCustomer;
 				END IF;
+                SELECT firstName, middleName, lastName, email from buyer where buyerId = r_buyerId 
+                into r_firstName, r_middleName, r_lastName , r_email;
                 SELECT 
 						r_buyerId as "BuyerId", 
 						CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
 						r_email as "Email";
-                BEGIN
-                    DECLARE r_productId varchar(20);
-                    DECLARE r_dateTime varchar(20);
-                    DECLARE r_quantity int;
-                    DECLARE r_totalPrice int;
-					DECLARE c2_end INT DEFAULT 0;
-                    DECLARE c2_cartProducts CURSOR FOR
-						SELECT productId, dateTime, quantity, totalPrice 
-							FROM cart WHERE buyerId = r_buyerId;
-					DECLARE CONTINUE HANDLER FOR NOT FOUND SET c2_end = 1;
-                    OPEN c2_cartProducts;
-						getCartProdcts: LOOP
-							IF c2_end = 1 THEN 
-								LEAVE getCartProdcts;
-							END IF;
-							FETCH c2_cartProducts INTO r_productId, r_dateTime, r_quantity, r_totalPrice;
-                            SELECT 
-								r_productId as "ProductId", 
-								r_dateTime as "DateTime", 
-								r_quantity as "Quantity", 
-								r_totalPrice as "TotalPrice";
-                        END LOOP;
-                    CLOSE c2_cartProducts;
+				BEGIN
+					DECLARE r_productId varchar(100);
+					DECLARE r_productName varchar(100);
+					DECLARE r_categoryName varchar(100);
+					DECLARE r_subCategoryName varchar(100);
+					DECLARE r_brandName varchar(100);
+                    declare cEnd int default 0;
+                    declare c_getProduct cursor for
+						SELECT cart.productId from cart 
+						 where cart.buyerId = r_buyerId; 
+					declare continue handler for not found set cEnd = 1;
+                    open c_getProduct;
+						getProdut: loop
+                        fetch c_getProduct into r_productId;
+                        if cEnd = 1 then
+                        leave getProduct;
+                        end if;
+                        select c.categoryName, s.subcategoryName, b.brandName from product p
+						 left join category c on p.categoryId = c.categoryId 
+						 left join subCategory s on p.subCategoryId = s.subCategoryId
+						 left join brand b on p.brandId = b.brandId
+						 where p.productId = r_productId
+						 into r_categoryName, r_subCategoryName, r_brandName;
+                 
+							select  
+							r_firstName as "firstName", r_middleName as "middleName", r_lastName as "lastName", r_email as "email",
+							r_productId as "productId", r_productName as "productName",
+							r_categoryName as "categoryName", r_subCategoryName as "subCategoryName", r_brandName as "brandName";
+							end loop;
+                    close c_getProduct;
+                END;
                 END;
             END LOOP;
         CLOSE c1_customer;
@@ -668,7 +684,7 @@ DELIMITER $$
                             close c_order;
                         END;
                     -- get total
-                    select sum(totalPrice) as "Total amount" from orders where orderId = r_orderId;
+                    select sum(totalPrice) as "Total amount" from orders where buyerId = r_buyerId;
 				END;
             END LOOP;
         CLOSE c_buyer;
@@ -724,5 +740,49 @@ delimiter $$
 		delete from product where categoryId = old.categoryId;
 		delete from subcategory where categoryId = old.categoryId;
         delete from specification where categoryId = old.categoryId;
+    end$$
+delimiter ;
+
+drop trigger if exists checkBuyerEmailInsert;
+delimiter $$
+	create trigger checkBuyerEmailInsert before insert on buyer for each row
+    begin
+		IF NEW.email NOT LIKE '%@%' THEN
+			SIGNAL SQLSTATE VALUE '45000'
+				SET MESSAGE_TEXT = 'email is not valid';
+		END IF;
+    end$$
+delimiter ;
+
+drop trigger if exists checkBuyerEmailUpdate;
+delimiter $$
+	create trigger checkBuyerEmailUpdate before update on buyer for each row
+    begin
+		IF NEW.email NOT LIKE '%@%' THEN
+			SIGNAL SQLSTATE VALUE '45000'
+				SET MESSAGE_TEXT = 'email is not valid';
+		END IF;
+    end$$
+delimiter ;
+
+drop trigger if exists checkSellerEmailInsert;
+delimiter $$
+	create trigger checkSellerEmailInsert before insert on seller for each row
+    begin
+		IF NEW.email NOT LIKE '%@%' THEN
+			SIGNAL SQLSTATE VALUE '45000'
+				SET MESSAGE_TEXT = 'email is not valid';
+		END IF;
+    end$$
+delimiter ;
+
+drop trigger if exists checkSellerEmailUpdate;
+delimiter $$
+	create trigger checkSellerEmailUpdate before update on seller for each row
+    begin
+		IF NEW.email NOT LIKE '%@%' THEN
+			SIGNAL SQLSTATE VALUE '45000'
+				SET MESSAGE_TEXT = 'email is not valid';
+		END IF;
     end$$
 delimiter ;
