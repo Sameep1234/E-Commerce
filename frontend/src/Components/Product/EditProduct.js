@@ -54,7 +54,7 @@ class EditProduct extends Component {
             size: this.state.size,
         }
 
-        axios.post('http://localhost:5000/addProduct', data)
+        axios.post('http://localhost:5000/editProduct', data)
             .then(response => {
                 this.setState({
                     msg: response.data.msg,

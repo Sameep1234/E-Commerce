@@ -22,6 +22,7 @@ import BrandList from './Brands/BrandList';
 import CategoryList from './Category/CategoryList';
 import SubCategoryList from './SubCategory/SubCategoryList';
 import PlaceOrder from './Orders/PlaceOrder';
+import EditBrand from './Brands/EditBrand';
 
 class Main extends Component {
     render() {
@@ -31,7 +32,14 @@ class Main extends Component {
                 <EditProduct productId={match.params.productId} />
             );
         }
-        
+
+        const EditBrandWithId = ({match}) => {
+            // alert(match.params.productId);
+            return(
+                <EditBrand brandId={match.params.brandId} />
+            );
+        }
+
         return (
             <div>
                 <Switch location={window.location} key={window.location.pathname}>
@@ -62,6 +70,7 @@ class Main extends Component {
 
                     <Route path='/add-brand' component={AddBrands} />
                     <Route path='/brand-list' component={BrandList} />
+                    <Route path='/edit-brand/:brandId' component={EditBrandWithId} />
 
                     <Route path='/add-category' component={AddCategory} />
                     <Route path='/category-list' component={CategoryList} />
