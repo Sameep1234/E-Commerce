@@ -598,3 +598,32 @@ delimiter $$
             return count;
         end$$
 delimiter ;
+
+-- *****************************************************************************************************************************************************************
+-- TRIGGERS
+
+-- Check Balance > 10000
+drop trigger if exists checkBalance;
+
+delimiter $$
+	create trigger checkBalance before insert on employee for each row
+		begin
+			if new.salary < 10000 then
+				signal sqlstate '20000' set message_text = 'Salary must be at least 10000Rs';
+			end if;
+        end$$
+delimiter ;
+
+
+-- Category Deleted then Product Delete
+
+drop trigger if exists deleteChildCategoryWise;
+
+delimiter $$
+	create trigger deleteChildCategoryWise before delete on category for each row
+    begin
+		delete from product where categoryId = old.categoryId;
+		delete from subcategory where categoryId = old.categoryId;
+        delete from specification where categoryId = old.categoryId;
+    end $$
+delimiter ;
