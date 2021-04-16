@@ -66,7 +66,7 @@ class Cart extends Component {
                     <div style={{ minHeight: "93vh" }}>
                         <Sidebar />
                     </div>
-                    <div style={{ minWidth: '75%' }}>
+                    <div >
                         <div className="mt-3 d-flex justify-content-center">
                             Showing Orders of:<br />
                             <div className="ml-2">
