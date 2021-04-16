@@ -527,6 +527,22 @@ delimiter ;
 
 -- FUNCTIONS
 
+-- Get Total Price
+ drop function if exists getTotalPrice;
+ 
+ delimiter $$
+	create function getTotalPrice(p_productId varchar(100), p_quantity int) returns int deterministic
+    begin
+		declare ans int default 0;
+        declare price_1 int default 0;
+        
+        select price from product where productId = p_productId into price_1;
+        select price_1*p_quantity into ans;
+        
+        return ans;
+    end $$
+ delimiter ;
+
 -- Transaction Count
 drop function if exists transactionCount;
 
@@ -598,9 +614,6 @@ delimiter $$
             return count;
         end$$
 delimiter ;
-
-
--- TRIGGER
 
 -- *****************************************************************************************************************************************************************
 -- TRIGGERS
