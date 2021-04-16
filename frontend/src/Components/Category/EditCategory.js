@@ -4,13 +4,13 @@ import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import axios from 'axios';
 
-class EditBrand extends Component {
+class EditCategory extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            brandId: '',
-            brandName: '',
+            categoryId: '',
+            categoryname: '',
             msg: '',
         }
 
@@ -36,11 +36,11 @@ class EditBrand extends Component {
     //HANDLE SUBMIT BUTTON CLICK
     handleSubmit() {
         let data = {
-            brandId: this.state.brandId,
-            brandName: this.state.brandName,
+            categoryId: this.state.categoryId,
+            categoryname: this.state.categoryname,
         }
 
-        axios.post('http://localhost:5000/editBrand', data)
+        axios.post('http://localhost:5000/editCategory', data)
             .then(response => {
                 this.setState({
                     msg: response.data.msg,
@@ -54,13 +54,13 @@ class EditBrand extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/getBrand', { headers: { brandId: this.props.brandId } })
+        axios.get('http://localhost:5000/getCategory', { headers: { categoryId: this.props.categoryId } })
             .then((response) => {
                 
                 if (response.data.status === 1) {
                     this.setState({
-                        brandId: response.data.data.brandId,
-                        brandName: response.data.data.brandName,
+                        categoryId: response.data.data.categoryId,
+                        categoryname: response.data.data.categoryname,
                     });
                 }
                 else {
@@ -86,15 +86,15 @@ class EditBrand extends Component {
                     </div>
                     <div className="col d-flex justify-content-center">
                         <Card className='mt-2' style={{ minWidth: '50%', maxHeight: "50vh" }}>
-                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Brand Information</CardHeader>
+                            <CardHeader style={{ color: 'white', backgroundColor: 'black' }} className="d-flex justify-content-center">Category Information</CardHeader>
                             <CardBody>
                                 <FormGroup>
-                                    <Label>Brand ID</Label>
-                                    <Input onChange={this.handleInputChange} name="brandId" value={this.props.brandId} type="text" />
+                                    <Label>Category ID</Label>
+                                    <Input onChange={this.handleInputChange} name="categoryId" value={this.props.categoryId} type="text" />
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Brand Name</Label>
-                                    <Input onChange={this.handleInputChange} name="brandName" value={this.state.brandName} type="text" />
+                                    <Label>Category Name</Label>
+                                    <Input onChange={this.handleInputChange} name="categoryname" value={this.state.categoryname} type="text" />
                                 </FormGroup>
                             </CardBody>
                             <CardFooter>
@@ -112,4 +112,4 @@ class EditBrand extends Component {
 }
 
 
-export default EditBrand;
+export default EditCategory;

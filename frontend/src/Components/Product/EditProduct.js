@@ -149,7 +149,7 @@ class EditProduct extends Component {
                             <CardFooter>
                                 <p className="text-success d-flex justify-content-center">{this.state.msg}</p>
                                 <div className="d-flex justify-content-center">
-                                    <Button onClick={this.handleSubmit} color="primary">Add Product</Button>
+                                    <Button onClick={this.handleSubmit} color="primary">Save</Button>
                                 </div>
                             </CardFooter>
                         </Card>

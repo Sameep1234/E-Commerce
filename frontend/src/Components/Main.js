@@ -23,6 +23,7 @@ import CategoryList from './Category/CategoryList';
 import SubCategoryList from './SubCategory/SubCategoryList';
 import PlaceOrder from './Orders/PlaceOrder';
 import EditBrand from './Brands/EditBrand';
+import EditCategory from './Category/EditCategory';
 
 class Main extends Component {
     render() {
@@ -37,6 +38,13 @@ class Main extends Component {
             // alert(match.params.productId);
             return(
                 <EditBrand brandId={match.params.brandId} />
+            );
+        }
+
+        const EditCategoryWithId = ({match}) => {
+            // alert(match.params.productId);
+            return(
+                <EditCategory categoryId={match.params.categoryId} />
             );
         }
 
@@ -74,6 +82,7 @@ class Main extends Component {
 
                     <Route path='/add-category' component={AddCategory} />
                     <Route path='/category-list' component={CategoryList} />
+                    <Route path='/edit-category/:categoryId' component={EditCategoryWithId} />
 
                     <Route path='/add-sub-category' component={AddSubCategory} />
                     <Route path='/sub-category-list' component={SubCategoryList} />

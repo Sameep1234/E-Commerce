@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
 import axios from 'axios';
 
-// RENDER PRODUCT LIST FUNCTIONAL COMPONENT
-function CategoryDetails({ result }) {
-    let renderList = result.map((cl) => {
-        return (
-            <tr>
-                <div className="d-flex justify-content-center"><span role="button" className="fa fa-trash" /></div>
-                <td><div className="d-flex justify-content-center">{cl.categoryId}</div></td>
-                <td><div className="d-flex justify-content-center">{cl.categoryName}</div></td>
-                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
-            </tr>
-        );
-    });
+// RENDER PRODUCT LIST CLASS COMPONENT
+class CategoryDetails extends Component {
+    constructor(props) {
+        super(props);
 
-    return (renderList);
+        this.state = {
+            redirectVar: false,
+            cid: '',
+        }
+    }
+
+    render() {
+        if (this.state.redirectVar) {
+            return (
+                <Redirect to={`/edit-category/${this.state.cid}`} />
+            )
+        }
+
+        let renderList = this.props.result.map((cl) => {
+            return (
+                <tr>
+                    <div className="d-flex justify-content-center"><span onClick={() => { axios.get('http://localhost:5000/deleteCategory', { headers: { categoryId: cl.categoryId } }) }} role="button" className="fa fa-trash" /></div>
+                    <td><div className="d-flex justify-content-center">{cl.categoryId}</div></td>
+                    <td><div className="d-flex justify-content-center">{cl.categoryName}</div></td>
+                    <td><div className="d-flex justify-content-center"><span onClick={() => {this.setState({cid: cl.categoryId, redirectVar: true})}} className="fa fa-pencil" role="button" /></div></td>
+                </tr>
+            );
+        });
+
+        return (renderList);
+    }
 
 }
 
