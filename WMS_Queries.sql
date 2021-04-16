@@ -596,7 +596,7 @@ DELIMITER $$
         DECLARE r_buyerId varchar(20); 
         
         DECLARE c_buyer CURSOR FOR
-			SELECT DISTINCT buyerId orders;
+			SELECT DISTINCT buyerId from orders;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
         
         -- buyer id, order placement date time 
@@ -617,8 +617,7 @@ DELIMITER $$
                     DECLARE r_s_email varchar(100);
                     
 					FETCH c_buyer 
-					INTO  r_buyerId, r_orderId, r_sellerId, r_totalPrice, 
-						r_adderss1, r_landmark, r_area, r_city, r_state ,r_country , r_dateTime;
+					INTO  r_buyerId;
 					IF c_end = 1 THEN
 						LEAVE getBuyer;
 					END IF;
@@ -628,13 +627,15 @@ DELIMITER $$
                         where buyerId = r_buyerId 
                         into r_b_firstName, r_b_middleName, r_b_lastName, r_b_contactNumber, r_b_email;
 
-                    -- get seller details
-						SELECT firstName, middleName,lastName, contactNumber, email from buyer 
-                        where buyerId = r_buyerId 
-                        into r_s_firstName, r_s_middleName, r_s_lastName, r_s_contactNumber, r_s_email;
+						select r_b_firstName as "b_firstName" , r_b_middleName as "b_middleName", r_b_lastName as"b_lastName", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email";
+
+						-- get seller details
+						-- SELECT firstName, middleName,lastName, contactNumber, email from buyer 
+--                         where buyerId = r_buyerId 
+--                         into r_s_firstName, r_s_middleName, r_s_lastName, r_s_contactNumber, r_s_email;
                         
-                        select concat(r_b_firstName, r_b_middleName, r_b_lastName) as "b_Name", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email", 
-                        concat(r_s_firstName , r_s_middleName, r_s_lastName) as "s_name", r_s_contactNumber as "s_contactNumber", r_s_email as "s_email";
+--                         select concat(r_b_firstName, r_b_middleName, r_b_lastName) as "b_Name", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email", 
+--                         concat(r_s_firstName , r_s_middleName, r_s_lastName) as "s_name", r_s_contactNumber as "s_contactNumber", r_s_email as "s_email";
                         
                     -- get order
 						BEGIN
@@ -647,29 +648,34 @@ DELIMITER $$
 							DECLARE r_city varchar(100);
 							DECLARE r_state varchar(100);
 							DECLARE r_country varchar(100);
-							DECLARE r_orderDateTime date;
+							DECLARE r_dateTime date;
                             declare finish1 int default 0;
                             declare c_order cursor for
 								select orderId from orders where buyerId = r_buyerId;
-							DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+							DECLARE CONTINUE HANDLER FOR NOT FOUND SET finish1 = 1;
                             open c_order;
 								getOrder: loop
-									fetch c_order into orderId;
+									fetch c_order into r_orderId;
                                     if finish1 = 1 then 
 										leave getOrder;
                                     end if;
-									-- SELECT sellerId, totalPrice, adderss1, landmark, area, city, state ,country , dateTime FROM order where orderId = r_orderId;
+									SELECT sellerId, totalPrice, address1, landmark, area, city, state ,country , dateTime FROM orders where orderId = r_orderId
+                                    into r_sellerId, r_totalPrice, r_address1, r_landmark, r_area, r_city, r_state ,r_country , r_dateTime;
+                                    SELECT  r_sellerId as"SellerId",
+                                    concat(r_address1, " ,",r_landmark, " ,", r_area, " ,", r_city, " ,", r_state , " ,",r_country ) as "Address" , 
+                                    r_dateTime as "Date Time";
                                 end loop;
                             close c_order;
                         END;
                     -- get total
+                    select sum(totalPrice) as "Total amount" from orders where orderId = r_orderId;
 				END;
             END LOOP;
         CLOSE c_buyer;
     END$$;
 DELIMITER ;
 
-
+call bill();
 
 -- *****************************************************************************************************************************************************************
 -- TRIGGERS
