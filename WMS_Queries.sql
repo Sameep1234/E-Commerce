@@ -345,7 +345,7 @@ DELIMITER $$
         END$$;
 
 DELIMITER ;
-
+ call cart();
 -- BILL
 -- buyer id, order placement date time 
 -- Bill to: buyer p. details
@@ -598,3 +598,6 @@ delimiter $$
             return count;
         end$$
 delimiter ;
+
+
+-- TRIGGER
