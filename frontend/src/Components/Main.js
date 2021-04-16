@@ -27,6 +27,8 @@ import EditCategory from './Category/EditCategory';
 import FilterBrand from './Product/FilterBrand';
 import FilterCategory from './Product/FilterCategory';
 import FilterSubCategory from './Product/FilterSubCategory';
+import FilterCity from './Seller/FilterCity';
+import FilterState from './Seller/FilterState';
 
 class Main extends Component {
     render() {
@@ -82,8 +84,10 @@ class Main extends Component {
                     
                     <Route path='/buyers-list' component={Buyer} />
                     
-                    <Route path='/sellers-list' component={Seller} />
+                    <Route exact path='/sellers-list' component={Seller} />
                     <Route path='/add-seller' component={AddSeller} />
+                    <Route exact path='/seller-list/filter-city' component={FilterCity} />
+                    <Route exact path='/seller-list/filter-state' component={FilterState} />
 
                     <Route path='/add-brand' component={AddBrands} />
                     <Route path='/brand-list' component={BrandList} />

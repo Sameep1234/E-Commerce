@@ -10,7 +10,7 @@ exports.sellerList = (req,res) => {
             })
         }
         else{
-            let fetch = 'SELECT sellerId, firstName, middleName, lastName, email FROM seller;';
+            let fetch = 'SELECT *, concat(firstName, " ",middleName, " ", lastName) as "name" FROM seller;';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({

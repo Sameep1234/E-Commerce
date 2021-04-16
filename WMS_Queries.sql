@@ -444,13 +444,13 @@ delimiter $$
 	create procedure cityWiseSellers()
 		begin
 			declare finished int default 0;
-            declare r_state varchar(100);
-            declare c_state cursor for select city from seller;
+            declare r_city varchar(100);
+            declare c_city cursor for select distinct city from seller;
             declare continue handler for not found set finished = 1;
             
-            open c_state;
+            open c_city;
 				sellerDetails: loop
-					fetch c_state into r_state;
+					fetch c_city into r_city;
                     if finished = 1 then
 						leave sellerDetails;
                     end if;
@@ -458,9 +458,9 @@ delimiter $$
                     select concat(firstName, " ", middleName, " ", lastName) as "Name", 
                     concat (address1, " ", landmark, " ", area, " ", city, " ", state, " ", postalcode) as "Address",
                     contactNumber, email, gstNumber
-                    from seller where city = r_state;
+                    from seller where city = r_city;
                 end loop;
-            close c_state;
+            close c_city;
         end$$
 delimiter ;
 
