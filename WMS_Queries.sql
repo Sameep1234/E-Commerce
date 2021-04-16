@@ -187,30 +187,29 @@ INSERT INTO transaction VALUES ('TR106', 'O105', 'CREDIT CARD', '1');
 -- ******* ADD CONDITIONS FOR END LOOPPP ********
 DROP PROCEDURE IF EXISTS pendingTransaction;
 DELIMITER $$
-	CREATE PROCEDURE pendingTransaction()
-	BEGIN
-		DECLARE c_end INT DEFAULT 0;
-		DECLARE finished INT DEFAULT 0;
-        DECLARE r_transaction VARCHAR(20);
-        DECLARE c_transaction CURSOR FOR 
-			SELECT transactionId FROM transaction  
-            WHERE paymentStatus = false;
-        DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
-        
-        OPEN c_transaction;
-			getTransaction: LOOP
-				FETCH c_transaction INTO r_transaction;
-				IF c_end = 1 THEN
-					LEAVE getTransaction;
-				END IF;
-				SELECT r_transaction as "Transaction Id";
-				SELECT o.orderId, b.firstName, b.middleName, b.lastName FROM orders o
-				LEFT JOIN transaction t ON t.orderId = o.orderId AND t.transactionId = r_transaction
-                LEFT JOIN buyer b ON b.buyerId = o.orderId
-				WHERE b.buyerId = o.buyerId;
-			END LOOP;
-            CLOSE c_transaction;
-    END$$;
+CREATE PROCEDURE pendingTransaction()
+BEGIN
+	DECLARE r_transactionId VARCHAR(20);
+    DECLARE r_orderId VARCHAR(20);
+    DECLARE r_mop VARCHAR(20);
+    
+	 DECLARE c_end INT DEFAULT 0;
+    DECLARE c_transaction CURSOR FOR
+		SELECT transactionId, orderId, modeOfPayment from transaction
+        WHERE paymentStatus = false;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+	OPEN c_transaction;
+		getPendingTransaction: LOOP
+			FETCH c_transaction INTO r_transactionId, r_orderId, r_mop;
+			IF c_end = 1 THEN 
+					LEAVE getPendingTransaction;
+			END IF;
+            SELECT o.orderId, b.buyerId, b.firstName, b.middleName, b.lastName FROM orders o
+            LEFT JOIN buyer b ON o.buyerId = b.buyerId
+            WHERE o.orderId = r_orderId;
+        END LOOP;
+    CLOSE c_transaction;
+END$$;
 DELIMITER ;
 
 
