@@ -346,38 +346,9 @@ DELIMITER $$
 
 DELIMITER ;
  call cart();
--- BILL
--- buyer id, order placement date time 
--- Bill to: buyer p. details
--- prod details,seller details(form order, get seller id), quty, amt, total,
 
 -- CURSORS
 -- for each buyer
-
-DROP PROCEDURE IF EXISTS bill;
-
-DELIMITER $$
-	CREATE PROCEDURE bill()
-    BEGIN
-		DECLARE c_end INT DEFAULT 0;
-        DECLARE r_orderId varchar(20);
-        DECLARE r_buyerId varchar(20);
-        DECLARE r_orderDateTime date; 
-        DECLARE r_sellerId varchar(20);
-        DECLARE c_buyer CURSOR FOR
-			SELECT DISTINCT buyerId, dateTime FROM orders;
-		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
-		OPEN c_buyer;
-			getBuyer:LOOP
-				FETCH c_buyer INTO r_buyerId;
-                IF c_end = 1 THEN
-					LEAVE getBuyer;
-				END IF ;
-                SELECT  orderId, date(dateTime) as date, sellerId FROM orders WHERE buyerId = r_buyerId GROUP BY date(dateTime);
-            END LOOP;
-        CLOSE c_buyer;
-    END$$;
-DELIMITER ;
 
 -- Brand Wise Product
 drop procedure brandWiseProduct;
@@ -599,8 +570,38 @@ delimiter $$
         end$$
 delimiter ;
 
+-- BILL
+-- buyer id, order placement date time 
+-- Bill to: buyer p. details
+-- prod details,seller details(form order, get seller id), quty, amt, total,
 
--- TRIGGER
+
+DROP PROCEDURE IF EXISTS bill;
+
+DELIMITER $$
+	CREATE PROCEDURE bill()
+    BEGIN
+		DECLARE c_end INT DEFAULT 0;
+        DECLARE r_orderId varchar(20);
+        DECLARE r_buyerId varchar(20);
+        DECLARE r_orderDateTime date; 
+        DECLARE r_sellerId varchar(20);
+        DECLARE c_buyer CURSOR FOR
+			SELECT DISTINCT buyerId, dateTime FROM orders;
+		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+		OPEN c_buyer;
+			getBuyer:LOOP
+				FETCH c_buyer INTO r_buyerId;
+                IF c_end = 1 THEN
+					LEAVE getBuyer;
+				END IF ;
+                SELECT  orderId, date(dateTime) as date, sellerId FROM orders WHERE buyerId = r_buyerId GROUP BY date(dateTime);
+            END LOOP;
+        CLOSE c_buyer;
+    END$$;
+DELIMITER ;
+
+
 
 -- *****************************************************************************************************************************************************************
 -- TRIGGERS
