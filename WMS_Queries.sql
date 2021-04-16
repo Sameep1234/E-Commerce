@@ -498,6 +498,22 @@ delimiter ;
 
 -- FUNCTIONS
 
+-- Get Total Price
+ drop function if exists getTotalPrice;
+ 
+ delimiter $$
+	create function getTotalPrice(p_productId varchar(100), p_quantity int) returns int deterministic
+    begin
+		declare ans int default 0;
+        declare price_1 int default 0;
+        
+        select price from product where productId = p_productId into price_1;
+        select price_1*p_quantity into ans;
+        
+        return ans;
+    end $$
+ delimiter ;
+
 -- Transaction Count
 drop function if exists transactionCount;
 
@@ -618,20 +634,6 @@ delimiter $$
         end$$
 delimiter ;
 
-
--- Category Deleted then Product Delete
-
-drop trigger if exists deleteChildCategoryWise;
-
-delimiter $$
-	create trigger deleteChildCategoryWise before delete on category for each row
-    begin
-		delete from product where categoryId = old.categoryId;
-		delete from subcategory where categoryId = old.categoryId;
-        delete from specification where categoryId = old.categoryId;
-    end$$
-delimiter ;
-
 -- Trigger to automatically add details of recently placed order in shipping table
 
 DROP TRIGGER IF EXISTS autoAddShipping;
@@ -642,3 +644,27 @@ DELIMITER $$
 		insert into shipping(orderId, dispatchDate, arrivalDate) Values ( new.orderId, date(new.dateTime)+2, date(new.dateTime)+10);
     end$$;
 DELIMITER ;
+
+-- Delete from product and specification if deleted from subcategory
+drop trigger if exists deleteChildSubcategoryWise;
+
+delimiter $$
+	create trigger deleteChildSubcategoryWise before delete on subcategory for each row
+		begin
+			delete from product where subCategoryId = old.subCategoryId;
+            delete from specification where subCategoryId = old.subCategoryId;
+		end $$
+delimiter ;
+
+-- Category Deleted then delete from Product, subcategory and specification
+
+drop trigger if exists deleteChildCategoryWise;
+
+delimiter $$
+	create trigger deleteChildCategoryWise before delete on category for each row
+    begin
+		delete from product where categoryId = old.categoryId;
+		delete from subcategory where categoryId = old.categoryId;
+        delete from specification where categoryId = old.categoryId;
+    end $$
+delimiter ;
