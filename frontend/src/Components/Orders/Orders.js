@@ -23,16 +23,16 @@ function OrderList({ result }) {
                     <Card className="col-md-8">
                         <CardHeader className="row">
                             <div className="col">
-                                <p className="row">ORDER PLACED</p>
-                                <p className="row"> 18 October 2019</p>
+                                <p className="row">ORDER PLACED: {ol.orderId}</p>
+                                <p className="row"> {ol.dateTime}</p>
                             </div>
                             <div className="col">
                                 <p className="row">TOTAL</p>
-                                <p className="row"> Rs 1,199.00</p>
+                                <p className="row"> Rs {ol.totalPrice}</p>
                             </div>
                             <div className="col">
                                 <p className="row">SHIP TO</p>
-                                <p className="row">Sameep Vani</p>
+                                <p className="row">{ol.name}</p>
                             </div>
                         </CardHeader>
                         <CardBody>
@@ -81,6 +81,7 @@ class Orders extends Component {
                         result: response.data.data,
                     });
                 }
+                
                 this.setState({
                     msg: response.data.msg,
                 });

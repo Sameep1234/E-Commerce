@@ -9,9 +9,11 @@ function SubCategoryDetails({ result }) {
 
         return (
             <tr>
-                <div className="d-flex justify-content-center"><span className="fa fa-trash" role="button" /></div>
-                <td><div className="d-flex justify-content-center">{sl}</div></td>
-                <td><div className="d-flex justify-content-center"><span className="fa fa-pencil" role="button" /></div></td>
+                <div className="d-flex justify-content-center"><span onClick={() => { axios.get('http://localhost:5000/deleteSubCategory', { headers: { subCategoryId: sl.subCategoryId } }) }} className="fa fa-trash" role="button" /></div>
+                <td><div className="d-flex justify-content-center">{sl.subCategoryId}</div></td>
+                <td><div className="d-flex justify-content-center">{sl.subCategoryName}</div></td>
+                <td><div className="d-flex justify-content-center">{sl.categoryName}</div></td>
+                <td><div className="d-flex justify-content-center"><span onClick={() => { this.setState({ sid: sl.subCategoryId, redirectVar: true }) }} className="fa fa-pencil" role="button" /></div></td>
             </tr>
         );
     });
@@ -65,6 +67,7 @@ class SubCategoryList extends Component {
                                     <th><div className="d-flex justify-content-center">Delete</div></th>
                                     <th><div className="d-flex justify-content-center">Sub-Category ID</div></th>
                                     <th><div className="d-flex justify-content-center">Sub-Category Name</div></th>
+                                    <th><div className="d-flex justify-content-center">Category Name</div></th>
                                     <th><div className="d-flex justify-content-center">Edit</div></th>
                                 </tr>
                                 <SubCategoryDetails result={this.state.result} />

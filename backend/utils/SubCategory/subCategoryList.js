@@ -10,7 +10,7 @@ exports.subCategoryList = (req,res) => {
             })
         }
         else{
-            let fetch = 'SELECT * FROM subCategory;';
+            let fetch = 'SELECT s.subCategoryId, s.subCategoryName, c.categoryName FROM subCategory s LEFT JOIN category c on c.categoryId = s.categoryId;';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({

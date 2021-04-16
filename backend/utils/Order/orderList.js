@@ -10,7 +10,7 @@ exports.orderList = (req,res) => {
             })
         }
         else{
-            let fetch = 'SELECT orderId, productId, quantityOrdered, totalPrice FROM orders';
+            let fetch = 'SELECT o.*, concat(b.firstName, " ", b.middleName, " ", b.lastName) as "name" FROM orders o LEFT JOIN buyer b ON b.buyerId = o.buyerId';
             pool.query(fetch, (err,result) => {
                 if(err){
                     res.send({
