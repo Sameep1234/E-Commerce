@@ -196,7 +196,7 @@ BEGIN
 	 DECLARE c_end INT DEFAULT 0;
     DECLARE c_transaction CURSOR FOR
 		SELECT transactionId, orderId, modeOfPayment from transaction
-        WHERE paymentStatus = false;
+        WHERE paymentStatus = 0;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
 	OPEN c_transaction;
 		getPendingTransaction: LOOP
@@ -248,8 +248,8 @@ DELIMITER $$
                     IF c_end = 1 THEN 
 						LEAVE getProduct;
 					END IF;
-                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity";
-                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
+                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity",
+                    CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
 						r_specificationId as "SpecificationId",
 						r_brand as "Brand",
 						r_price as "Price";

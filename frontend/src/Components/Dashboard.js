@@ -6,23 +6,45 @@ import axios from 'axios';
 
 
 // DETAILS FUNCTIONAL COMPONENT
-function Details({ result }) {
+function Details({ display, result }) {
+    let renderList;
+    // alert(JSON.stringify(result));
+    if (display == "Reducing Stocks") {
+        renderList = result.map((rl) => {
+            // alert(rl[0].orderId);
+            if (Array.isArray(rl)) {
+                return (
+                    <tr>
+                        <td><div className="d-flex justify-content-center">{rl[0].ProductId}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].Name}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].Quantity}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].ProductCategory}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].SpecificationId}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].Brand}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].Price}</div></td>
+                    </tr>
 
-    let renderList = result.map((rl) => {
-        // alert(rl[0].orderId);
-        if (Array.isArray(rl)) {
-            return (
-                <tr>
-                    <td><div className="d-flex justify-content-center">{rl[0].orderId}</div></td>
-                    <td><div className="d-flex justify-content-center">{rl[0].buyerId}</div></td>
-                    <td><div className="d-flex justify-content-center">{rl[0].firstName}</div></td>
-                    <td><div className="d-flex justify-content-center">{rl[0].middleName}</div></td>
-                    <td><div className="d-flex justify-content-center">{rl[0].lastName}</div></td>
-                </tr>
+                );
+            }
+        });
+    }
+    else {
+        renderList = result.map((rl) => {
+            // alert(rl[0].orderId);
+            if (Array.isArray(rl)) {
+                return (
+                    <tr>
+                        <td><div className="d-flex justify-content-center">{rl[0].orderId}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].buyerId}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].firstName}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].middleName}</div></td>
+                        <td><div className="d-flex justify-content-center">{rl[0].lastName}</div></td>
+                    </tr>
 
-            );
-        }
-    });
+                );
+            }
+        });
+    }
 
     return (renderList);
 }
@@ -41,12 +63,11 @@ class Dashboard extends Component {
         this.handlePendingTransaction = this.handlePendingTransaction.bind(this);
         this.handleSuccessfullTransaction = this.handleSuccessfullTransaction.bind(this);
         this.handleReducingStocks = this.handleReducingStocks.bind(this);
-        this.display = this.display.bind(this);
     }
 
     // INITIALLY DISPLAY PENDING TRANSACTION
     componentDidMount() {
-        //this.handlePendingTransaction();
+        this.handlePendingTransaction();
     }
 
     // PENDING TRANSACTION
@@ -103,8 +124,9 @@ class Dashboard extends Component {
             display: 'Reducing Stocks',
             color: 'redText',
         });
-        axios.get('http://localhost:5000/reducingStocks')
+        axios.get('http://localhost:5000/reducingStock')
             .then((response) => {
+
                 if (response.data.status === 1) {
                     this.setState({
                         result: response.data.data,
@@ -121,14 +143,30 @@ class Dashboard extends Component {
             })
     }
 
-    // DISPLAY DETAILS ON CLICK
-    display() {
-
-    }
-
     // RENDER METHOD
     render() {
-        let display = <Details result={this.state.result} color={this.state.color} write={this.state.display} />
+        let display;
+        if (this.state.display == "Reducing Stocks") {
+            display = <tr>
+                <th><div className="d-flex justify-content-center">Product Id</div></th>
+                <th><div className="d-flex justify-content-center">Name</div></th>
+                <th><div className="d-flex justify-content-center">Quantity</div></th>
+                <th><div className="d-flex justify-content-center">Product Category</div></th>
+                <th><div className="d-flex justify-content-center">Specification Id</div></th>
+                <th><div className="d-flex justify-content-center">Brand</div></th>
+                <th><div className="d-flex justify-content-center">Price</div></th>
+            </tr>
+        }
+        else {
+            display = <tr>
+                <th><div className="d-flex justify-content-center">Order Id</div></th>
+                <th><div className="d-flex justify-content-center">Buyer Id</div></th>
+                <th><div className="d-flex justify-content-center">First Name</div></th>
+                <th><div className="d-flex justify-content-center">Middle Name</div></th>
+                <th><div className="d-flex justify-content-center">Last Name</div></th>
+            </tr>
+        }
+
         return (
             <div>
                 <Header />
@@ -165,14 +203,8 @@ class Dashboard extends Component {
                         <div>
                             <div className="m-5">
                                 <table style={{ width: '100%' }}>
-                                    <tr>
-                                        <th><div className="d-flex justify-content-center">Order Id</div></th>
-                                        <th><div className="d-flex justify-content-center">Buyer Id</div></th>
-                                        <th><div className="d-flex justify-content-center">First Name</div></th>
-                                        <th><div className="d-flex justify-content-center">Middle Name</div></th>
-                                        <th><div className="d-flex justify-content-center">Last Name</div></th>
-                                    </tr>
-                                    <Details result={this.state.result} />
+                                    {display}
+                                    <Details display={this.state.display} result={this.state.result} />
                                 </table>
                             </div>
                         </div>
