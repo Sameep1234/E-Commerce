@@ -336,7 +336,7 @@ DELIMITER $$
 						 where cart.buyerId = r_buyerId; 
 					declare continue handler for not found set cEnd = 1;
                     open c_getProduct;
-						getProdut: loop
+						getProduct: loop
                         fetch c_getProduct into r_productId;
                         if cEnd = 1 then
                         leave getProduct;
@@ -365,7 +365,7 @@ DELIMITER ;
 -- BILL
 
 -- Brand Wise Product
-drop procedure brandWiseProduct;
+drop procedure if exists brandWiseProduct;
 
 delimiter $$
     create procedure brandWiseProduct()
