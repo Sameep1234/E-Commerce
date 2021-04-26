@@ -489,7 +489,7 @@ delimiter $$
 		begin
 			declare finished int default 0;
             declare r_state varchar(100);
-            declare c_state cursor for select state from seller;
+            declare c_state cursor for select distinct state from seller;
             declare continue handler for not found set finished = 1;
             
             open c_state;

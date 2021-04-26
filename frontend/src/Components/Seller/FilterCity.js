@@ -6,11 +6,8 @@ import Header from '../Common/Header';
 import axios from 'axios';
 
 class CityWiseSeller extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
+        // eslint-disable-next-line array-callback-return
         let renderList = this.props.result.map((fb) => {
             if (Array.isArray(fb)) {
                 if (fb.length > 0) {

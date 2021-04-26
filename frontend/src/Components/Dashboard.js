@@ -9,7 +9,8 @@ import axios from 'axios';
 function Details({ display, result }) {
     let renderList;
     // alert(JSON.stringify(result));
-    if (display == "Reducing Stocks") {
+    if (display === "Reducing Stocks") {
+        // eslint-disable-next-line array-callback-return
         renderList = result.map((rl) => {
             // alert(rl[0].orderId);
             if (Array.isArray(rl)) {
@@ -29,6 +30,7 @@ function Details({ display, result }) {
         });
     }
     else {
+        // eslint-disable-next-line array-callback-return
         renderList = result.map((rl) => {
             // alert(rl[0].orderId);
             if (Array.isArray(rl)) {
@@ -146,7 +148,7 @@ class Dashboard extends Component {
     // RENDER METHOD
     render() {
         let display;
-        if (this.state.display == "Reducing Stocks") {
+        if (this.state.display === "Reducing Stocks") {
             display = <tr>
                 <th><div className="d-flex justify-content-center">Product Id</div></th>
                 <th><div className="d-flex justify-content-center">Name</div></th>
