@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import Sidebar from '../Common/Sidebar';
 import Header from '../Common/Header';
@@ -5,6 +6,7 @@ import { Card, CardHeader, CardBody } from 'reactstrap';
 import axios from 'axios';
 
 function ShowCart({ result }) {
+    // eslint-disable-next-line array-callback-return
     let display = result.map((cl) => {
         if (Object.keys(cl).length > 3) {
             return (
@@ -52,6 +54,7 @@ class Cart extends Component {
                         result: response.data.data,
                     });
                 }
+                alert(JSON.stringify(this.state.result[0]));
             })
             .catch((err) => {
                 alert(err);

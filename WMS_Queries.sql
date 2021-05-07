@@ -248,8 +248,9 @@ DELIMITER $$
                     IF c_end = 1 THEN 
 						LEAVE getProduct;
 					END IF;
-                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity";
-                    SELECT  CONCAT(r_category ,": " ,r_subCategory) AS "ProductCategory", 
+                    SELECT r_productId as "ProductId", r_productName as "Name", r_quantity as "Quantity", 
+                        CONCAT(r_category ,": " ,r_subCategory) 
+                        AS "ProductCategory", 
 						r_specificationId as "SpecificationId",
 						r_brand as "Brand",
 						r_price as "Price";
@@ -320,10 +321,6 @@ DELIMITER $$
 				END IF;
                 SELECT firstName, middleName, lastName, email from buyer where buyerId = r_buyerId 
                 into r_firstName, r_middleName, r_lastName , r_email;
-                SELECT 
-						r_buyerId as "BuyerId", 
-						CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
-						r_email as "Email";
 				BEGIN
 					DECLARE r_productId varchar(100);
 					DECLARE r_productName varchar(100);
@@ -341,14 +338,16 @@ DELIMITER $$
                         if cEnd = 1 then
                         leave getProduct;
                         end if;
-                        select c.categoryName, s.subcategoryName, b.brandName from product p
+                        select c.categoryName, s.subcategoryName, b.brandName, p.productName from product p
 						 left join category c on p.categoryId = c.categoryId 
 						 left join subCategory s on p.subCategoryId = s.subCategoryId
 						 left join brand b on p.brandId = b.brandId
 						 where p.productId = r_productId
-						 into r_categoryName, r_subCategoryName, r_brandName;
+						 into r_categoryName, r_subCategoryName, r_brandName, r_productName;
                  
-							select  
+							select  r_buyerId as "BuyerId", 
+						CONCAT(r_firstName, " " ,r_middleName, " " ,r_lastName) as "Name",
+						r_email as "Email",
 							r_firstName as "firstName", r_middleName as "middleName", r_lastName as "lastName", r_email as "email",
 							r_productId as "productId", r_productName as "productName",
 							r_categoryName as "categoryName", r_subCategoryName as "subCategoryName", r_brandName as "brandName";
@@ -508,6 +507,98 @@ delimiter $$
         end$$
 delimiter ;
 
+-- BILL
+
+DROP PROCEDURE IF EXISTS bill;
+
+DELIMITER $$
+	CREATE PROCEDURE bill()
+    BEGIN
+		DECLARE c_end INT DEFAULT 0;
+        DECLARE r_buyerId varchar(20); 
+        
+        DECLARE c_buyer CURSOR FOR
+			SELECT DISTINCT buyerId from orders;
+		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
+        
+        -- buyer id, order placement date time 
+		-- Bill to: buyer p. details
+		-- prod details,seller details(form order, get seller id), quty, amt, total,
+		OPEN c_buyer;
+			getBuyer:LOOP
+				BEGIN
+					DECLARE r_b_firstName varchar(100);
+                    DECLARE r_b_lastName varchar(100);
+                    DECLARE r_b_contactNumber varchar(100);
+                    DECLARE r_b_email varchar(100);
+                    DECLARE r_b_middleName varchar(100);
+                    DECLARE r_s_firstName varchar(100);
+                    DECLARE r_s_middleName varchar(100);
+                    DECLARE r_s_lastName varchar(100);
+					DECLARE r_s_contactNumber varchar(100);
+                    DECLARE r_s_email varchar(100);
+                    
+					FETCH c_buyer 
+					INTO  r_buyerId;
+					IF c_end = 1 THEN
+						LEAVE getBuyer;
+					END IF;
+					
+                    -- get buyer details
+						SELECT firstName, middleName,lastName, contactNumber, email from buyer 
+                        where buyerId = r_buyerId 
+                        into r_b_firstName, r_b_middleName, r_b_lastName, r_b_contactNumber, r_b_email;
+
+						select r_b_firstName as "b_firstName" , r_b_middleName as "b_middleName", r_b_lastName as"b_lastName", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email";
+
+						-- get seller details
+						-- SELECT firstName, middleName,lastName, contactNumber, email from buyer 
+--                         where buyerId = r_buyerId 
+--                         into r_s_firstName, r_s_middleName, r_s_lastName, r_s_contactNumber, r_s_email;
+                        
+--                         select concat(r_b_firstName, r_b_middleName, r_b_lastName) as "b_Name", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email", 
+--                         concat(r_s_firstName , r_s_middleName, r_s_lastName) as "s_name", r_s_contactNumber as "s_contactNumber", r_s_email as "s_email";
+                        
+                    -- get order
+						BEGIN
+							DECLARE r_orderId varchar(100);
+                            DECLARE r_sellerId varchar(20);
+							DECLARE r_totalPrice int;
+							DECLARE r_address1 varchar(100);
+							DECLARE r_landmark varchar(100);
+							DECLARE r_area  varchar(100);
+							DECLARE r_city varchar(100);
+							DECLARE r_state varchar(100);
+							DECLARE r_country varchar(100);
+							DECLARE r_dateTime date;
+                            declare finish1 int default 0;
+                            declare c_order cursor for
+								select orderId from orders where buyerId = r_buyerId;
+							DECLARE CONTINUE HANDLER FOR NOT FOUND SET finish1 = 1;
+                            open c_order;
+								getOrder: loop
+									fetch c_order into r_orderId;
+                                    if finish1 = 1 then 
+										leave getOrder;
+                                    end if;
+									SELECT sellerId, totalPrice, address1, landmark, area, city, state ,country , dateTime FROM orders where orderId = r_orderId
+                                    into r_sellerId, r_totalPrice, r_address1, r_landmark, r_area, r_city, r_state ,r_country , r_dateTime;
+                                    SELECT  r_sellerId as"SellerId",
+                                    concat(r_address1, " ,",r_landmark, " ,", r_area, " ,", r_city, " ,", r_state , " ,",r_country ) as "Address" , 
+                                    r_dateTime as "Date Time";
+                                end loop;
+                            close c_order;
+                        END;
+                    -- get total
+                    select sum(totalPrice) as "Total amount" from orders where buyerId = r_buyerId;
+				END;
+            END LOOP;
+        CLOSE c_buyer;
+    END$$;
+DELIMITER ;
+
+call bill();
+
 -- ********************************************************************************************************************************************************************
 
 -- FUNCTIONS
@@ -601,106 +692,14 @@ delimiter $$
         end$$
 delimiter ;
 
--- BILL
-
-DROP PROCEDURE IF EXISTS bill;
-
-DELIMITER $$
-	CREATE PROCEDURE bill()
-    BEGIN
-		DECLARE c_end INT DEFAULT 0;
-        DECLARE r_buyerId varchar(20); 
-        
-        DECLARE c_buyer CURSOR FOR
-			SELECT DISTINCT buyerId from orders;
-		DECLARE CONTINUE HANDLER FOR NOT FOUND SET c_end = 1;
-        
-        -- buyer id, order placement date time 
-		-- Bill to: buyer p. details
-		-- prod details,seller details(form order, get seller id), quty, amt, total,
-		OPEN c_buyer;
-			getBuyer:LOOP
-				BEGIN
-					DECLARE r_b_firstName varchar(100);
-                    DECLARE r_b_lastName varchar(100);
-                    DECLARE r_b_contactNumber varchar(100);
-                    DECLARE r_b_email varchar(100);
-                    DECLARE r_b_middleName varchar(100);
-                    DECLARE r_s_firstName varchar(100);
-                    DECLARE r_s_middleName varchar(100);
-                    DECLARE r_s_lastName varchar(100);
-					DECLARE r_s_contactNumber varchar(100);
-                    DECLARE r_s_email varchar(100);
-                    
-					FETCH c_buyer 
-					INTO  r_buyerId;
-					IF c_end = 1 THEN
-						LEAVE getBuyer;
-					END IF;
-					
-                    -- get buyer details
-						SELECT firstName, middleName,lastName, contactNumber, email from buyer 
-                        where buyerId = r_buyerId 
-                        into r_b_firstName, r_b_middleName, r_b_lastName, r_b_contactNumber, r_b_email;
-
-						select r_b_firstName as "b_firstName" , r_b_middleName as "b_middleName", r_b_lastName as"b_lastName", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email";
-
-						-- get seller details
-						-- SELECT firstName, middleName,lastName, contactNumber, email from buyer 
---                         where buyerId = r_buyerId 
---                         into r_s_firstName, r_s_middleName, r_s_lastName, r_s_contactNumber, r_s_email;
-                        
---                         select concat(r_b_firstName, r_b_middleName, r_b_lastName) as "b_Name", r_b_contactNumber as "b_contactNumber", r_b_email as "b_email", 
---                         concat(r_s_firstName , r_s_middleName, r_s_lastName) as "s_name", r_s_contactNumber as "s_contactNumber", r_s_email as "s_email";
-                        
-                    -- get order
-						BEGIN
-							DECLARE r_orderId varchar(100);
-                            DECLARE r_sellerId varchar(20);
-							DECLARE r_totalPrice int;
-							DECLARE r_address1 varchar(100);
-							DECLARE r_landmark varchar(100);
-							DECLARE r_area  varchar(100);
-							DECLARE r_city varchar(100);
-							DECLARE r_state varchar(100);
-							DECLARE r_country varchar(100);
-							DECLARE r_dateTime date;
-                            declare finish1 int default 0;
-                            declare c_order cursor for
-								select orderId from orders where buyerId = r_buyerId;
-							DECLARE CONTINUE HANDLER FOR NOT FOUND SET finish1 = 1;
-                            open c_order;
-								getOrder: loop
-									fetch c_order into r_orderId;
-                                    if finish1 = 1 then 
-										leave getOrder;
-                                    end if;
-									SELECT sellerId, totalPrice, address1, landmark, area, city, state ,country , dateTime FROM orders where orderId = r_orderId
-                                    into r_sellerId, r_totalPrice, r_address1, r_landmark, r_area, r_city, r_state ,r_country , r_dateTime;
-                                    SELECT  r_sellerId as"SellerId",
-                                    concat(r_address1, " ,",r_landmark, " ,", r_area, " ,", r_city, " ,", r_state , " ,",r_country ) as "Address" , 
-                                    r_dateTime as "Date Time";
-                                end loop;
-                            close c_order;
-                        END;
-                    -- get total
-                    select sum(totalPrice) as "Total amount" from orders where buyerId = r_buyerId;
-				END;
-            END LOOP;
-        CLOSE c_buyer;
-    END$$;
-DELIMITER ;
-
-call bill();
-
 -- *****************************************************************************************************************************************************************
 -- TRIGGERS
 
--- Check Balance > 10000
-drop trigger if exists checkBalance;
+-- Check Salary > 10000
+drop trigger if exists checkSalary;
 
 delimiter $$
-	create trigger checkBalance before insert on employee for each row
+	create trigger checkSalary before insert on employee for each row
 		begin
 			if new.salary < 10000 then
 				signal sqlstate '20000' set message_text = 'Salary must be at least 10000Rs';
