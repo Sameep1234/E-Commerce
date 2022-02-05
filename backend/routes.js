@@ -87,7 +87,7 @@ const addSubCategory = require('./utils/SubCategory/addSubCategory');
 const subCategoryList = require('./utils/SubCategory/subCategoryList');
 const subCategorywiseProd = require('./utils/SubCategory/subCategorywiseProd');
 
-router.get('/', (req, res) => {res.send('Server Running')});
+router.get('/', (req, res) => {res.send('Connection between Router and Express successfull.')});
 
 //__________________________________________________________________________
 

@@ -1,7 +1,9 @@
 //Fetching required modules/packages
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config() // Start env. process
 const app = express();
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
