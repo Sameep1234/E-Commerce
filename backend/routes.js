@@ -174,7 +174,7 @@ router.get('/categorywiseProd', categorywiseProd.categorywiseProd);
 
 //SUBCATEGORY APIs
 router.post('/addSubCategory', addSubCategory.addSubCategory);
-router.get('/subCategoryList', subCategoryList.subCategoryList);
+router.get('/server/subCategoryList', subCategoryList.subCategoryList);
 router.get('/subCategorywiseProd', subCategorywiseProd.subCategorywiseProd);
 
 module.exports = router;
