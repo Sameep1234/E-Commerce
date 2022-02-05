@@ -33,7 +33,7 @@ class SubCategoryList extends Component {
 
     // FETCH RECORD AS SOON AS PAGE LOADS
     componentDidMount() {
-        axios.get('http://localhost:5000/subCategoryList')
+        axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/subCategoryList`)
             .then((response) => {
                 if (response.data.status === 1) {
                     this.setState({
